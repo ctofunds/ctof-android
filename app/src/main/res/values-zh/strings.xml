@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">上马石</string>
+    <string name="action_settings">设置</string>
+    <string name="dummy_button">测试按钮</string>
+    <string name="dummy_content">这是初始页面\n我们正在做一些初始化</string>
+    <string name="navigation_drawer_close">关闭导航条</string>
+    <string name="navigation_drawer_open">打开导航条</string>
+    <string name="title_activity_splash">初始页面</string>
+</resources>
