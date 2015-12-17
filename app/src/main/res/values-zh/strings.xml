@@ -7,4 +7,9 @@
     <string name="navigation_drawer_close">关闭导航条</string>
     <string name="navigation_drawer_open">打开导航条</string>
     <string name="title_activity_splash">初始页面</string>
+    <string name="home">首页</string>
+    <string name="topic">问答</string>
+    <string name="messages">消息</string>
+    <string name="mine">我的</string>
+    <string name="ask">提问</string>
 </resources>

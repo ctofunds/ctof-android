@@ -5,4 +5,13 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="black_overlay">#66000000</color>
+
+    <color name="bg_title_bar">#1E1E1E</color>
+    <color name="bg_expert">#70C7EF</color>
+    <color name="bg_startup">#AADE60</color>
+
+    <color name="fg_title_bar">#BEBEBE</color>
+
+    <color name="text_tab_button_selected">#70C7EF</color>
+    <color name="text_tab_button_normal">#999999</color>
 </resources>

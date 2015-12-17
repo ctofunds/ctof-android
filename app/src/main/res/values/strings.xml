@@ -9,4 +9,9 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">This is the splashing screen\nWe are doing some initializing</string>
+    <string name="home">Home</string>
+    <string name="topic"><![CDATA[Q&A]]></string>
+    <string name="messages">Messages</string>
+    <string name="mine">Profile</string>
+    <string name="ask">Topic</string>
 </resources>

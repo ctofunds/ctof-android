@@ -6,7 +6,7 @@ import android.os.Handler;
 
 import com.ctofunds.android.BaseActivity;
 import com.ctofunds.android.R;
-import com.ctofunds.android.home.HomeActivity;
+import com.ctofunds.android.main.MainActivity;
 import com.ctofunds.android.utility.Environment;
 import com.ctofunds.android.utility.ServerInfo;
 
@@ -26,7 +26,7 @@ public class SplashActivity extends BaseActivity {
                     @Override
                     public void run() {
                         Intent intent = new Intent();
-                        intent.setClass(SplashActivity.this, HomeActivity.class);
+                        intent.setClass(SplashActivity.this, MainActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.anim_splash_in, R.anim.anim_splash_out);
                         finish();
