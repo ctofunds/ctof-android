@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.ctofunds.android.BaseActivity;
@@ -16,6 +17,7 @@ import com.ctofunds.android.home.HomeFragment;
 import com.ctofunds.android.message.MessageFragment;
 import com.ctofunds.android.profile.ProfileFragment;
 import com.ctofunds.android.topic.TopicFragment;
+import com.ctofunds.android.utility.Environment;
 
 public class MainActivity extends BaseActivity {
 
@@ -80,6 +82,9 @@ public class MainActivity extends BaseActivity {
         });
         showFragment(FRAGMENT_HOME);
         resetSelectedStatus(null);
+        Button askButton = (Button) findViewById(R.id.ask);
+        askButton.getLayoutParams().height = Environment.getInstance().screenWidthPixels() / 5;
+        askButton.requestLayout();
     }
 
     private void resetSelectedStatus(View selected) {
