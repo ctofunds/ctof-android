@@ -49,7 +49,7 @@ public class MainActivity extends BaseActivity {
         ActionBar.LayoutParams layout = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View overlay = inflater.inflate(R.layout.layout_title_bar, null);
+        View overlay = inflater.inflate(R.layout.layout_main_title_bar, null);
         getSupportActionBar().setCustomView(overlay, layout);
 
         findViewById(R.id.home).setOnClickListener(new View.OnClickListener() {
