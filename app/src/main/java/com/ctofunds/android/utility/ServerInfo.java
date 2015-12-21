@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public final class ServerInfo {
 
-    public static enum ServerType {
+    public enum ServerType {
         PRODUCTION,
         STAGING,
         QA,
@@ -48,11 +48,11 @@ public final class ServerInfo {
 
     private ServerInfo() {
         serverList = Maps.newEnumMap(ServerType.class);
-        serverList.put(ServerType.PRODUCTION, "http://localhost:8080");
-        serverList.put(ServerType.STAGING, "http://121.40.28.231:8080");
-        serverList.put(ServerType.QA, "http://121.40.28.231:8080");
-        serverList.put(ServerType.DEV, "http://121.40.28.231:8080");
-        serverList.put(ServerType.CUSTOM, "http://121.40.28.231:8080");
+        serverList.put(ServerType.PRODUCTION, "http://115.159.100.253:8090");
+        serverList.put(ServerType.STAGING, "http://115.159.100.253:8090");
+        serverList.put(ServerType.QA, "http://115.159.100.253:8090");
+        serverList.put(ServerType.DEV, "http://115.159.100.253:8090");
+        serverList.put(ServerType.CUSTOM, "http://115.159.100.253:8090");
     }
 
 }
