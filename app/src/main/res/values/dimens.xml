@@ -11,4 +11,6 @@
     <dimen name="circle_radius">12dp</dimen>
 
     <dimen name="text_size_title_bar">16sp</dimen>
+
+    <dimen name="text_size_tab_item">9sp</dimen>
 </resources>

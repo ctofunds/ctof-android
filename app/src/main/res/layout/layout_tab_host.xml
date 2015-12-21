@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/home"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:drawableTop="@drawable/home_icon"
+            android:text="@string/home"
+            android:textColor="@drawable/text_tab_button"
+            android:textSize="@dimen/text_size_tab_item" />
+
+        <Button
+            android:id="@+id/topic"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:drawableTop="@drawable/topic_icon"
+            android:text="@string/topic"
+            android:textColor="@drawable/text_tab_button"
+            android:textSize="@dimen/text_size_tab_item" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/messages"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:drawableTop="@drawable/messages_icon"
+            android:text="@string/messages"
+            android:textColor="@drawable/text_tab_button"
+            android:textSize="@dimen/text_size_tab_item" />
+
+        <Button
+            android:id="@+id/profile"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:drawableTop="@drawable/profile_icon"
+            android:text="@string/mine"
+            android:textColor="@drawable/text_tab_button"
+            android:textSize="@dimen/text_size_tab_item" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/ask"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_ask_icon"
+        android:drawableTop="@drawable/ask"
+        android:padding="12dp"
+        android:text="@string/ask"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_tab_item" />
+</RelativeLayout>

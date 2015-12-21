@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
 import com.ctofunds.android.BaseActivity;
 import com.ctofunds.android.R;
@@ -18,6 +17,9 @@ import com.ctofunds.android.message.MessageFragment;
 import com.ctofunds.android.profile.ProfileFragment;
 import com.ctofunds.android.topic.TopicFragment;
 import com.ctofunds.android.utility.Environment;
+import com.google.common.collect.Lists;
+
+import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
@@ -26,14 +28,13 @@ public class MainActivity extends BaseActivity {
     private static final int FRAGMENT_TOPIC = 3;
     private static final int FRAGMENT_PROFILE = 4;
 
-    private LinearLayout tabHost;
     private Toolbar myToolbar;
+    private List<View> tabButtons = Lists.newArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tabHost = (LinearLayout) findViewById(android.R.id.tabhost);
         myToolbar = (Toolbar) findViewById(R.id.toolbar);
         myToolbar.setContentInsetsAbsolute(0, 0);
         if (myToolbar != null) {
@@ -51,6 +52,12 @@ public class MainActivity extends BaseActivity {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View overlay = inflater.inflate(R.layout.layout_main_title_bar, null);
         getSupportActionBar().setCustomView(overlay, layout);
+
+        tabButtons.clear();
+        tabButtons.add(findViewById(R.id.home));
+        tabButtons.add(findViewById(R.id.messages));
+        tabButtons.add(findViewById(R.id.topic));
+        tabButtons.add(findViewById(R.id.profile));
 
         findViewById(R.id.home).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,17 +91,16 @@ public class MainActivity extends BaseActivity {
         resetSelectedStatus(null);
         Button askButton = (Button) findViewById(R.id.ask);
         askButton.getLayoutParams().height = Environment.getInstance().screenWidthPixels() / 5;
+        askButton.getLayoutParams().width = Environment.getInstance().screenWidthPixels() / 5;
         askButton.requestLayout();
     }
 
     private void resetSelectedStatus(View selected) {
-        int childCount = tabHost.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            View child = tabHost.getChildAt(i);
-            child.setSelected(child == selected);
+        for (View view : tabButtons) {
+            view.setSelected(view == selected);
         }
-        if (selected == null) {
-            tabHost.getChildAt(0).setSelected(true);
+        if (selected == null && !tabButtons.isEmpty()) {
+            tabButtons.get(0).setSelected(true);
         }
     }
 

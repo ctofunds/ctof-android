@@ -1,20 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eaecee"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:background="#eaecee">
 
-    <Button
-        android:id="@+id/expert_entry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="我是技术专家"/>
-    <Button
-        android:id="@+id/startup_entry"
-        android:layout_below="@id/expert_entry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="我是创业公司"/>
-</RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/expert_entry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="我是技术专家" />
+
+        <Button
+            android:id="@+id/startup_entry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/expert_entry"
+            android:layout_centerHorizontal="true"
+            android:text="我是创业公司" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="请教大家如何做网站的压力测试，网上一些压力测试工具都是给予单个url测试的，不知道还有没有能够模拟用户，如果在其他参数完全一致的情况下..." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="请教大家如何做网站的压力测试，网上一些压力测试工具都是给予单个url测试的，不知道还有没有能够模拟用户，如果在其他参数完全一致的情况下..." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="请教大家如何做网站的压力测试，网上一些压力测试工具都是给予单个url测试的，不知道还有没有能够模拟用户，如果在其他参数完全一致的情况下..." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="请教大家如何做网站的压力测试，网上一些压力测试工具都是给予单个url测试的，不知道还有没有能够模拟用户，如果在其他参数完全一致的情况下..." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="请教大家如何做网站的压力测试，网上一些压力测试工具都是给予单个url测试的，不知道还有没有能够模拟用户，如果在其他参数完全一致的情况下..." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="请教大家如何做网站的压力测试，网上一些压力测试工具都是给予单个url测试的，不知道还有没有能够模拟用户，如果在其他参数完全一致的情况下..." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="请教大家如何做网站的压力测试，网上一些压力测试工具都是给予单个url测试的，不知道还有没有能够模拟用户，如果在其他参数完全一致的情况下..." />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="请教大家如何做网站的压力测试，网上一些压力测试工具都是给予单个url测试的，不知道还有没有能够模拟用户，如果在其他参数完全一致的情况下..." />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="请教大家如何做网站的压力测试，网上一些压力测试工具都是给予单个url测试的，不知道还有没有能够模拟用户，如果在其他参数完全一致的情况下..." />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="请教大家如何做网站的压力测试，网上一些压力测试工具都是给予单个url测试的，不知道还有没有能够模拟用户，如果在其他参数完全一致的情况下..." />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="请教大家如何做网站的压力测试，网上一些压力测试工具都是给予单个url测试的，不知道还有没有能够模拟用户，如果在其他参数完全一致的情况下..." />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="请教大家如何做网站的压力测试，网上一些压力测试工具都是给予单个url测试的，不知道还有没有能够模拟用户，如果在其他参数完全一致的情况下..." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="请教大家如何做网站的压力测试，网上一些压力测试工具都是给予单个url测试的，不知道还有没有能够模拟用户，如果在其他参数完全一致的情况下..." />
+
+
+    </LinearLayout>
+</ScrollView>

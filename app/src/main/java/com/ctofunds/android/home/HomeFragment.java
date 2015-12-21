@@ -20,7 +20,7 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        RelativeLayout root = (RelativeLayout) inflater.inflate(R.layout.fragment_home, null);
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_home, null);
         root.findViewById(R.id.expert_entry).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
