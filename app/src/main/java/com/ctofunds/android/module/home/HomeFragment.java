@@ -1,21 +1,20 @@
-package com.ctofunds.android.home;
+package com.ctofunds.android.module.home;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
+import com.ctofunds.android.BaseFragment;
 import com.ctofunds.android.R;
-import com.ctofunds.android.login.LoginActivity;
+import com.ctofunds.android.module.login.LoginActivity;
 
 /**
  * Created by qianhao.zhou on 12/17/15.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment {
 
     @Nullable
     @Override

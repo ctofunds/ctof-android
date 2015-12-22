@@ -33,6 +33,24 @@ public class JacksonSerializer implements Serializer {
     }
 
     @Override
+    public String toJsonString(Object obj) {
+        try {
+            return objectMapper.writeValueAsString(obj);
+        } catch (JsonProcessingException e) {
+            throw new SerializationException(e);
+        }
+    }
+
+    @Override
+    public <T> T fromJsonString(Class<T> type, String str) {
+        try {
+            return objectMapper.readValue(str, type);
+        } catch (IOException e) {
+            throw new SerializationException(e);
+        }
+    }
+
+    @Override
     public <T> T deserialize(Class<T> type, byte[] data) {
         try {
             return objectMapper.readValue(data, type);

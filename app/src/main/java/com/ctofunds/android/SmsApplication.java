@@ -8,6 +8,10 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
+import com.ctofunds.android.serializer.JacksonSerializer;
+import com.ctofunds.android.serializer.Serializer;
+import com.ctofunds.android.service.AccountService;
+import com.ctofunds.android.service.impl.AccountServiceImpl;
 import com.google.common.base.Preconditions;
 
 import java.io.File;
@@ -31,12 +35,16 @@ public class SmsApplication extends Application {
 
     private RequestQueue imageRequestQueue;
     private RequestQueue normalRequestQueue;
+    private AccountService accountService;
+    private Serializer serializer;
 
     @Override
     public void onCreate() {
         super.onCreate();
         imageRequestQueue = initImageRequestQueue();
         normalRequestQueue = initNormalRequestQueue();
+        accountService = new AccountServiceImpl(this.getApplicationContext());
+        serializer = new JacksonSerializer();
         instance = this;
     }
 
@@ -64,11 +72,19 @@ public class SmsApplication extends Application {
         return queue;
     }
 
-    public RequestQueue getImageRequestQueue() {
-        return imageRequestQueue;
+    public static final RequestQueue getImageRequestQueue() {
+        return getInstance().imageRequestQueue;
     }
 
-    public RequestQueue getNormalRequestQueue() {
-        return normalRequestQueue;
+    public static final RequestQueue getNormalRequestQueue() {
+        return getInstance().normalRequestQueue;
+    }
+
+    public static final AccountService getAccountService() {
+        return getInstance().accountService;
+    }
+
+    public static final Serializer getSerializer() {
+        return getInstance().serializer;
     }
 }

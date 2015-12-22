@@ -1,4 +1,4 @@
-package com.ctofunds.android.main;
+package com.ctofunds.android.module.main;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import android.widget.Button;
 
 import com.ctofunds.android.BaseActivity;
 import com.ctofunds.android.R;
-import com.ctofunds.android.home.HomeFragment;
-import com.ctofunds.android.message.MessageFragment;
-import com.ctofunds.android.profile.ProfileFragment;
-import com.ctofunds.android.topic.TopicFragment;
+import com.ctofunds.android.module.home.HomeFragment;
+import com.ctofunds.android.module.message.MessageFragment;
+import com.ctofunds.android.module.profile.ProfileFragment;
+import com.ctofunds.android.module.topic.TopicFragment;
 import com.ctofunds.android.utility.Environment;
 import com.google.common.collect.Lists;
 

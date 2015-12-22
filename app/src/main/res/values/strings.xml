@@ -20,4 +20,6 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="register">Register</string>
     <string name="sign_up_full">Sign up for HiCTO</string>
+    <string name="missing_email">email cannot be empty</string>
+    <string name="missing_password">password cannot be empty</string>
 </resources>

@@ -7,5 +7,9 @@ public interface Serializer {
 
     byte[] serialize(Object obj);
 
+    String toJsonString(Object obj);
+
+    <T> T fromJsonString(Class<T> type, String str);
+
     <T> T deserialize(Class<T> type, byte[] data);
 }

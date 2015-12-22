@@ -1,10 +1,9 @@
-package com.ctofunds.android.login;
+package com.ctofunds.android.module.login;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,14 +13,18 @@ import com.ctof.sms.api.AuthenticationRequest;
 import com.ctof.sms.api.AuthenticationResponse;
 import com.ctofunds.android.BaseActivity;
 import com.ctofunds.android.R;
+import com.ctofunds.android.SmsApplication;
 import com.ctofunds.android.constants.ApiConstants;
 import com.ctofunds.android.network.ApiHandler;
+import com.ctofunds.android.service.AccountService;
 import com.ctofunds.android.utility.StringUtils;
 
 /**
  * Created by qianhao.zhou on 12/18/15.
  */
 public class LoginActivity extends BaseActivity {
+
+    private static final int EXPIRATION = 60 * 24 * 7;//one week
 
     private Toolbar toolbar;
 
@@ -61,21 +64,30 @@ public class LoginActivity extends BaseActivity {
                 String email = emailField.getText().toString();
                 String password = passwordField.getText().toString();
                 if (StringUtils.isEmpty(email)) {
-                    showToast("email 不能为空");
+                    showToast(R.string.missing_email);
                     return;
                 }
                 if (StringUtils.isEmpty(password)) {
-                    showToast("email 不能为空");
+                    showToast(R.string.missing_password);
                     return;
                 }
                 AuthenticationRequest authenticationRequest = new AuthenticationRequest();
                 authenticationRequest.setEmail(email);
                 authenticationRequest.setPassword(password);
-                authenticationRequest.setExpiration(120);
+                authenticationRequest.setExpiration(EXPIRATION);
                 ApiHandler.post(ApiConstants.LOGIN, authenticationRequest, AuthenticationResponse.class, new Response.Listener<AuthenticationResponse>() {
                     @Override
                     public void onResponse(AuthenticationResponse response) {
-                        Log.d(getTag(), "response:" + response);
+                        AccountService accountService = SmsApplication.getInstance().getAccountService();
+                        accountService.clearAccount();
+                        accountService.setToken(response.getToken());
+                        if (response.getEmployee() != null) {
+                            accountService.setEmployeeAccount(response.getEmployee());
+                            showToast("员工登录成功");
+                        } else {
+                            accountService.setExpertAccount(response.getExpert());
+                            showToast("专家登录成功");
+                        }
                     }
                 });
             }

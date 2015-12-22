@@ -1,4 +1,4 @@
-package com.ctofunds.android.splash;
+package com.ctofunds.android.module.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,7 @@ import android.os.Handler;
 
 import com.ctofunds.android.BaseActivity;
 import com.ctofunds.android.R;
-import com.ctofunds.android.main.MainActivity;
+import com.ctofunds.android.module.main.MainActivity;
 import com.ctofunds.android.utility.Environment;
 import com.ctofunds.android.utility.ServerInfo;
 

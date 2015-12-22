@@ -18,4 +18,6 @@
     <string name="forgot_password">忘记密码？</string>
     <string name="register">注册</string>
     <string name="sign_up_full">注册HiCTO账号</string>
+    <string name="missing_email">邮箱不能为空</string>
+    <string name="missing_password">密码不能为空</string>
 </resources>

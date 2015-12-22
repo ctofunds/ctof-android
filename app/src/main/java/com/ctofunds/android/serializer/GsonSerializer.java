@@ -16,7 +16,7 @@ import java.lang.reflect.Field;
  */
 public class GsonSerializer implements Serializer {
 
-    private static Gson gson = new GsonBuilder()
+    private static final Gson gson = new GsonBuilder()
             .disableInnerClassSerialization()
             .setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
             .setPrettyPrinting()
@@ -66,6 +66,20 @@ public class GsonSerializer implements Serializer {
     @Override
     public byte[] serialize(Object obj) {
         return gson.toJson(obj).getBytes();
+    }
+
+    @Override
+    public String toJsonString(Object obj) {
+        return gson.toJson(obj);
+    }
+
+    @Override
+    public <T> T fromJsonString(Class<T> type, String str) {
+        try {
+            return gson.fromJson(str, type);
+        } catch (JsonSyntaxException e) {
+            throw new SerializationException(e);
+        }
     }
 
     @Override
