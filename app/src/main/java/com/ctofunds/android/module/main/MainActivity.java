@@ -11,13 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
+import com.ctof.sms.api.Employee;
+import com.ctof.sms.api.Expert;
 import com.ctofunds.android.BaseActivity;
 import com.ctofunds.android.R;
 import com.ctofunds.android.SmsApplication;
 import com.ctofunds.android.constants.Constants;
 import com.ctofunds.android.module.home.HomeFragment;
 import com.ctofunds.android.module.message.MessageFragment;
-import com.ctofunds.android.module.profile.ProfileFragment;
+import com.ctofunds.android.module.profile.EmployeeProfileFragment;
+import com.ctofunds.android.module.profile.ExpertProfileFragment;
 import com.ctofunds.android.module.topic.TopicFragment;
 import com.ctofunds.android.service.AccountService;
 import com.ctofunds.android.utility.Environment;
@@ -61,33 +64,28 @@ public class MainActivity extends BaseActivity {
         findViewById(R.id.home).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetSelectedStatus(v);
-                showFragment(FRAGMENT_HOME);
+                handleTabClicked(v);
             }
         });
         findViewById(R.id.messages).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetSelectedStatus(v);
-                showFragment(FRAGMENT_MESSAGE);
+                handleTabClicked(v);
             }
         });
         findViewById(R.id.topic).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetSelectedStatus(v);
-                showFragment(FRAGMENT_TOPIC);
+                handleTabClicked(v);
             }
         });
         findViewById(R.id.profile).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetSelectedStatus(v);
-                showFragment(FRAGMENT_PROFILE);
+                handleTabClicked(v);
             }
         });
-        showFragment(FRAGMENT_HOME);
-        resetSelectedStatus(null);
+        handleTabClicked(findViewById(R.id.home));
         refreshNavigationBar();
     }
 
@@ -115,26 +113,36 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private void showFragment(int type) {
-        Fragment fragment = null;
-        switch (type) {
-            case FRAGMENT_HOME:
-                fragment = new HomeFragment();
-                break;
-            case FRAGMENT_MESSAGE:
-                fragment = new MessageFragment();
-                break;
-            case FRAGMENT_TOPIC:
-                fragment = new TopicFragment();
-                break;
-            case FRAGMENT_PROFILE:
-                fragment = new ProfileFragment();
-                break;
+    private Fragment getFragment(int viewId) {
+        Expert expertAccount = SmsApplication.getAccountService().getExpertAccount();
+        Employee employeeAccount = SmsApplication.getAccountService().getEmployeeAccount();
+        switch (viewId) {
+            case R.id.home:
+                return new HomeFragment();
+            case R.id.messages:
+                return new MessageFragment();
+            case R.id.topic:
+                return new TopicFragment();
+            case R.id.profile:
+                if (expertAccount != null) {
+                    return new ExpertProfileFragment();
+                } else if (employeeAccount != null) {
+                    return new EmployeeProfileFragment();
+                } else {
+                    showToast("还未登录");
+                    return null;
+                }
         }
+        return null;
+    }
+
+    private void handleTabClicked(View view) {
+        Fragment fragment = getFragment(view.getId());
         if (fragment != null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.fragment, fragment);
             fragmentTransaction.commit();
+            resetSelectedStatus(view);
         }
     }
 

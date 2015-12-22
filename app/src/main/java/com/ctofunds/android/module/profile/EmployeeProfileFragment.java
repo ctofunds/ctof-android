@@ -12,11 +12,11 @@ import com.ctofunds.android.R;
 /**
  * Created by qianhao.zhou on 12/17/15.
  */
-public class ProfileFragment extends BaseFragment {
+public class EmployeeProfileFragment extends BaseFragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_profile, null);
+        return inflater.inflate(R.layout.fragment_employee_profile, null);
     }
 }

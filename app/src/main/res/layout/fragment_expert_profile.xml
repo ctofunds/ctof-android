@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical|center_horizontal"
-        android:text="profile"
+        android:text="expert profile"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </LinearLayout>

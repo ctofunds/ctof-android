@@ -30,7 +30,7 @@ public class SmsApplication extends Application {
     private volatile static SmsApplication instance;
 
     public static SmsApplication getInstance() {
-        return Preconditions.checkNotNull(instance, "instance has not been initialized");
+        return Preconditions.checkNotNull(instance, "instance has not been initialized in " + Thread.currentThread().getName());
     }
 
     private RequestQueue imageRequestQueue;
