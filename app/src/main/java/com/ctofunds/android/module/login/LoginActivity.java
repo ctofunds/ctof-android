@@ -84,9 +84,13 @@ public class LoginActivity extends BaseActivity {
                         if (response.getEmployee() != null) {
                             accountService.setEmployeeAccount(response.getEmployee());
                             showToast("员工登录成功");
+                            setResult(RESULT_OK);
+                            finish();
                         } else {
                             accountService.setExpertAccount(response.getExpert());
                             showToast("专家登录成功");
+                            setResult(RESULT_OK);
+                            finish();
                         }
                     }
                 });

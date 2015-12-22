@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.ctofunds.android.BaseFragment;
 import com.ctofunds.android.R;
+import com.ctofunds.android.constants.Constants;
 import com.ctofunds.android.module.login.LoginActivity;
 
 /**
@@ -23,11 +24,18 @@ public class HomeFragment extends BaseFragment {
         root.findViewById(R.id.expert_entry).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+            }
+        });
+        root.findViewById(R.id.login_entry).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(HomeFragment.this.getContext(), LoginActivity.class);
-                startActivity(intent);
+                intent.setClass(HomeFragment.this.getActivity(), LoginActivity.class);
+                getActivity().startActivityForResult(intent, Constants.REQUEST_LOGIN);
+
             }
         });
         return root;
     }
+
 }

@@ -29,4 +29,6 @@ public final class Constants {
         }
         return dateFormat.get();
     }
+
+    public static final int REQUEST_LOGIN = 1;
 }

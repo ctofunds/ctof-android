@@ -1,6 +1,7 @@
 package com.ctofunds.android.module.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -12,21 +13,19 @@ import android.widget.Button;
 
 import com.ctofunds.android.BaseActivity;
 import com.ctofunds.android.R;
+import com.ctofunds.android.SmsApplication;
+import com.ctofunds.android.constants.Constants;
 import com.ctofunds.android.module.home.HomeFragment;
 import com.ctofunds.android.module.message.MessageFragment;
 import com.ctofunds.android.module.profile.ProfileFragment;
 import com.ctofunds.android.module.topic.TopicFragment;
+import com.ctofunds.android.service.AccountService;
 import com.ctofunds.android.utility.Environment;
 import com.google.common.collect.Lists;
 
 import java.util.List;
 
 public class MainActivity extends BaseActivity {
-
-    private static final int FRAGMENT_HOME = 1;
-    private static final int FRAGMENT_MESSAGE = 2;
-    private static final int FRAGMENT_TOPIC = 3;
-    private static final int FRAGMENT_PROFILE = 4;
 
     private Toolbar myToolbar;
     private List<View> tabButtons = Lists.newArrayList();
@@ -89,10 +88,22 @@ public class MainActivity extends BaseActivity {
         });
         showFragment(FRAGMENT_HOME);
         resetSelectedStatus(null);
-        Button askButton = (Button) findViewById(R.id.ask);
-        askButton.getLayoutParams().height = Environment.getInstance().screenWidthPixels() / 5;
-        askButton.getLayoutParams().width = Environment.getInstance().screenWidthPixels() / 5;
-        askButton.requestLayout();
+        refreshNavigationBar();
+    }
+
+    private void refreshNavigationBar() {
+        AccountService accountService = SmsApplication.getAccountService();
+        if (accountService.getExpertAccount() != null) {
+            findViewById(R.id.place_holder).setVisibility(View.GONE);
+            findViewById(R.id.ask).setVisibility(View.GONE);
+        } else {
+            findViewById(R.id.place_holder).setVisibility(View.INVISIBLE);
+            findViewById(R.id.ask).setVisibility(View.VISIBLE);
+            Button askButton = (Button) findViewById(R.id.ask);
+            askButton.getLayoutParams().height = Environment.getInstance().screenWidthPixels() / 5;
+            askButton.getLayoutParams().width = Environment.getInstance().screenWidthPixels() / 5;
+            askButton.requestLayout();
+        }
     }
 
     private void resetSelectedStatus(View selected) {
@@ -124,6 +135,17 @@ public class MainActivity extends BaseActivity {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.fragment, fragment);
             fragmentTransaction.commit();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case Constants.REQUEST_LOGIN:
+                refreshNavigationBar();
+                return;
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
         }
     }
 }
