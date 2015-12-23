@@ -19,4 +19,8 @@
     <dimen name="text_size_small">12sp</dimen>
 
     <dimen name="padding_normal">4dp</dimen>
+
+    <dimen name="margin_12">12.0dip</dimen>
+    <dimen name="vi_margin">15.0dip</dimen>
+    <dimen name="margin_8">8dip</dimen>
 </resources>

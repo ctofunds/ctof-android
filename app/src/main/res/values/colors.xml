@@ -17,4 +17,7 @@
     <color name="fg_button_disabled">#DDDDDD</color>
 
     <color name="grey_label">#CCCCCC</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="gray_bg">#fff0f0f0</color>
 </resources>
