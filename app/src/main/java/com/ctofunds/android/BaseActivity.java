@@ -10,11 +10,6 @@ import android.widget.Toast;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    protected static final int FRAGMENT_HOME = 1;
-    protected static final int FRAGMENT_MESSAGE = 2;
-    protected static final int FRAGMENT_TOPIC = 3;
-    protected static final int FRAGMENT_PROFILE = 4;
-
     protected String getTag() {
         return this.getClass().getSimpleName();
     }
