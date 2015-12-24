@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/inner_component_margin"
+    android:layout_marginRight="@dimen/inner_component_margin"
+    android:background="@drawable/shape_bg_rectangle"
+    android:padding="@dimen/text_padding"
+    android:text="测试"
+    android:textColor="@color/theme_blue"
+    android:textSize="@dimen/text_size_small">
+
+</TextView>

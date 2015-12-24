@@ -24,4 +24,9 @@
     <string name="current_cto_coins">当前余额</string>
     <string name="current_reputation">当前威望</string>
     <string name="review_count">创业者浏览</string>
+    <string name="invalid_user">该用户不存在</string>
+    <string name="replied_topic">已解答问题</string>
+    <string name="accepted_topic">被采纳问题</string>
+    <string name="about">关于</string>
+    <string name="expertise" >擅长领域</string>
 </resources>

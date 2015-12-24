@@ -26,4 +26,9 @@
     <string name="current_cto_coins">CTO Coins</string>
     <string name="current_reputation">Reputation</string>
     <string name="review_count">Startup Reviews</string>
+    <string name="invalid_user">Invalid User</string>
+    <string name="replied_topic">Replied Topic</string>
+    <string name="accepted_topic">Accepted Topic</string>
+    <string name="about">About</string>
+    <string name="expertise">Expertise</string>
 </resources>

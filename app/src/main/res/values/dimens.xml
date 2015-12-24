@@ -7,6 +7,8 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="inner_component_margin">10dp</dimen>
+    <dimen name="text_padding">8dp</dimen>
+
 
     <dimen name="title_bar_vertical_margin">12dp</dimen>
     <dimen name="title_bar_horizontal_margin">12dp</dimen>
