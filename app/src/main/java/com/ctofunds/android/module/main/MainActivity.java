@@ -141,6 +141,9 @@ public class MainActivity extends BaseActivity {
     }
 
     private void handleTabClicked(View view) {
+        if (view.isSelected()) {
+            return;
+        }
         Fragment fragment = getFragment(view.getId());
         if (fragment != null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

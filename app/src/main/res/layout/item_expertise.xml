@@ -6,7 +6,7 @@
     android:layout_marginRight="@dimen/inner_component_margin"
     android:background="@drawable/shape_bg_rectangle"
     android:padding="@dimen/text_padding"
-    android:text="测试"
+    android:text=""
     android:textColor="@color/theme_blue"
     android:textSize="@dimen/text_size_small">
 

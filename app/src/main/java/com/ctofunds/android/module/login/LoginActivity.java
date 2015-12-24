@@ -78,7 +78,7 @@ public class LoginActivity extends BaseActivity {
                 ApiHandler.post(ApiConstants.LOGIN, authenticationRequest, AuthenticationResponse.class, new Response.Listener<AuthenticationResponse>() {
                     @Override
                     public void onResponse(AuthenticationResponse response) {
-                        AccountService accountService = SmsApplication.getInstance().getAccountService();
+                        AccountService accountService = SmsApplication.getAccountService();
                         accountService.clearAccount();
                         accountService.setToken(response.getToken());
                         if (response.getEmployee() != null) {

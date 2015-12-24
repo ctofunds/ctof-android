@@ -13,7 +13,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/avatar_circle_icon"
+        android:src="@drawable/default_expert_avatar"
         app:border_color="@color/light_grey"
         app:border_width="1dp">
 

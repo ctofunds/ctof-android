@@ -3,6 +3,8 @@ package com.ctofunds.android.service.impl;
 import android.content.Context;
 
 import com.ctof.sms.api.Code;
+import com.ctofunds.android.SmsApplication;
+import com.ctofunds.android.serializer.Serializer;
 import com.ctofunds.android.service.BaseService;
 import com.ctofunds.android.service.CodeService;
 
@@ -15,6 +17,11 @@ public class CodeServiceImpl extends BaseService implements CodeService {
 
     public CodeServiceImpl(Context context) {
         super(context);
+    }
+
+    @Override
+    protected Serializer getSerializer() {
+        return SmsApplication.getSerializer();
     }
 
     @Override

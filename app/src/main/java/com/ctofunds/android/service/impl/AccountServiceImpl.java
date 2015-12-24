@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.ctof.sms.api.Employee;
 import com.ctof.sms.api.Expert;
+import com.ctofunds.android.SmsApplication;
+import com.ctofunds.android.serializer.Serializer;
 import com.ctofunds.android.service.AccountService;
 import com.ctofunds.android.service.BaseService;
 
@@ -18,6 +20,11 @@ public class AccountServiceImpl extends BaseService implements AccountService {
 
     public AccountServiceImpl(Context context) {
         super(context);
+    }
+
+    @Override
+    protected Serializer getSerializer() {
+        return SmsApplication.getSerializer();
     }
 
     @Override

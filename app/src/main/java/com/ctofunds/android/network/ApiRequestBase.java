@@ -27,7 +27,7 @@ abstract class ApiRequestBase<T> extends JsonRequest<T> {
     static {
         Map<String, String> headers = Maps.newHashMap();
         headers.put("User-Agent", Environment.getInstance().getUserAgent());
-        String token = SmsApplication.getInstance().getAccountService().getToken();
+        String token = SmsApplication.getAccountService().getToken();
         if (token != null) {
             headers.put("X-AUTH-TOKEN", token);
         }
