@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="horizontal"
+    android:padding="@dimen/activity_horizontal_margin">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/cto_coins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text=" "
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_size_large" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/cto_coins"
+            android:layout_alignTop="@id/cto_coins"
+            android:layout_alignBottom="@id/cto_coins"
+            android:layout_marginRight="@dimen/padding_normal"
+            android:src="@drawable/currency"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cto_coins"
+            android:layout_centerHorizontal="true"
+            android:text="@string/current_cto_coins"
+            android:textColor="@color/black_label"
+            android:textSize="@dimen/text_size_medium" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/reputation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text=" "
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_size_large" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/reputation"
+            android:layout_centerHorizontal="true"
+            android:text="@string/current_reputation"
+            android:textColor="@color/black_label"
+            android:textSize="@dimen/text_size_medium" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/review_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text=" "
+            android:textColor="@color/dark_grey_label"
+            android:textSize="@dimen/text_size_large" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/review_count"
+            android:layout_centerHorizontal="true"
+            android:text="@string/review_count"
+            android:textColor="@color/black_label"
+            android:textSize="@dimen/text_size_medium" />
+
+    </RelativeLayout>
+
+</LinearLayout>

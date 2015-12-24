@@ -125,7 +125,11 @@ public class MainActivity extends BaseActivity {
                 return new TopicFragment();
             case R.id.profile:
                 if (expertAccount != null) {
-                    return new ExpertProfileFragment();
+                    ExpertProfileFragment expertProfileFragment = new ExpertProfileFragment();
+                    Bundle args = new Bundle();
+                    args.putLong("id", expertAccount.getId());
+                    expertProfileFragment.setArguments(args);
+                    return expertProfileFragment;
                 } else if (employeeAccount != null) {
                     return new EmployeeProfileFragment();
                 } else {

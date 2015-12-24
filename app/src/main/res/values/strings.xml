@@ -23,4 +23,7 @@
     <string name="missing_email">email cannot be empty</string>
     <string name="missing_password">password cannot be empty</string>
     <string name="personal_homepage">Personal Homepage</string>
+    <string name="current_cto_coins">CTO Coins</string>
+    <string name="current_reputation">Reputation</string>
+    <string name="review_count">Startup Reviews</string>
 </resources>

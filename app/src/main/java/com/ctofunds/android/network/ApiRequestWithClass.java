@@ -1,5 +1,7 @@
 package com.ctofunds.android.network;
 
+import android.util.Log;
+
 import com.android.volley.Response;
 import com.ctofunds.android.SmsApplication;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -18,6 +20,8 @@ class ApiRequestWithClass<T> extends ApiRequestBase<T> {
 
     @Override
     protected T parseResponse(byte[] data) {
-        return SmsApplication.getSerializer().fromJsonString(type, new String(data));
+        String str = new String(data);
+        Log.d("ApiRequest", "response:\n" + str);
+        return SmsApplication.getSerializer().fromJsonString(type, str);
     }
 }

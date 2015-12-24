@@ -7,8 +7,14 @@
     android:orientation="vertical">
 
     <include
-        layout="@layout/layout_basic_info"
+        layout="@layout/layout_expert_basic_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></include>
+
+    <include
+        layout="@layout/layout_expert_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"></include>
 
 </LinearLayout>

@@ -21,4 +21,7 @@
     <string name="missing_email">邮箱不能为空</string>
     <string name="missing_password">密码不能为空</string>
     <string name="personal_homepage">个人首页</string>
+    <string name="current_cto_coins">当前余额</string>
+    <string name="current_reputation">当前威望</string>
+    <string name="review_count">创业者浏览</string>
 </resources>
