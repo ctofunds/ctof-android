@@ -21,6 +21,10 @@ public abstract class BaseService {
         return context.getSharedPreferences("sms." + Preconditions.checkNotNull(getClass().getSimpleName().toLowerCase()), Context.MODE_PRIVATE);
     }
 
+    protected final boolean isEmpty() {
+        return getSharedPreferences().getAll().size() == 0;
+    }
+
     protected final String get(String key) {
         Preconditions.checkNotNull(key, "key cannot be null");
         SharedPreferences sharedPreferences = getSharedPreferences();

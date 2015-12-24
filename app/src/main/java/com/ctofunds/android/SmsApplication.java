@@ -2,16 +2,21 @@ package com.ctofunds.android;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Bitmap;
 
 import com.android.volley.Network;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.ImageLoader;
 import com.ctofunds.android.serializer.JacksonSerializer;
 import com.ctofunds.android.serializer.Serializer;
 import com.ctofunds.android.service.AccountService;
+import com.ctofunds.android.service.CodeService;
 import com.ctofunds.android.service.impl.AccountServiceImpl;
+import com.ctofunds.android.service.impl.CodeServiceImpl;
+import com.ctofunds.android.utility.ImageLruCache;
 import com.google.common.base.Preconditions;
 
 import java.io.File;
@@ -36,7 +41,9 @@ public class SmsApplication extends Application {
     private RequestQueue imageRequestQueue;
     private RequestQueue normalRequestQueue;
     private AccountService accountService;
+    private CodeService codeService;
     private Serializer serializer;
+    private ImageLoader imageLoader;
 
     @Override
     public void onCreate() {
@@ -44,7 +51,9 @@ public class SmsApplication extends Application {
         imageRequestQueue = initImageRequestQueue();
         normalRequestQueue = initNormalRequestQueue();
         accountService = new AccountServiceImpl(this.getApplicationContext());
+        codeService = new CodeServiceImpl(this.getApplicationContext());
         serializer = new JacksonSerializer();
+        imageLoader = new ImageLoader(imageRequestQueue, new ImageLruCache(1024 * 1024 * 4));
         instance = this;
     }
 
@@ -80,11 +89,19 @@ public class SmsApplication extends Application {
         return getInstance().normalRequestQueue;
     }
 
+    public static final ImageLoader getImageLoader() {
+        return getInstance().imageLoader;
+    }
+
     public static final AccountService getAccountService() {
         return getInstance().accountService;
     }
 
     public static final Serializer getSerializer() {
         return getInstance().serializer;
+    }
+
+    public static final CodeService getCodeService() {
+        return getInstance().codeService;
     }
 }

@@ -91,16 +91,16 @@ public class MainActivity extends BaseActivity {
 
     private void refreshNavigationBar() {
         AccountService accountService = SmsApplication.getAccountService();
-        if (accountService.getExpertAccount() != null) {
-            findViewById(R.id.place_holder).setVisibility(View.GONE);
-            findViewById(R.id.ask).setVisibility(View.GONE);
-        } else {
+        if (accountService.getEmployeeAccount() != null) {
             findViewById(R.id.place_holder).setVisibility(View.INVISIBLE);
             findViewById(R.id.ask).setVisibility(View.VISIBLE);
             Button askButton = (Button) findViewById(R.id.ask);
             askButton.getLayoutParams().height = Environment.getInstance().screenWidthPixels() / 5;
             askButton.getLayoutParams().width = Environment.getInstance().screenWidthPixels() / 5;
             askButton.requestLayout();
+        } else {
+            findViewById(R.id.place_holder).setVisibility(View.GONE);
+            findViewById(R.id.ask).setVisibility(View.GONE);
         }
     }
 

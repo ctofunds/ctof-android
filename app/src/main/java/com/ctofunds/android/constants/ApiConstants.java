@@ -9,4 +9,5 @@ public final class ApiConstants {
     }
 
     public static final String LOGIN = "api/v1/auth/login";//post
+    public static final String CODES = "api/v1/codes";//code
 }

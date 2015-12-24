@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:padding="@dimen/activity_horizontal_margin">
+
+    <com.ctofunds.android.widget.CircleImageView
+        android:id="@+id/avatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/avatar_circle_icon"
+        app:border_color="@color/light_grey"
+        app:border_width="1dp">
+
+    </com.ctofunds.android.widget.CircleImageView>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_marginLeft="@dimen/inner_component_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/avatar"
+        android:layout_toRightOf="@id/avatar"
+        android:text="陈柳"
+        android:textColor="@color/black_label"
+        android:textSize="@dimen/text_size_medium" />
+
+    <TextView
+        android:id="@+id/company"
+        android:layout_marginLeft="@dimen/inner_component_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/avatar"
+        android:layout_toRightOf="@id/avatar"
+        android:text="乐其网络科技有限公司CTO"
+        android:textColor="@color/dark_grey_label"
+        android:textSize="@dimen/text_size_small" />
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="浙江 杭州"
+        android:textColor="@color/grey_label"
+        android:textSize="@dimen/text_size_small" />
+
+
+</RelativeLayout>

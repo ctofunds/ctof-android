@@ -3,6 +3,7 @@ package com.ctofunds.android.serializer;
 import com.ctofunds.android.exception.SerializationException;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
@@ -37,6 +38,24 @@ public class JacksonSerializer implements Serializer {
         try {
             return objectMapper.writeValueAsString(obj);
         } catch (JsonProcessingException e) {
+            throw new SerializationException(e);
+        }
+    }
+
+    @Override
+    public <T> T fromJsonString(TypeReference<T> type, String str) {
+        try {
+            return objectMapper.readValue(str, type);
+        } catch (IOException e) {
+            throw new SerializationException(e);
+        }
+    }
+
+    @Override
+    public <T> T deserialize(TypeReference<T> type, byte[] data) {
+        try {
+            return objectMapper.readValue(data, type);
+        } catch (IOException e) {
             throw new SerializationException(e);
         }
     }

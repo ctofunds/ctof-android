@@ -2,16 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eaecee"
+    android:background="@color/bg_fragment_container"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/text"
+    <include
+        layout="@layout/layout_basic_info"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="expert profile"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_height="wrap_content"></include>
 
 </LinearLayout>
