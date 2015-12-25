@@ -4,7 +4,27 @@
     android:layout_height="match_parent"
     android:background="@color/bg_title_bar">
 
+    <TextView
+        android:id="@+id/toolbar_right_image"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textColor="@color/fg_title_bar"
+        android:textSize="@dimen/text_size_medium" />
+
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="@color/fg_title_bar"
+        android:textSize="@dimen/text_size_large"
+        android:visibility="gone" />
+
     <ImageView
+        android:id="@+id/toolbar_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

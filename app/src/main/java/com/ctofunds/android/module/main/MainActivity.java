@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ctof.sms.api.Employee;
 import com.ctof.sms.api.Expert;
@@ -32,6 +34,9 @@ public class MainActivity extends BaseActivity {
 
     private Toolbar myToolbar;
     private List<View> tabButtons = Lists.newArrayList();
+    private ImageView toolbarImage;
+    private TextView toolbarText;
+    private TextView toolbarTextRight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +57,11 @@ public class MainActivity extends BaseActivity {
         ActionBar.LayoutParams layout = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View overlay = inflater.inflate(R.layout.layout_main_title_bar, null);
-        getSupportActionBar().setCustomView(overlay, layout);
+        View title = inflater.inflate(R.layout.layout_main_title_bar, null);
+        getSupportActionBar().setCustomView(title, layout);
+        toolbarImage = (ImageView) title.findViewById(R.id.toolbar_image);
+        toolbarTextRight = (TextView) title.findViewById(R.id.toolbar_right_image);
+        toolbarText = (TextView) title.findViewById(R.id.toolbar_title);
 
         tabButtons.clear();
         tabButtons.add(findViewById(R.id.home));
@@ -150,6 +158,42 @@ public class MainActivity extends BaseActivity {
             fragmentTransaction.add(R.id.fragment, fragment);
             fragmentTransaction.commit();
             resetSelectedStatus(view);
+        }
+        updateTitle(view.getId());
+    }
+
+    private void updateTitle(int viewId) {
+        switch (viewId) {
+            case R.id.home:
+                toolbarImage.setVisibility(View.VISIBLE);
+                toolbarTextRight.setVisibility(View.GONE);
+                toolbarText.setVisibility(View.GONE);
+                break;
+            case R.id.messages:
+                toolbarImage.setVisibility(View.GONE);
+                toolbarTextRight.setVisibility(View.GONE);
+                toolbarText.setVisibility(View.VISIBLE);
+                toolbarText.setText(R.string.messages);
+                break;
+            case R.id.topic:
+                toolbarImage.setVisibility(View.GONE);
+                toolbarTextRight.setVisibility(View.GONE);
+                toolbarText.setVisibility(View.VISIBLE);
+                toolbarText.setText(R.string.topic);
+                break;
+            case R.id.profile:
+                toolbarImage.setVisibility(View.GONE);
+                toolbarTextRight.setVisibility(View.VISIBLE);
+                toolbarTextRight.setText(R.string.action_settings);
+                toolbarTextRight.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showToast("未完成,进入设置页面");
+                    }
+                });
+                toolbarText.setVisibility(View.VISIBLE);
+                toolbarText.setText(R.string.my_profile);
+                break;
         }
     }
 

@@ -29,4 +29,5 @@
     <string name="accepted_topic">被采纳问题</string>
     <string name="about">关于</string>
     <string name="expertise" >擅长领域</string>
+    <string name="my_profile">我的主页</string>
 </resources>
