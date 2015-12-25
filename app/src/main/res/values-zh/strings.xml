@@ -41,4 +41,5 @@
     <string name="confirm">确认</string>
     <string name="exit_confirm">退出HiCTO？</string>
     <string name="logout_confirm">退出登录？</string>
+    <string name="wait_tips">请稍后...</string>
 </resources>

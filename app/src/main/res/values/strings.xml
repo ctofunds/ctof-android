@@ -43,4 +43,5 @@
     <string name="logout">logout</string>
     <string name="confirm">Confirm</string>
     <string name="logout_confirm">Are you sure to logout?</string>
+    <string name="wait_tips">Please Wait</string>
 </resources>

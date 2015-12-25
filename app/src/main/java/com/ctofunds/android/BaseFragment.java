@@ -8,6 +8,14 @@ import android.widget.Toast;
  */
 public abstract class BaseFragment extends Fragment {
 
+    protected void showProgressDialog(String title, String msg) {
+        ((BaseActivity) getActivity()).showProgressDialog(title, msg);
+    }
+
+    protected void dismissProgressDialog() {
+        ((BaseActivity) getActivity()).dismissProgressDialog();
+    }
+
     protected void showToast(String msg) {
         Toast.makeText(getActivity().getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }

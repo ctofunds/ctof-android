@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.ctof.sms.api.AuthenticationRequest;
 import com.ctof.sms.api.AuthenticationResponse;
 import com.ctofunds.android.BaseActivity;
@@ -76,6 +77,7 @@ public class LoginActivity extends BaseActivity {
                 authenticationRequest.setEmail(email);
                 authenticationRequest.setPassword(password);
                 authenticationRequest.setExpiration(EXPIRATION);
+                showProgressDialog(R.string.wait_tips);
                 ApiHandler.post(ApiConstants.LOGIN, authenticationRequest, AuthenticationResponse.class, new Response.Listener<AuthenticationResponse>() {
                     @Override
                     public void onResponse(AuthenticationResponse response) {
@@ -86,13 +88,21 @@ public class LoginActivity extends BaseActivity {
                             accountService.setEmployeeAccount(response.getEmployee());
                             showToast("员工登录成功");
                             setResult(RESULT_OK);
+                            dismissProgressDialog();
                             finish();
                         } else {
                             accountService.setExpertAccount(response.getExpert());
                             showToast("专家登录成功");
                             setResult(RESULT_OK);
+                            dismissProgressDialog();
                             finish();
                         }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        dismissProgressDialog();
+                        showToast(error.getMessage());
                     }
                 });
             }
