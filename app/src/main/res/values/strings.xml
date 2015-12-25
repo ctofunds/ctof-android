@@ -35,4 +35,12 @@
     <string name="cancel">Cancel</string>
     <string name="exit">Exit</string>
     <string name="exit_confirm">Are you sure to exit?</string>
+    <string name="invite">Invite</string>
+    <string name="modify_profile">Modify Profile</string>
+    <string name="modify_push_settings">Modify Push Settings</string>
+    <string name="modify_password">Modify Password</string>
+    <string name="about_hicto">About HiCTO</string>
+    <string name="logout">logout</string>
+    <string name="confirm">Confirm</string>
+    <string name="logout_confirm">Are you sure to logout?</string>
 </resources>

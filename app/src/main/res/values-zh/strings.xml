@@ -32,5 +32,13 @@
     <string name="my_profile">我的主页</string>
     <string name="cancel">取消</string>
     <string name="exit">退出</string>
-    <string name="exit_confirm">确认退出?</string>
+    <string name="invite">邀请</string>
+    <string name="modify_profile">个人资料修改</string>
+    <string name="modify_push_settings">消息推送提醒</string>
+    <string name="modify_password">账号密码修改</string>
+    <string name="about_hicto">关于HiCTO</string>
+    <string name="logout">退出登录</string>
+    <string name="confirm">确认</string>
+    <string name="exit_confirm">退出HiCTO？</string>
+    <string name="logout_confirm">退出登录？</string>
 </resources>

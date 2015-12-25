@@ -1,14 +1,17 @@
 package com.ctofunds.android.module.main;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -41,6 +44,10 @@ public class MainActivity extends BaseActivity {
     private TextView toolbarText;
     private TextView toolbarTextRight;
 
+    private BroadcastReceiver logoutReceiver;
+    private View homeView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,12 +74,13 @@ public class MainActivity extends BaseActivity {
         toolbarText = (TextView) title.findViewById(R.id.toolbar_title);
 
         tabButtons.clear();
-        tabButtons.add(findViewById(R.id.home));
+        homeView = findViewById(R.id.home);
+        tabButtons.add(homeView);
         tabButtons.add(findViewById(R.id.messages));
         tabButtons.add(findViewById(R.id.topic));
         tabButtons.add(findViewById(R.id.profile));
 
-        findViewById(R.id.home).setOnClickListener(new View.OnClickListener() {
+        homeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 handleTabClicked(v);
@@ -96,8 +104,25 @@ public class MainActivity extends BaseActivity {
                 handleTabClicked(v);
             }
         });
-        handleTabClicked(findViewById(R.id.home));
+        handleTabClicked(homeView);
         refreshNavigationBar();
+
+        logoutReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.d(getTag(), "action:" + intent.getAction() + " received");
+                refreshNavigationBar();
+                handleTabClicked(homeView);
+            }
+        };
+        registerReceiver(logoutReceiver, new IntentFilter(Constants.LOGOUT));
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(logoutReceiver);
     }
 
     private void refreshNavigationBar() {
@@ -192,7 +217,7 @@ public class MainActivity extends BaseActivity {
         if (fragment != null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.fragment, fragment);
-            fragmentTransaction.commit();
+            fragmentTransaction.commitAllowingStateLoss();
             resetSelectedStatus(view);
         }
     }

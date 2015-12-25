@@ -1,14 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_fragment_container">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/layout_title_bar"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"></include>
+
+    <include
+        android:id="@+id/invite"
+        layout="@layout/item_setting"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"></include>
+        android:layout_below="@id/toolbar"></include>
+
+    <include
+        android:id="@+id/modify_profile"
+        layout="@layout/item_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/invite"
+        android:layout_marginTop="@dimen/inner_component_margin"></include>
+
+    <include
+        android:id="@+id/modify_password"
+        layout="@layout/item_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/modify_profile"
+        android:layout_marginTop="1dp"></include>
+
+    <include
+        android:id="@+id/modify_push_setting"
+        layout="@layout/item_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/modify_password"
+        android:layout_marginTop="1dp"></include>
+
+    <include
+        android:id="@+id/about_hicto"
+        layout="@layout/item_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/modify_push_setting"
+        android:layout_marginTop="@dimen/inner_component_margin">
+
+    </include>
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/forgot_password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/title_bar_horizontal_margin"
+        android:layout_marginLeft="@dimen/title_bar_horizontal_margin"
+        android:layout_marginRight="@dimen/title_bar_horizontal_margin"
+        android:background="@drawable/selector_bg_button"
+        android:text="@string/logout"
+        android:textColor="@drawable/selector_fg_button"
+        android:textSize="@dimen/text_size_button" />
 
 
 </RelativeLayout>

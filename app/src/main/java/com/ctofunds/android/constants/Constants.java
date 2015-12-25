@@ -1,7 +1,5 @@
 package com.ctofunds.android.constants;
 
-import android.content.Context;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -9,6 +7,8 @@ import java.text.SimpleDateFormat;
  * Created by qianhao.zhou on 12/21/15.
  */
 public final class Constants {
+
+    public static final String LOGOUT = "com.ctofunds.android.logout";
 
     private Constants(){}
 
@@ -31,4 +31,5 @@ public final class Constants {
     }
 
     public static final int REQUEST_LOGIN = 1;
+
 }
