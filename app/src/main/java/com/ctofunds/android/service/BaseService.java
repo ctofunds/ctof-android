@@ -59,7 +59,7 @@ public abstract class BaseService {
         String serializedValue = getSerializer().toJsonString(value);
         editor.putString(key, serializedValue);
         editor.commit();
-        cache.put(key, serializedValue);
+        cache.put(key, value);
     }
 
     protected final <T> T getObject(String key, Class<T> type) {
@@ -85,12 +85,14 @@ public abstract class BaseService {
         SharedPreferences.Editor editor = getSharedPreferences().edit();
         editor.remove(key);
         editor.commit();
+        cache.remove(key);
     }
 
     protected final void removeAll() {
         SharedPreferences.Editor editor = getSharedPreferences().edit();
         editor.clear();
         editor.commit();
+        cache.clear();
     }
 
 }

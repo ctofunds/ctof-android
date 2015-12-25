@@ -43,6 +43,7 @@ public class LoginActivity extends BaseActivity {
         ((TextView) toolbar.findViewById(R.id.toolbar_title)).setText(R.string.login);
         supportActionBar.setDisplayHomeAsUpEnabled(true);
         supportActionBar.setDisplayShowTitleEnabled(false);
+        toolbar.setNavigationIcon(R.drawable.arrow_left);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

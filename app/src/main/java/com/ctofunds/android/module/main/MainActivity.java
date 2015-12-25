@@ -1,11 +1,13 @@
 package com.ctofunds.android.module.main;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,7 @@ import com.ctofunds.android.module.home.HomeFragment;
 import com.ctofunds.android.module.message.MessageFragment;
 import com.ctofunds.android.module.profile.EmployeeProfileFragment;
 import com.ctofunds.android.module.profile.ExpertProfileFragment;
+import com.ctofunds.android.module.setting.ExpertSettingActivity;
 import com.ctofunds.android.module.topic.TopicFragment;
 import com.ctofunds.android.service.AccountService;
 import com.ctofunds.android.utility.Environment;
@@ -122,30 +125,63 @@ public class MainActivity extends BaseActivity {
     }
 
     private Fragment getFragment(int viewId) {
-        Expert expertAccount = SmsApplication.getAccountService().getExpertAccount();
-        Employee employeeAccount = SmsApplication.getAccountService().getEmployeeAccount();
+        AccountService accountService = SmsApplication.getAccountService();
+        Expert expertAccount = accountService.getExpertAccount();
+        Employee employeeAccount = accountService.getEmployeeAccount();
         switch (viewId) {
             case R.id.home:
+                toolbarImage.setVisibility(View.VISIBLE);
+                toolbarTextRight.setVisibility(View.GONE);
+                toolbarText.setVisibility(View.GONE);
                 return new HomeFragment();
             case R.id.messages:
+                toolbarImage.setVisibility(View.GONE);
+                toolbarTextRight.setVisibility(View.GONE);
+                toolbarText.setVisibility(View.VISIBLE);
+                toolbarText.setText(R.string.messages);
                 return new MessageFragment();
             case R.id.topic:
+                toolbarImage.setVisibility(View.GONE);
+                toolbarTextRight.setVisibility(View.GONE);
+                toolbarText.setVisibility(View.VISIBLE);
+                toolbarText.setText(R.string.topic);
                 return new TopicFragment();
             case R.id.profile:
+                if (!accountService.hasLogin()) {
+                    showToast("还未登录");
+                    return null;
+                }
+                toolbarImage.setVisibility(View.GONE);
+                toolbarTextRight.setVisibility(View.VISIBLE);
+                toolbarTextRight.setText(R.string.action_settings);
+                toolbarText.setVisibility(View.VISIBLE);
+                toolbarText.setText(R.string.my_profile);
                 if (expertAccount != null) {
                     ExpertProfileFragment expertProfileFragment = new ExpertProfileFragment();
                     Bundle args = new Bundle();
                     args.putLong("id", expertAccount.getId());
                     expertProfileFragment.setArguments(args);
+                    toolbarTextRight.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent();
+                            intent.setClass(MainActivity.this.getApplicationContext(), ExpertSettingActivity.class);
+                            startActivity(intent);
+                        }
+                    });
                     return expertProfileFragment;
                 } else if (employeeAccount != null) {
+                    toolbarTextRight.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            showToast("未完成,进入企业设置页面");
+                        }
+                    });
                     return new EmployeeProfileFragment();
-                } else {
-                    showToast("还未登录");
-                    return null;
                 }
+            default:
+                return null;
         }
-        return null;
     }
 
     private void handleTabClicked(View view) {
@@ -159,42 +195,21 @@ public class MainActivity extends BaseActivity {
             fragmentTransaction.commit();
             resetSelectedStatus(view);
         }
-        updateTitle(view.getId());
     }
 
-    private void updateTitle(int viewId) {
-        switch (viewId) {
-            case R.id.home:
-                toolbarImage.setVisibility(View.VISIBLE);
-                toolbarTextRight.setVisibility(View.GONE);
-                toolbarText.setVisibility(View.GONE);
-                break;
-            case R.id.messages:
-                toolbarImage.setVisibility(View.GONE);
-                toolbarTextRight.setVisibility(View.GONE);
-                toolbarText.setVisibility(View.VISIBLE);
-                toolbarText.setText(R.string.messages);
-                break;
-            case R.id.topic:
-                toolbarImage.setVisibility(View.GONE);
-                toolbarTextRight.setVisibility(View.GONE);
-                toolbarText.setVisibility(View.VISIBLE);
-                toolbarText.setText(R.string.topic);
-                break;
-            case R.id.profile:
-                toolbarImage.setVisibility(View.GONE);
-                toolbarTextRight.setVisibility(View.VISIBLE);
-                toolbarTextRight.setText(R.string.action_settings);
-                toolbarTextRight.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showToast("未完成,进入设置页面");
-                    }
-                });
-                toolbarText.setVisibility(View.VISIBLE);
-                toolbarText.setText(R.string.my_profile);
-                break;
-        }
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this).setCancelable(true).setPositiveButton(R.string.exit, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).setTitle(R.string.exit_confirm).create().show();
     }
 
     @Override

@@ -32,4 +32,7 @@
     <string name="about">About</string>
     <string name="expertise">Expertise</string>
     <string name="my_profile">My Profile</string>
+    <string name="cancel">Cancel</string>
+    <string name="exit">Exit</string>
+    <string name="exit_confirm">Are you sure to exit?</string>
 </resources>

@@ -30,4 +30,7 @@
     <string name="about">关于</string>
     <string name="expertise" >擅长领域</string>
     <string name="my_profile">我的主页</string>
+    <string name="cancel">取消</string>
+    <string name="exit">退出</string>
+    <string name="exit_confirm">确认退出?</string>
 </resources>
