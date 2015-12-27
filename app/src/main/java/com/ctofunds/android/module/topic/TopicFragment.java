@@ -57,16 +57,15 @@ public class TopicFragment extends BaseFragment {
         mViewFlow = (ViewFlow) root.findViewById(R.id.viewflow);
         mFlowIndicator = (CircleFlowIndicator) root.findViewById(R.id.viewflowindic);
 
-//        WindowManager wm = (WindowManager) getContext()
-//                .getSystemService(Context.WINDOW_SERVICE);
-//        Point screenSize = new Point();
-//        wm.getDefaultDisplay().getSize(screenSize);
-//
-//        FrameLayout viewFlowWraper = (FrameLayout)root.findViewById(R.id.viewflowwraper);
-//        int pxHeitht = 567*screenSize.x/750;
-//        int dpHeight = DisplayUtil.px2dip(getContext(), pxHeitht);
-//        viewFlowWraper.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpHeight));
-//        viewFlowWraper.requestLayout();
+        WindowManager wm = (WindowManager) getContext()
+                .getSystemService(Context.WINDOW_SERVICE);
+        Point screenSize = new Point();
+        wm.getDefaultDisplay().getSize(screenSize);
+
+        FrameLayout viewFlowWraper = (FrameLayout)root.findViewById(R.id.viewflowwraper);
+        int pxHeight = 567*screenSize.x/750;
+        viewFlowWraper.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, pxHeight));
+        viewFlowWraper.requestLayout();
     }
 
     public int DPFromPixels(int pixels){
