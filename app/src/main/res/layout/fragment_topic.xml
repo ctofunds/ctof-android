@@ -1,77 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eaecee"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
-
-    <FrameLayout
-        android:id="@+id/viewflowwraper"
-        android:layout_width="fill_parent"
-        android:layout_height="300dip"
-        android:orientation="vertical" >
-
-        <com.ctofunds.android.widget.Banner.ViewFlow
-            android:id="@+id/viewflow"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
-
-        <FrameLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@color/transparent"
-            android:gravity="center"
-            android:padding="3dip" >
-
-            <com.ctofunds.android.widget.Banner.CircleFlowIndicator
-                android:id="@+id/viewflowindic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|bottom"
-                android:padding="2dip"
-                app:activeColor="#ff0000"
-                app:activeType="fill"
-                app:circleSeparation="20dip"
-                app:inactiveColor="#ffffff"
-                app:inactiveType="fill"
-                app:radius="4dip" />
-        </FrameLayout>
-    </FrameLayout>
-    
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/expert_entry"
-            android:layout_width="0dip"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="我是技术专家" />
-        <Button
-            android:id="@+id/startup_entry"
-            android:layout_width="0dip"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/expert_entry"
-            android:text="我是创业公司" />
-    </LinearLayout>
+    android:background="#eaecee">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#eaecee"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#999999"
-            android:padding="12dp"
-            android:text="你问我答"
-            />
-    </LinearLayout>
 
-</LinearLayout>
+        <FrameLayout
+            android:id="@+id/viewflowwraper"
+            android:layout_width="fill_parent"
+            android:layout_height="300dip"
+            android:orientation="vertical">
+
+            <com.ctofunds.android.widget.Banner.ViewFlow
+                android:id="@+id/viewflow"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@color/transparent"
+                android:gravity="center"
+                android:padding="3dip">
+
+                <com.ctofunds.android.widget.Banner.CircleFlowIndicator
+                    android:id="@+id/viewflowindic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:padding="2dip"
+                    app:activeColor="#ff0000"
+                    app:activeType="fill"
+                    app:circleSeparation="20dip"
+                    app:inactiveColor="#ffffff"
+                    app:inactiveType="fill"
+                    app:radius="4dip" />
+            </FrameLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/expert_entry"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="我是技术专家" />
+
+            <Button
+                android:id="@+id/startup_entry"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/expert_entry"
+                android:layout_weight="1"
+                android:text="我是创业公司" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="你问我答"
+                android:textColor="#999999" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#FFF"
+                    android:text="前端"
+                    android:textColor="#333333" />
+
+                <Button
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#FFF"
+                    android:text="后端"
+                    android:textColor="#333333" />
+
+                <Button
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#FFF"
+                    android:text="测试"
+                    android:textColor="#333333" />
+
+                <Button
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#FFF"
+                    android:text="安全"
+                    android:textColor="#333333" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEEEEE" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#FFF"
+                    android:text="移动端"
+                    android:textColor="#333333" />
+
+                <Button
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#FFF"
+                    android:text="运维"
+                    android:textColor="#333333" />
+
+                <Button
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#FFF"
+                    android:text="其他"
+                    android:textColor="#333333" />
+
+                <Button
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#FFF"
+                    android:text="最新问答"
+                    android:textColor="#333333" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="今日明星"
+                android:textColor="#999999" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>

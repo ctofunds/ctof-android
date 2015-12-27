@@ -57,11 +57,11 @@ public class TopicFragment extends BaseFragment {
         mViewFlow = (ViewFlow) root.findViewById(R.id.viewflow);
         mFlowIndicator = (CircleFlowIndicator) root.findViewById(R.id.viewflowindic);
 
+        // 设定首页滚动广告条的高度
         WindowManager wm = (WindowManager) getContext()
                 .getSystemService(Context.WINDOW_SERVICE);
         Point screenSize = new Point();
         wm.getDefaultDisplay().getSize(screenSize);
-
         FrameLayout viewFlowWraper = (FrameLayout)root.findViewById(R.id.viewflowwraper);
         int pxHeight = 567*screenSize.x/750;
         viewFlowWraper.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, pxHeight));
