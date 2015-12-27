@@ -1,13 +1,21 @@
 package com.ctofunds.android.module.topic;
 
+import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Size;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.ctofunds.android.BaseFragment;
 import com.ctofunds.android.R;
+import com.ctofunds.android.utility.DisplayUtil;
 import com.ctofunds.android.widget.Banner.CircleFlowIndicator;
 import com.ctofunds.android.widget.Banner.ImagePagerAdapter;
 import com.ctofunds.android.widget.Banner.ViewFlow;
@@ -48,6 +56,21 @@ public class TopicFragment extends BaseFragment {
     private void initView(ViewGroup root) {
         mViewFlow = (ViewFlow) root.findViewById(R.id.viewflow);
         mFlowIndicator = (CircleFlowIndicator) root.findViewById(R.id.viewflowindic);
+
+//        WindowManager wm = (WindowManager) getContext()
+//                .getSystemService(Context.WINDOW_SERVICE);
+//        Point screenSize = new Point();
+//        wm.getDefaultDisplay().getSize(screenSize);
+//
+//        FrameLayout viewFlowWraper = (FrameLayout)root.findViewById(R.id.viewflowwraper);
+//        int pxHeitht = 567*screenSize.x/750;
+//        int dpHeight = DisplayUtil.px2dip(getContext(), pxHeitht);
+//        viewFlowWraper.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpHeight));
+//        viewFlowWraper.requestLayout();
+    }
+
+    public int DPFromPixels(int pixels){
+        return (int)(pixels / getResources().getDisplayMetrics().density);
     }
 
     private void initBanner(ArrayList<String> imageUrlList) {
@@ -62,4 +85,13 @@ public class TopicFragment extends BaseFragment {
         mViewFlow.setSelection(imageUrlList.size() * 1000); // 设置初始位置
         mViewFlow.startAutoFlowTimer(); // 启动自动播放
     }
+
+    private void resizeFragment(int newWidth, int newHeight) {
+        View view = getView();
+        RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(newWidth, newHeight);
+        view.setLayoutParams(p);
+        view.requestLayout();
+    }
+
+
 }
