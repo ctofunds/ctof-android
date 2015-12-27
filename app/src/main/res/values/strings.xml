@@ -18,7 +18,6 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="forgot_password">Forgot Password?</string>
-    <string name="register">Register</string>
     <string name="sign_up_full">Sign up for HiCTO</string>
     <string name="missing_email">email cannot be empty</string>
     <string name="missing_password">password cannot be empty</string>
@@ -44,4 +43,17 @@
     <string name="confirm">Confirm</string>
     <string name="logout_confirm">Are you sure to logout?</string>
     <string name="wait_tips">Please Wait</string>
+    <string name="introduction">Introduction</string>
+    <string name="help">Help</string>
+    <string name="feedback">Feedback</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="invitation_code">Invitation Code</string>
+    <string name="expert_signup">Expert Signup</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="missing_name">name cannot be empty</string>
+    <string name="invalide_email">Email is invalid</string>
+    <string name="password_not_same">two passwords entered are not the same</string>
+    <string name="invalid_password_length">password length must be not be less than 6</string>
+    <string name="missing_invitation_code">invitation code cannot be empty</string>
 </resources>

@@ -16,7 +16,6 @@
     <string name="email">邮箱</string>
     <string name="password">密码</string>
     <string name="forgot_password">忘记密码？</string>
-    <string name="register">注册</string>
     <string name="sign_up_full">注册HiCTO账号</string>
     <string name="missing_email">邮箱不能为空</string>
     <string name="missing_password">密码不能为空</string>
@@ -42,4 +41,17 @@
     <string name="exit_confirm">退出HiCTO？</string>
     <string name="logout_confirm">退出登录？</string>
     <string name="wait_tips">请稍后...</string>
+    <string name="introduction">平台简介</string>
+    <string name="help">使用帮助</string>
+    <string name="feedback">建议反馈</string>
+    <string name="name">姓名</string>
+    <string name="confirm_password">确认密码</string>
+    <string name="invitation_code">邀请码</string>
+    <string name="expert_signup">专家注册</string>
+    <string name="sign_up">注册</string>
+    <string name="missing_name">姓名不能为空</string>
+    <string name="invalide_email">请输入有效的邮箱</string>
+    <string name="password_not_same">两次输入的密码不一致</string>
+    <string name="invalid_password_length">密码长度不能小于6</string>
+    <string name="missing_invitation_code">邀请码不能为空</string>
 </resources>

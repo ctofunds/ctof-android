@@ -14,6 +14,7 @@ import com.ctofunds.android.BaseActivity;
 import com.ctofunds.android.R;
 import com.ctofunds.android.SmsApplication;
 import com.ctofunds.android.constants.Constants;
+import com.ctofunds.android.module.about.AboutActivity;
 
 /**
  * Created by qianhao.zhou on 12/25/15.
@@ -64,6 +65,14 @@ public class ExpertSettingActivity extends BaseActivity {
                         finish();
                     }
                 }).setTitle(R.string.logout_confirm).create().show();
+            }
+        });
+        findViewById(R.id.about_hicto).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(ExpertSettingActivity.this, AboutActivity.class);
+                startActivity(intent);
             }
         });
     }

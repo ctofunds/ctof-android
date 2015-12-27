@@ -1,5 +1,6 @@
 package com.ctofunds.android.module.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -16,6 +17,7 @@ import com.ctofunds.android.BaseActivity;
 import com.ctofunds.android.R;
 import com.ctofunds.android.SmsApplication;
 import com.ctofunds.android.constants.ApiConstants;
+import com.ctofunds.android.module.signup.ExpertSignUpActivity;
 import com.ctofunds.android.network.ApiHandler;
 import com.ctofunds.android.service.AccountService;
 import com.ctofunds.android.utility.StringUtils;
@@ -107,10 +109,12 @@ public class LoginActivity extends BaseActivity {
                 });
             }
         });
-        findViewById(R.id.register).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.sign_up).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToast("注册账号");
+                Intent intent = new Intent();
+                intent.setClass(LoginActivity.this, ExpertSignUpActivity.class);
+                startActivity(intent);
             }
         });
     }
