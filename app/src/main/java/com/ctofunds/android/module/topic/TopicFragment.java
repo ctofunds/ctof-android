@@ -185,7 +185,6 @@ public class TopicFragment extends BaseFragment {
                 roleLabel.setText("专家");
                 roleLabel.setBackgroundColor(Color.parseColor("#70C7EF"));
             }
-            roleLabel.setText(data.role);
             contentLabel.setText(data.content);
             tagLabel.setText(data.tagString);
             return itemView;
