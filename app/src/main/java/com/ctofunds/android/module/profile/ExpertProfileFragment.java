@@ -38,7 +38,7 @@ public class ExpertProfileFragment extends BaseFragment {
         long id = getArguments().getLong("id", -1);
         final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_expert_profile, null);
         if (id > 0L) {
-            ApiHandler.get(String.format(ApiConstants.EXPERT, id), Expert.class, new Response.Listener<Expert>() {
+            ApiHandler.get(String.format(ApiConstants.GET_EXPERT, id), Expert.class, new Response.Listener<Expert>() {
                 @Override
                 public void onResponse(Expert response) {
                     updateInfo(inflater, root, response);
@@ -79,17 +79,22 @@ public class ExpertProfileFragment extends BaseFragment {
         ((TextView) root.findViewById(R.id.name_label)).setText(expertAccount.getName());
         ((TextView) root.findViewById(R.id.description)).setText(expertAccount.getDescription());
 
+        initExpertiseList(inflater, root, expertiseCode, expertAccount);
+        initStartupList(inflater, root, codeService, expertAccount);
+    }
+
+    private void initExpertiseList(LayoutInflater inflater, ViewGroup root, Code expertiseCode, Expert expertAccount) {
         LinearLayout expertiseContainer = (LinearLayout) root.findViewById(R.id.expertise_container);
         Map<String, String> expertiseMapping = expertiseCode.getMapping();
         List<Integer> expertiseList = expertAccount.getExpertise();
-        final int expertiseCount = expertiseList.size();
-        for (int i = 0; i < expertiseCount; i++) {
-            String expertise = expertiseMapping.get(expertiseList.get(i).toString());
-            inflater.inflate(R.layout.item_expertise, expertiseContainer, true);
-            ((TextView) expertiseContainer.getChildAt(i)).setText(expertise);
+        if (expertiseList != null) {
+            final int expertiseCount = expertiseList.size();
+            for (int i = 0; i < expertiseCount; i++) {
+                String expertise = expertiseMapping.get(expertiseList.get(i).toString());
+                inflater.inflate(R.layout.item_expertise, expertiseContainer, true);
+                ((TextView) expertiseContainer.getChildAt(i)).setText(expertise);
+            }
         }
-
-        initStartupList(inflater, root, codeService, expertAccount);
     }
 
     private void initStartupList(LayoutInflater inflater, ViewGroup root, CodeService codeService, Expert expertAccount) {

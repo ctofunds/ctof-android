@@ -54,4 +54,5 @@
     <string name="password_not_same">两次输入的密码不一致</string>
     <string name="invalid_password_length">密码长度不能小于6</string>
     <string name="missing_invitation_code">邀请码不能为空</string>
+    <string name="sign_up_succeed">注册成功</string>
 </resources>

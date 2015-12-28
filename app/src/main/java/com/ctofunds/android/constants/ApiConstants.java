@@ -10,5 +10,6 @@ public final class ApiConstants {
 
     public static final String LOGIN = "api/v1/auth/login";//post
     public static final String CODES = "api/v1/codes";//code
-    public static final String EXPERT = "api/v1/experts/%d";//code
+    public static final String GET_EXPERT = "api/v1/experts/%d";//query expert
+    public static final String CREATE_EXPERT = "api/v1/experts";//create expert
 }

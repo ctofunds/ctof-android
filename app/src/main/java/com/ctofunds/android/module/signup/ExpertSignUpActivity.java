@@ -8,8 +8,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.ctof.sms.api.AuthenticationResponse;
+import com.ctof.sms.api.CreateExpertRequest;
+import com.ctof.sms.api.Expert;
 import com.ctofunds.android.BaseActivity;
 import com.ctofunds.android.R;
+import com.ctofunds.android.SmsApplication;
+import com.ctofunds.android.constants.ApiConstants;
+import com.ctofunds.android.network.ApiHandler;
+import com.ctofunds.android.service.AccountService;
 import com.ctofunds.android.utility.StringUtils;
 
 /**
@@ -85,6 +94,30 @@ public class ExpertSignUpActivity extends BaseActivity {
                     showToast(R.string.missing_invitation_code);
                     return;
                 }
+                CreateExpertRequest createExpertRequest = new CreateExpertRequest();
+                createExpertRequest.setName(name);
+                createExpertRequest.setEmail(email);
+                createExpertRequest.setPassword(password);
+                createExpertRequest.setInviteCode(invitationCode);
+                showProgressDialog(R.string.wait_tips);
+                ApiHandler.post(ApiConstants.CREATE_EXPERT, createExpertRequest, AuthenticationResponse.class, new Response.Listener<AuthenticationResponse>() {
+                    @Override
+                    public void onResponse(AuthenticationResponse response) {
+                        dismissProgressDialog();
+                        showToast(R.string.sign_up_succeed);
+                        AccountService accountService = SmsApplication.getAccountService();
+                        accountService.clearAccount();
+                        accountService.setToken(response.getToken());
+                        accountService.setExpertAccount(response.getExpert());
+                        finish();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        dismissProgressDialog();
+                        showToast(error.getMessage());
+                    }
+                });
 
             }
         });
