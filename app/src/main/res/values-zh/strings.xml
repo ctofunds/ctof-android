@@ -50,7 +50,7 @@
     <string name="expert_signup">专家注册</string>
     <string name="sign_up">注册</string>
     <string name="missing_name">姓名不能为空</string>
-    <string name="invalide_email">请输入有效的邮箱</string>
+    <string name="invalid_email">请输入有效的邮箱</string>
     <string name="password_not_same">两次输入的密码不一致</string>
     <string name="invalid_password_length">密码长度不能小于6</string>
     <string name="missing_invitation_code">邀请码不能为空</string>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_fragment_container"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/layout_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></include>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/inner_component_margin"
+        android:layout_marginRight="@dimen/inner_component_margin"
+        android:layout_marginTop="@dimen/inner_component_margin"
+        android:text="HiCTO是一个联系互联网创业公司与技术专家的平台，由多位知名互联网公司 CTO 发起和投资，公司聚集了一批互联网资深技术专家，致力于帮助成长期互联网创业团队降低技术风险，提升研发效率，提升技术团队综合能力，助力创业团队更快更好地发展业务。在此目标前提下，HiCTO平台服务主要涵盖了以下方面："
+        android:textColor="@color/black_label"
+        android:textSize="@dimen/text_size_medium" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/inner_component_margin"
+        android:layout_marginRight="@dimen/inner_component_margin"
+        android:layout_marginTop="@dimen/inner_component_margin"
+        android:text="问答社区"
+        android:textColor="@color/black_label"
+        android:textSize="@dimen/text_size_medium"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/inner_component_margin"
+        android:layout_marginRight="@dimen/inner_component_margin"
+        android:layout_marginTop="@dimen/inner_component_margin"
+        android:text="当创业企业在开发过程中遇到任何技术问题，都可以在问答社区中提问，并且得到技术专家即时高效的反馈。技术专家通过回答问题，可赢取相应悬赏。"
+        android:textColor="@color/black_label"
+        android:textSize="@dimen/text_size_medium" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/inner_component_margin"
+        android:layout_marginRight="@dimen/inner_component_margin"
+        android:layout_marginTop="@dimen/inner_component_margin"
+        android:text="创业技术服务"
+        android:textColor="@color/black_label"
+        android:textSize="@dimen/text_size_medium"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/inner_component_margin"
+        android:layout_marginRight="@dimen/inner_component_margin"
+        android:layout_marginTop="@dimen/inner_component_margin"
+        android:text="除问答服务之外，技术专家可以利用自己的专长，为创业企业提供讲座、咨询等技术培训。同时未来创业企业可将开发模块在平台上进行外包征集，技术专家可在此过程中充当技术监理的角色，为外包任务按时优质完成提供保障。"
+        android:textColor="@color/black_label"
+        android:textSize="@dimen/text_size_medium" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/inner_component_margin"
+        android:layout_marginRight="@dimen/inner_component_margin"
+        android:layout_marginTop="@dimen/inner_component_margin"
+        android:text="人才招聘"
+        android:textColor="@color/black_label"
+        android:textSize="@dimen/text_size_medium"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/inner_component_margin"
+        android:layout_marginRight="@dimen/inner_component_margin"
+        android:layout_marginTop="@dimen/inner_component_margin"
+        android:text="HiCTO 可根据创业企业需求，征募相关领域人才。通过细致审核，确保为企业招聘到最合适的技术力量。　"
+        android:textColor="@color/black_label"
+        android:textSize="@dimen/text_size_medium" />
+
+</LinearLayout>

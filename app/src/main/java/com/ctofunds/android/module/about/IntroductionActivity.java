@@ -1,6 +1,5 @@
 package com.ctofunds.android.module.about;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -12,20 +11,20 @@ import com.ctofunds.android.BaseActivity;
 import com.ctofunds.android.R;
 
 /**
- * Created by qianhao.zhou on 12/27/15.
+ * Created by qianhao.zhou on 12/28/15.
  */
-public class AboutActivity extends BaseActivity {
+public class IntroductionActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.activity_introduction);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
         ActionBar supportActionBar = getSupportActionBar();
-        ((TextView) toolbar.findViewById(R.id.toolbar_title)).setText(R.string.introduction);
+        ((TextView) toolbar.findViewById(R.id.toolbar_title)).setText(R.string.about_hicto);
         supportActionBar.setDisplayHomeAsUpEnabled(true);
         supportActionBar.setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.drawable.arrow_left);
@@ -35,17 +34,6 @@ public class AboutActivity extends BaseActivity {
                 finish();
             }
         });
-        ((TextView) findViewById(R.id.introduction).findViewById(R.id.label)).setText(R.string.introduction);
-        ((TextView) findViewById(R.id.feedback).findViewById(R.id.label)).setText(R.string.feedback);
-        ((TextView) findViewById(R.id.help).findViewById(R.id.label)).setText(R.string.help);
 
-        findViewById(R.id.introduction).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(AboutActivity.this, IntroductionActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 }

@@ -52,7 +52,7 @@
     <string name="expert_signup">Expert Signup</string>
     <string name="sign_up">Sign Up</string>
     <string name="missing_name">name cannot be empty</string>
-    <string name="invalide_email">Email is invalid</string>
+    <string name="invalid_email">Email is invalid</string>
     <string name="password_not_same">two passwords entered are not the same</string>
     <string name="invalid_password_length">password length must be not be less than 6</string>
     <string name="missing_invitation_code">invitation code cannot be empty</string>

@@ -75,7 +75,7 @@ public class ExpertSignUpActivity extends BaseActivity {
                     return;
                 }
                 if (!StringUtils.isEmailValid(email)) {
-                    showToast(R.string.invalide_email);
+                    showToast(R.string.invalid_email);
                     return;
                 }
                 if (StringUtils.isEmpty(password) || StringUtils.isEmpty(passwordConfirm)) {
