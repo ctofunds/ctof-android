@@ -174,7 +174,12 @@
                 android:text="今日明星"
                 android:textColor="#999999" />
 
+            <ListView
+                android:id="@+id/todayStarListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+            </ListView>
         </LinearLayout>
 
 

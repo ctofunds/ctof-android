@@ -1,6 +1,7 @@
 package com.ctofunds.android.module.topic;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,9 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ctofunds.android.BaseFragment;
 import com.ctofunds.android.R;
@@ -19,6 +24,10 @@ import com.ctofunds.android.utility.DisplayUtil;
 import com.ctofunds.android.widget.Banner.CircleFlowIndicator;
 import com.ctofunds.android.widget.Banner.ImagePagerAdapter;
 import com.ctofunds.android.widget.Banner.ViewFlow;
+import com.fasterxml.jackson.databind.ser.std.NonTypedScalarSerializerBase;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.ArrayList;
 
@@ -30,12 +39,17 @@ public class TopicFragment extends BaseFragment {
     private ViewFlow mViewFlow;
     private CircleFlowIndicator mFlowIndicator;
     private ArrayList<String> imageUrlList = new ArrayList<String>();
+    private ListView mTodayStartListView;
+    private ArrayList<TodayStarObj> mTodayStarList = new ArrayList<TodayStarObj>();
+    private LayoutInflater mInflater;
+    private TodayStarAdapter mTodayStartAdapter;
     ArrayList<String> linkUrlArray= new ArrayList<String>();
     ArrayList<String> titleList= new ArrayList<String>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mInflater = inflater;
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_topic, null);
         initView(root);
 
@@ -49,6 +63,11 @@ public class TopicFragment extends BaseFragment {
         titleList.add("Android控件GridView之仿支付宝钱包首页带有分割线的GridView九宫格的完美实现");
         titleList.add("Android动画之仿美团加载数据等待时，小人奔跑进度动画对话框（附顺丰快递员奔跑效果） ");
         initBanner(imageUrlList);
+
+
+        fakeTodayStarList();
+        setListViewHeightBasedOnChildren(mTodayStartListView, mTodayStartAdapter);
+        mTodayStartAdapter.notifyDataSetChanged();
 
         return root;
     }
@@ -66,10 +85,13 @@ public class TopicFragment extends BaseFragment {
         int pxHeight = 567*screenSize.x/750;
         viewFlowWraper.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, pxHeight));
         viewFlowWraper.requestLayout();
-    }
 
-    public int DPFromPixels(int pixels){
-        return (int)(pixels / getResources().getDisplayMetrics().density);
+        mTodayStartListView = (ListView) root.findViewById(R.id.todayStarListView);
+        RelativeLayout todayStartMoreItem = (RelativeLayout) mInflater.inflate(R.layout.item_show_more, null);
+        ((TextView)todayStartMoreItem.findViewById(R.id.textLabel)).setText("查看全部");
+        mTodayStartListView.addFooterView(todayStartMoreItem);
+        mTodayStartAdapter = new TodayStarAdapter();
+        mTodayStartListView.setAdapter(mTodayStartAdapter);
     }
 
     private void initBanner(ArrayList<String> imageUrlList) {
@@ -85,12 +107,88 @@ public class TopicFragment extends BaseFragment {
         mViewFlow.startAutoFlowTimer(); // 启动自动播放
     }
 
-    private void resizeFragment(int newWidth, int newHeight) {
-        View view = getView();
-        RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(newWidth, newHeight);
-        view.setLayoutParams(p);
-        view.requestLayout();
+    private void fakeTodayStarList() {
+        mTodayStarList.add(new TodayStarObj("https://wwc.alicdn.com/avatar/getAvatar.do?userId=559393633&width=60&height=60&type=sns", "迷宫", "startup", "“HiCTO高效解决了我们在开发中遇到的问题”", "行业:医疗互联网 规模:50人 B轮"));
+        mTodayStarList.add(new TodayStarObj("https://wwc.alicdn.com/avatar/getAvatar.do?userId=2038635733&width=60&height=60&type=sns", "未来", "expert", "“HiCTO高效解决了我们在开发中遇到的问题”", "加入时间:2015年9月 已解决问题:10条"));
     }
 
+    public void setListViewHeightBasedOnChildren(ListView listView, BaseAdapter listAdapter) {
 
+        int totalHeight = 0;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        RelativeLayout moreItemView = (RelativeLayout) mInflater.inflate(R.layout.item_show_more, null);
+        moreItemView.measure(0, 0);
+        int attHeight = moreItemView.getMeasuredHeight();
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * listAdapter.getCount()) + attHeight;
+        listView.setLayoutParams(params);
+    }
+
+    class TodayStarObj {
+        public String avatarImageUrl;
+        public String name;
+        public String role;
+        public String content;
+        public String tagString;
+
+        public TodayStarObj(String avatarImageUrl, String name, String role, String content, String tagString) {
+            this.avatarImageUrl = avatarImageUrl;
+            this.name = name;
+            this.role = role;
+            this.content = content;
+            this.tagString = tagString;
+        }
+    }
+
+    class TodayStarAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return mTodayStarList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return mTodayStarList.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            RelativeLayout itemView;
+            if (convertView == null) {
+                itemView = (RelativeLayout) mInflater.inflate(R.layout.item_today_star, null);
+            } else {
+                itemView = (RelativeLayout) convertView;
+            }
+            TodayStarObj data = mTodayStarList.get(position);
+            ImageView avatarImageView = (ImageView) itemView.findViewById(R.id.avatarImageView);
+            TextView nameLabel = (TextView) itemView.findViewById(R.id.nameLabel);
+            TextView roleLabel = (TextView) itemView.findViewById(R.id.roleLabel);
+            TextView contentLabel = (TextView) itemView.findViewById(R.id.contentLabel);
+            TextView tagLabel = (TextView) itemView.findViewById(R.id.tagLabel);
+            nameLabel.setText(data.name);
+            if (data.role.equals("startup")) {
+                roleLabel.setText("企业");
+                roleLabel.setBackgroundColor(Color.parseColor("#AADE60"));
+            } else {
+                roleLabel.setText("专家");
+                roleLabel.setBackgroundColor(Color.parseColor("#70C7EF"));
+            }
+            roleLabel.setText(data.role);
+            contentLabel.setText(data.content);
+            tagLabel.setText(data.tagString);
+            return itemView;
+        }
+    }
 }
