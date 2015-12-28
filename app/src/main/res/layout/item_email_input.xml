@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/inner_component_margin"
+    android:layout_marginRight="@dimen/inner_component_margin"
+    android:orientation="horizontal">
+
+    <EditText
+        android:id="@id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/half_inner_component_margin"
+        android:layout_marginTop="@dimen/half_inner_component_margin"
+        android:inputType="textEmailAddress"
+        android:hint="@string/invite_expert_email_hint"
+        android:textSize="@dimen/text_size_large" />
+
+</LinearLayout>

@@ -18,6 +18,9 @@ class ApiRequestWithTypeReference<T> extends ApiRequestBase<T> {
 
     @Override
     protected T parseResponse(byte[] data) {
-        return SmsApplication.getSerializer().fromJsonString(typeReference, new String(data));
+        if (data == null || data.length == 0) {
+            return null;
+        }
+        return SmsApplication.getSerializer().deserialize(typeReference, data);
     }
 }

@@ -59,16 +59,8 @@ abstract class ApiRequestBase<T> extends JsonRequest<T> {
             } catch (JsonSyntaxException jse) {
                 return Response.error(new VolleyError("数据格式错误"));
             }
-        } else if (response.statusCode == 401) {
-            Intent intent = new Intent();
-            intent.setClass(SmsApplication.getInstance().getApplicationContext(), LoginActivity.class);
-            return Response.error(new AuthFailureError(intent));
         } else {
-            if (response.data != null && response.data.length > 0) {
-                return Response.error(new VolleyError(new String(response.data)));
-            } else {
-                return Response.error(new VolleyError("服务器错误 code:" + response.statusCode));
-            }
+            return Response.error(new VolleyError("服务器错误 code:" + response.statusCode));
         }
     }
 }

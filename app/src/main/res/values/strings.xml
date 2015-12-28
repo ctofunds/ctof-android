@@ -57,4 +57,7 @@
     <string name="invalid_password_length">password length must be not be less than 6</string>
     <string name="missing_invitation_code">invitation code cannot be empty</string>
     <string name="sign_up_succeed">Sign Up Succeed</string>
+    <string name="send_invitation">Send Invitation</string>
+    <string name="invite_expert_email_hint">Please Input Expert\'s Email</string>
+    <string name="email_sent">Email has been sent</string>
 </resources>

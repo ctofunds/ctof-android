@@ -20,8 +20,11 @@ class ApiRequestWithClass<T> extends ApiRequestBase<T> {
 
     @Override
     protected T parseResponse(byte[] data) {
+        if (data == null || data.length == 0) {
+            return null;
+        }
         String str = new String(data);
         Log.d("ApiRequest", "response:\n" + str);
-        return SmsApplication.getSerializer().fromJsonString(type, str);
+        return SmsApplication.getSerializer().deserialize(type, data);
     }
 }

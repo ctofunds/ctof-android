@@ -28,8 +28,9 @@
         <activity android:name=".module.main.MainActivity"></activity>
         <activity android:name=".module.login.LoginActivity"></activity>
         <activity android:name=".module.setting.ExpertSettingActivity"></activity>
-        <activity android:name=".module.about.AboutActivity"></activity>
-        <activity android:name=".module.about.IntroductionActivity"></activity>
+        <activity android:name=".module.setting.AboutActivity"></activity>
+        <activity android:name=".module.setting.IntroductionActivity"></activity>
+        <activity android:name=".module.setting.InviteExpertActivity"></activity>
         <activity android:name=".module.signup.ExpertSignUpActivity"></activity>
     </application>
 

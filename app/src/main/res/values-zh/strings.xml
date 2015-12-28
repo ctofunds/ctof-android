@@ -55,4 +55,7 @@
     <string name="invalid_password_length">密码长度不能小于6</string>
     <string name="missing_invitation_code">邀请码不能为空</string>
     <string name="sign_up_succeed">注册成功</string>
+    <string name="send_invitation">发送邀请</string>
+    <string name="invite_expert_email_hint">请输入好友的邮箱</string>
+    <string name="email_sent">邮件已发送</string>
 </resources>

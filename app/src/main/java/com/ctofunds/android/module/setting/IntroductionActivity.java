@@ -1,4 +1,4 @@
-package com.ctofunds.android.module.about;
+package com.ctofunds.android.module.setting;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

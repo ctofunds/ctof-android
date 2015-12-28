@@ -41,6 +41,7 @@ public class ExpertProfileFragment extends BaseFragment {
             ApiHandler.get(String.format(ApiConstants.GET_EXPERT, id), Expert.class, new Response.Listener<Expert>() {
                 @Override
                 public void onResponse(Expert response) {
+                    SmsApplication.getAccountService().setExpertAccount(response);
                     updateInfo(inflater, root, response);
                 }
             }, new Response.ErrorListener() {

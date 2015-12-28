@@ -95,4 +95,8 @@ public abstract class BaseService {
         cache.clear();
     }
 
+    protected final String getTag() {
+        return this.getClass().getSimpleName();
+    }
+
 }

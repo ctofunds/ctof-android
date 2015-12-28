@@ -1,12 +1,13 @@
 package com.ctofunds.android.network;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.ctof.sms.api.Error;
 import com.ctofunds.android.SmsApplication;
 import com.ctofunds.android.utility.ServerInfo;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -22,14 +23,16 @@ public final class ApiHandler {
     private static final Response.ErrorListener DEFAULT_ERROR_LISTENER = new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
-            if (error instanceof AuthFailureError) {
-                AuthFailureError authFailure = (AuthFailureError) error;
-                if (authFailure.getResolutionIntent() != null) {
-                    SmsApplication.getInstance().startActivity(authFailure.getResolutionIntent());
+            Context applicationContext = SmsApplication.getInstance().getApplicationContext();
+            if (error.networkResponse != null && error.networkResponse.data != null) {
+                try {
+                    Error errorEntity = SmsApplication.getSerializer().deserialize(Error.class, error.networkResponse.data);
+                    Toast.makeText(applicationContext, errorEntity.getMessage(), Toast.LENGTH_SHORT).show();
                     return;
+                } catch (Exception e) {
+                    Log.w("DEFAULT_ERROR_LISTENER", "error parsing error.networkResponse", e);
                 }
             }
-            Context applicationContext = SmsApplication.getInstance().getApplicationContext();
             String errorMsg = error.getMessage();
             if (errorMsg == null) {
                 errorMsg = "服务器错误";
@@ -62,6 +65,7 @@ public final class ApiHandler {
                         listener,
                         errorListener == null ? DEFAULT_ERROR_LISTENER : errorListener));
     }
+
     public static <REQ, RESP> void post(String relativePath, REQ requestObject,
                                         final TypeReference<RESP> responseType,
                                         Response.Listener<RESP> listener,
