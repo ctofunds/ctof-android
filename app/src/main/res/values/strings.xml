@@ -60,4 +60,8 @@
     <string name="send_invitation">Send Invitation</string>
     <string name="invite_expert_email_hint">Please Input Expert\'s Email</string>
     <string name="email_sent">Email has been sent</string>
+    <string name="notify_immediately">Notify me immediately</string>
+    <string name="notify_on_freetime">Notify me only in freetime</string>
+    <string name="notify_by_push">Notify by push</string>
+    <string name="notify_by_email">Notify by email</string>
 </resources>

@@ -48,7 +48,9 @@
                 android:textColor="@color/dark_grey_label"
                 android:textSize="@dimen/text_size_small" />
 
-            <include layout="@layout/item_setting_switch"></include>
+            <include
+                android:id="@+id/notify_new_topic"
+                layout="@layout/item_setting_switch"></include>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -61,8 +63,13 @@
                 android:textColor="@color/dark_grey_label"
                 android:textSize="@dimen/text_size_small" />
 
-            <include layout="@layout/item_setting_check"></include>
-            <include layout="@layout/item_setting_check"></include>
+            <include
+                android:id="@+id/notify_new_topic_immediately"
+                layout="@layout/item_setting_check"></include>
+
+            <include
+                android:id="@+id/notify_new_topic_on_free_time"
+                layout="@layout/item_setting_check"></include>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -86,9 +93,12 @@
                 android:textColor="@color/dark_grey_label"
                 android:textSize="@dimen/text_size_small" />
 
-            <include layout="@layout/item_setting_switch"></include>
+            <include
+                android:id="@+id/notify_topic_got_accepted_by_email"
+                layout="@layout/item_setting_switch"></include>
 
             <include
+                android:id="@+id/notify_topic_got_accepted_by_push"
                 layout="@layout/item_setting_switch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,9 +115,12 @@
                 android:textColor="@color/dark_grey_label"
                 android:textSize="@dimen/text_size_small" />
 
-            <include layout="@layout/item_setting_switch"></include>
+            <include
+                android:id="@+id/notify_new_comment_by_email"
+                layout="@layout/item_setting_switch"></include>
 
             <include
+                android:id="@+id/notify_new_comment_by_push"
                 layout="@layout/item_setting_switch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

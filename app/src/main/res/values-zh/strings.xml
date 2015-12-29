@@ -58,4 +58,8 @@
     <string name="send_invitation">发送邀请</string>
     <string name="invite_expert_email_hint">请输入好友的邮箱</string>
     <string name="email_sent">邮件已发送</string>
+    <string name="notify_immediately">可在第一时间通知我</string>
+    <string name="notify_on_freetime">仅在非工作时间推送给我*</string>
+    <string name="notify_by_email">邮件通知提醒</string>
+    <string name="notify_by_push">消息通知提醒</string>
 </resources>
