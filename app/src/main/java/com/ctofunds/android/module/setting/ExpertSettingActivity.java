@@ -86,7 +86,7 @@ public class ExpertSettingActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(ExpertSettingActivity.this, PushSettingActivity.class);
+                intent.setClass(ExpertSettingActivity.this, ExpertPushSettingActivity.class);
                 startActivity(intent);
             }
         });

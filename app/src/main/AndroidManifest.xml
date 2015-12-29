@@ -31,7 +31,7 @@
         <activity android:name=".module.setting.AboutActivity"></activity>
         <activity android:name=".module.setting.IntroductionActivity"></activity>
         <activity android:name=".module.setting.InviteExpertActivity"></activity>
-        <activity android:name=".module.setting.PushSettingActivity"></activity>
+        <activity android:name=".module.setting.ExpertPushSettingActivity"></activity>
         <activity android:name=".module.signup.ExpertSignUpActivity"></activity>
     </application>
 

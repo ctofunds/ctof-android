@@ -16,7 +16,7 @@ import com.ctofunds.android.SmsApplication;
 /**
  * Created by qianhao.zhou on 12/29/15.
  */
-public class PushSettingActivity extends BaseActivity {
+public class ExpertPushSettingActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
