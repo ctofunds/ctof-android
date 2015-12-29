@@ -82,5 +82,13 @@ public class ExpertSettingActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        findViewById(R.id.modify_push_setting).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(ExpertSettingActivity.this, PushSettingActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

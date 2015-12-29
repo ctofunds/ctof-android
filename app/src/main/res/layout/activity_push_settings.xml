@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_fragment_container">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/layout_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></include>
+
+
+    <Button
+        android:id="@+id/confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/title_bar_horizontal_margin"
+        android:background="@drawable/selector_bg_button"
+        android:text="@string/confirm"
+        android:textColor="@drawable/selector_fg_button"
+        android:textSize="@dimen/text_size_button" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/confirm"
+        android:layout_below="@id/toolbar"
+        android:background="@color/bg_fragment_container">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/inner_component_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/inner_component_margin"
+                android:text="当我的专长领域有新问题时"
+                android:textColor="@color/dark_grey_label"
+                android:textSize="@dimen/text_size_small" />
+
+            <include layout="@layout/item_setting_switch"></include>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/inner_component_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/inner_component_margin"
+                android:text="当接收新问题时，请在以下时间段推送给我"
+                android:textColor="@color/dark_grey_label"
+                android:textSize="@dimen/text_size_small" />
+
+            <include layout="@layout/item_setting_check"></include>
+            <include layout="@layout/item_setting_check"></include>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/inner_component_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/inner_component_margin"
+                android:text="* 非工作时间含工作日 19:00-22:00 及周末节假日 9:00 - 22:00"
+                android:textColor="@color/dark_grey_label"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/inner_component_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/inner_component_margin"
+                android:text="当我的回答得到采纳时"
+                android:textColor="@color/dark_grey_label"
+                android:textSize="@dimen/text_size_small" />
+
+            <include layout="@layout/item_setting_switch"></include>
+
+            <include
+                layout="@layout/item_setting_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"></include>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/inner_component_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/inner_component_margin"
+                android:text="当我的回答得到采纳时"
+                android:textColor="@color/dark_grey_label"
+                android:textSize="@dimen/text_size_small" />
+
+            <include layout="@layout/item_setting_switch"></include>
+
+            <include
+                layout="@layout/item_setting_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"></include>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

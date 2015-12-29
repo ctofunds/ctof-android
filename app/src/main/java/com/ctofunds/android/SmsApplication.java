@@ -3,6 +3,7 @@ package com.ctofunds.android;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.android.volley.Network;
 import com.android.volley.RequestQueue;
@@ -35,7 +36,7 @@ public class SmsApplication extends Application {
     private volatile static SmsApplication instance;
 
     public static SmsApplication getInstance() {
-        return Preconditions.checkNotNull(instance, "instance has not been initialized in " + Thread.currentThread().getName());
+        return Preconditions.checkNotNull(instance, "instance has not been initialized in Thread " + Thread.currentThread().getName() + " at " + System.currentTimeMillis());
     }
 
     private RequestQueue imageRequestQueue;
@@ -55,6 +56,7 @@ public class SmsApplication extends Application {
         serializer = new JacksonSerializer();
         imageLoader = new ImageLoader(imageRequestQueue, new ImageLruCache(1024 * 1024 * 4));
         instance = this;
+        Log.d("SmsApplication", "SmsApplication has been initialized at " + System.currentTimeMillis());
     }
 
     private RequestQueue initImageRequestQueue() {
