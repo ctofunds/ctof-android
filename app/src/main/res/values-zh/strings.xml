@@ -62,4 +62,5 @@
     <string name="notify_on_freetime">仅在非工作时间推送给我*</string>
     <string name="notify_by_email">邮件通知提醒</string>
     <string name="notify_by_push">消息通知提醒</string>
+    <string name="setting_updated">设置已更新</string>
 </resources>

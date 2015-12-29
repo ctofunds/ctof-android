@@ -79,6 +79,26 @@ public final class ApiHandler {
                         errorListener == null ? DEFAULT_ERROR_LISTENER : errorListener));
     }
 
+    public static <REQ, RESP> void put(String relativePath, REQ requestObject,
+                                       final Class<RESP> responseType,
+                                       Response.Listener<RESP> listener) {
+        put(relativePath, requestObject, responseType, listener, null);
+    }
+
+    public static <REQ, RESP> void put(String relativePath, REQ requestObject,
+                                        Class<RESP> responseType,
+                                        Response.Listener<RESP> listener,
+                                        Response.ErrorListener errorListener) {
+        SmsApplication.getNormalRequestQueue().add(
+                new ApiRequestWithClass<>(Request.Method.PUT,
+                        getUrl(relativePath),
+                        SmsApplication.getSerializer().serialize(requestObject),
+                        responseType,
+                        listener,
+                        errorListener == null ? DEFAULT_ERROR_LISTENER : errorListener));
+    }
+
+
     public static <RESP> void get(String relativePath,
                                   final TypeReference<RESP> responseType,
                                   Response.Listener<RESP> listener,
