@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,10 @@ import android.widget.TextView;
 
 import com.ctofunds.android.BaseFragment;
 import com.ctofunds.android.R;
+import com.ctofunds.android.SmsApplication;
 import com.ctofunds.android.widget.Banner.CircleFlowIndicator;
 import com.ctofunds.android.widget.Banner.ViewFlow;
+import com.ctofunds.android.widget.CircleImageView;
 
 import java.util.ArrayList;
 
@@ -85,9 +88,6 @@ public class TopicFragment extends BaseFragment {
         viewFlowWraper.requestLayout();
 
         mTodayStartListView = (ListView) root.findViewById(R.id.todayStarListView);
-        RelativeLayout todayStartMoreItem = (RelativeLayout) mInflater.inflate(R.layout.item_show_more, null);
-        ((TextView)todayStartMoreItem.findViewById(R.id.textLabel)).setText("查看全部");
-        mTodayStartListView.addFooterView(todayStartMoreItem);
         mTodayStartAdapter = new TodayStarAdapter();
         mTodayStartListView.setAdapter(mTodayStartAdapter);
     }
@@ -126,14 +126,28 @@ public class TopicFragment extends BaseFragment {
 
     class TodayStarAdapter extends BaseAdapter {
 
-        @Override
-        public int getCount() {
-            return mTodayStarList.size();
+        private View moreItem;
+        final int TYPE_ITEM = 0;
+        final int TYPE_MORE = 1;
+
+        public TodayStarAdapter() {
+            moreItem = mInflater.inflate(R.layout.item_show_more, null);
+            ((TextView)moreItem.findViewById(R.id.textLabel)).setText("查看全部");
         }
 
         @Override
-        public Object getItem(int position) {
-            return mTodayStarList.get(position);
+        public int getCount() {
+            return mTodayStarList.size()+1;
+        }
+
+        @Override
+        public Object getItem(int position)
+        {
+            if (position<mTodayStarList.size()) {
+                return mTodayStarList.get(position);
+            } else {
+                return null;
+            }
         }
 
         @Override
@@ -142,30 +156,61 @@ public class TopicFragment extends BaseFragment {
         }
 
         @Override
+        public int getItemViewType(int position) {
+            if (position<mTodayStarList.size()) {
+                return TYPE_ITEM;
+            } else {
+                return TYPE_MORE;
+            }
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return 2;
+        }
+
+        @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            RelativeLayout itemView;
-            if (convertView == null) {
-                itemView = (RelativeLayout) mInflater.inflate(R.layout.item_today_star, null);
+            int type = getItemViewType(position);
+
+            if (type == TYPE_ITEM) {
+                TodayStarViewHolder holder;
+                if (convertView == null) {
+                    convertView = mInflater.inflate(R.layout.item_today_star, null);
+                    holder = new TodayStarViewHolder();
+                    holder.avatarImageView = (CircleImageView) convertView.findViewById(R.id.avatar_imageview);
+                    holder.nameLabel = (TextView) convertView.findViewById(R.id.name_label);
+                    holder.roleLabel = (TextView) convertView.findViewById(R.id.role_label);
+                    holder.contentLabel = (TextView) convertView.findViewById(R.id.content_label);
+                    holder.tagLabel = (TextView) convertView.findViewById(R.id.tag_label);
+                    convertView.setTag(holder);
+                } else {
+                    holder = (TodayStarViewHolder)convertView.getTag();
+                }
+                TodayStarObj data = mTodayStarList.get(position);
+                holder.avatarImageView.setImageUrl(data.avatarImageUrl, SmsApplication.getImageLoader());
+                holder.nameLabel.setText(data.name);
+                if (data.role.equals("startup")) {
+                    holder.roleLabel.setText("企业");
+                    holder.roleLabel.setBackgroundColor(Color.parseColor("#AADE60"));
+                } else {
+                    holder.roleLabel.setText("专家");
+                    holder.roleLabel.setBackgroundColor(Color.parseColor("#70C7EF"));
+                }
+                holder.contentLabel.setText(data.content);
+                holder.tagLabel.setText(data.tagString);
+                return convertView;
             } else {
-                itemView = (RelativeLayout) convertView;
+                return moreItem;
             }
-            TodayStarObj data = mTodayStarList.get(position);
-            ImageView avatarImageView = (ImageView) itemView.findViewById(R.id.avatarImageView);
-            TextView nameLabel = (TextView) itemView.findViewById(R.id.nameLabel);
-            TextView roleLabel = (TextView) itemView.findViewById(R.id.roleLabel);
-            TextView contentLabel = (TextView) itemView.findViewById(R.id.contentLabel);
-            TextView tagLabel = (TextView) itemView.findViewById(R.id.tagLabel);
-            nameLabel.setText(data.name);
-            if (data.role.equals("startup")) {
-                roleLabel.setText("企业");
-                roleLabel.setBackgroundColor(Color.parseColor("#AADE60"));
-            } else {
-                roleLabel.setText("专家");
-                roleLabel.setBackgroundColor(Color.parseColor("#70C7EF"));
-            }
-            contentLabel.setText(data.content);
-            tagLabel.setText(data.tagString);
-            return itemView;
+        }
+
+        private class TodayStarViewHolder {
+            public CircleImageView avatarImageView;
+            public TextView nameLabel;
+            public TextView roleLabel;
+            public TextView contentLabel;
+            public TextView tagLabel;
         }
     }
 }
