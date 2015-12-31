@@ -55,4 +55,16 @@ public final class ServerInfo {
         serverList.put(ServerType.CUSTOM, "http://115.159.100.253:8090");
     }
 
+    public static String getUrl(String relativePath) {
+        String host = ServerInfo.getInstance().getServerHost();
+        String url;
+        if (host.endsWith("/")) {
+            url = host + relativePath;
+        } else {
+            url = host + "/" + relativePath;
+        }
+        return url;
+    }
+
+
 }

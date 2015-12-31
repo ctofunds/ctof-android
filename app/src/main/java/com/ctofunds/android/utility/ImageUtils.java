@@ -110,4 +110,18 @@ public final class ImageUtils {
         return dstBmp;
     }
 
+    private static final String IMAGE_RESIZE_PATTERN = "@%dw_%dh_%dQ";
+
+    public static final String getResizedImageUrl(String url, int width, int height, int quality) {
+        return url + String.format(IMAGE_RESIZE_PATTERN, width, height, quality);
+    }
+
+    public static final String getAvatarUrl(String url) {
+        return getResizedImageUrl(url, 160, 160, 100);
+    }
+
+    public static final String getCoverUrl(String url) {
+        return getResizedImageUrl(url, 1000, 1000, 100);
+    }
+
 }

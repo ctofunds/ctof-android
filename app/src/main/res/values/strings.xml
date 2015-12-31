@@ -65,4 +65,11 @@
     <string name="notify_by_push">Notify by push</string>
     <string name="notify_by_email">Notify by email</string>
     <string name="setting_updated">Settings have been updated</string>
+    <string name="complete_profile">Complete Profile</string>
+    <string name="submit">Submit</string>
+    <string name="set_expert_cover">Set personal image</string>
+    <string name="camera">Camera</string>
+    <string name="album">Album</string>
+    <string name="uploading">Please wait while uploading</string>
+    <string name="upload_retry">Upload failed, please retry</string>
 </resources>

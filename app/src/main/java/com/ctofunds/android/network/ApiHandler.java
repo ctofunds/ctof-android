@@ -59,7 +59,7 @@ public final class ApiHandler {
                                         Response.ErrorListener errorListener) {
         SmsApplication.getNormalRequestQueue().add(
                 new ApiRequestWithClass<>(Request.Method.POST,
-                        getUrl(relativePath),
+                        ServerInfo.getUrl(relativePath),
                         SmsApplication.getSerializer().serialize(requestObject),
                         responseType,
                         listener,
@@ -72,7 +72,7 @@ public final class ApiHandler {
                                         Response.ErrorListener errorListener) {
         SmsApplication.getNormalRequestQueue().add(
                 new ApiRequestWithTypeReference<>(Request.Method.POST,
-                        getUrl(relativePath),
+                        ServerInfo.getUrl(relativePath),
                         SmsApplication.getSerializer().serialize(requestObject),
                         responseType,
                         listener,
@@ -91,7 +91,7 @@ public final class ApiHandler {
                                         Response.ErrorListener errorListener) {
         SmsApplication.getNormalRequestQueue().add(
                 new ApiRequestWithClass<>(Request.Method.PUT,
-                        getUrl(relativePath),
+                        ServerInfo.getUrl(relativePath),
                         SmsApplication.getSerializer().serialize(requestObject),
                         responseType,
                         listener,
@@ -105,7 +105,7 @@ public final class ApiHandler {
                                   Response.ErrorListener errorListener) {
         SmsApplication.getNormalRequestQueue().add(
                 new ApiRequestWithTypeReference<>(Request.Method.GET,
-                        getUrl(relativePath),
+                        ServerInfo.getUrl(relativePath),
                         null,
                         responseType,
                         listener,
@@ -118,21 +118,11 @@ public final class ApiHandler {
                                   Response.ErrorListener errorListener) {
         SmsApplication.getNormalRequestQueue().add(
                 new ApiRequestWithClass<>(Request.Method.GET,
-                        getUrl(relativePath),
+                        ServerInfo.getUrl(relativePath),
                         null,
                         responseType,
                         listener,
                         errorListener == null ? DEFAULT_ERROR_LISTENER : errorListener));
     }
 
-    private static String getUrl(String relativePath) {
-        String host = ServerInfo.getInstance().getServerHost();
-        String url;
-        if (host.endsWith("/")) {
-            url = host + relativePath;
-        } else {
-            url = host + "/" + relativePath;
-        }
-        return url;
-    }
 }

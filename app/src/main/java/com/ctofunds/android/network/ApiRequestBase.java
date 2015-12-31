@@ -1,14 +1,11 @@
 package com.ctofunds.android.network;
 
-import android.content.Intent;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonRequest;
 import com.ctofunds.android.SmsApplication;
-import com.ctofunds.android.module.login.LoginActivity;
 import com.ctofunds.android.utility.Environment;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonSyntaxException;
@@ -31,6 +28,7 @@ abstract class ApiRequestBase<T> extends JsonRequest<T> {
         if (token != null) {
             headers.put("X-AUTH-TOKEN", token);
         }
+        headers.put("Content-Type", "application/json");
         HEADERS = Collections.unmodifiableMap(headers);
     }
 

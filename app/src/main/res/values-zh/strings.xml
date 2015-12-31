@@ -63,4 +63,11 @@
     <string name="notify_by_email">邮件通知提醒</string>
     <string name="notify_by_push">消息通知提醒</string>
     <string name="setting_updated">设置已更新</string>
+    <string name="complete_profile">完善个人信息</string>
+    <string name="submit">提交</string>
+    <string name="set_expert_cover">设置个人形象</string>
+    <string name="album">相册</string>
+    <string name="camera">拍照</string>
+    <string name="uploading">上传中，请稍等</string>
+    <string name="upload_retry">上传失败，请重试</string>
 </resources>

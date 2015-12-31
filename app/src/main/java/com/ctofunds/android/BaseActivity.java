@@ -3,6 +3,7 @@ package com.ctofunds.android;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,6 +23,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }
 
+    private void throwIfNotOnMainThread() {
+        if (Looper.myLooper() != Looper.getMainLooper()) {
+            Log.e(getTag(), "operation must be invoked from the main thread.");
+            throw new IllegalStateException("operation must be invoked from the main thread.");
+        }
+    }
+
     private ProgressDialog progressDialog;
 
     protected void showToast(String msg) {
@@ -32,23 +40,39 @@ public abstract class BaseActivity extends AppCompatActivity {
         Toast.makeText(this, this.getApplicationContext().getResources().getString(resId), Toast.LENGTH_SHORT).show();
     }
 
-    protected void showProgressDialog(int resId) {
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(this);
-        }
-        progressDialog.setTitle(null);
-        progressDialog.setMessage(this.getApplicationContext().getResources().getString(resId));
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+    protected void showProgressDialog(final int resId) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (progressDialog == null) {
+                    progressDialog = new ProgressDialog(BaseActivity.this);
+                }
+                if (!progressDialog.isShowing()) {
+                    progressDialog.setTitle(null);
+                    progressDialog.setMessage(BaseActivity.this.getApplicationContext().getResources().getString(resId));
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+                }
+            }
+        });
     }
-    protected void showProgressDialog(String title, String msg) {
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(this);
-        }
-        progressDialog.setTitle(title);
-        progressDialog.setMessage(msg);
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+
+    protected void showProgressDialog(final String title, final String msg) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (progressDialog == null) {
+                    progressDialog = new ProgressDialog(BaseActivity.this);
+                }
+                if (!progressDialog.isShowing()) {
+                    progressDialog.setTitle(title);
+                    progressDialog.setMessage(msg);
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+                }
+            }
+        });
+
     }
 
     protected void dismissProgressDialog() {

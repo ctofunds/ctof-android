@@ -9,7 +9,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 /**
  * Created by qianhao.zhou on 12/24/15.
  */
-class ApiRequestWithClass<T> extends ApiRequestBase<T> {
+public class ApiRequestWithClass<T> extends ApiRequestBase<T> {
 
     private Class<T> type;
 
