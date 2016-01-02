@@ -70,4 +70,8 @@
     <string name="camera">拍照</string>
     <string name="uploading">上传中，请稍等</string>
     <string name="upload_retry">上传失败，请重试</string>
+    <string name="set_avatar">设置头像</string>
+    <string name="company">就职机构</string>
+    <string name="position">头衔/职位</string>
+    <string name="location">所在城市</string>
 </resources>

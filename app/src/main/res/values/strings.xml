@@ -72,4 +72,8 @@
     <string name="album">Album</string>
     <string name="uploading">Please wait while uploading</string>
     <string name="upload_retry">Upload failed, please retry</string>
+    <string name="set_avatar">Set avatar</string>
+    <string name="company">Company</string>
+    <string name="position">Position</string>
+    <string name="location">Location</string>
 </resources>

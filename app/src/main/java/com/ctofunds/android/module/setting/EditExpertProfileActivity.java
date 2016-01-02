@@ -12,8 +12,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -29,6 +33,7 @@ import com.ctofunds.android.exception.ImageUploaderException;
 import com.ctofunds.android.network.ApiHandler;
 import com.ctofunds.android.utility.ImageUploader;
 import com.ctofunds.android.utility.ImageUtils;
+import com.ctofunds.android.widget.CircleImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -40,6 +45,8 @@ public class EditExpertProfileActivity extends BaseActivity {
 
     private static final int SELECT_COVER_FROM_CAMERA = 1;
     private static final int SELECT_COVER_FROM_ALBUM = 2;
+    private static final int SELECT_AVATAR_FROM_CAMERA = 3;
+    private static final int SELECT_AVATAR_FROM_ALBUM = 4;
 
     UpdateExpertRequest updateExpertRequest = new UpdateExpertRequest();
     Expert expert;
@@ -107,11 +114,20 @@ public class EditExpertProfileActivity extends BaseActivity {
             findViewById(R.id.submit).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    String name = ((EditText) findViewById(R.id.name)).getText().toString().trim();
+                    if (name.length() == 0) {
+                        showToast(R.string.missing_name);
+                        return;
+                    } else {
+                        updateExpertRequest.setName(name);
+                    }
+                    showProgressDialog(R.string.wait_tips);
                     ApiHandler.put(String.format(ApiConstants.GET_EXPERT, expert.getId()), updateExpertRequest, Expert.class, new Response.Listener<Expert>() {
                         @Override
                         public void onResponse(Expert response) {
                             SmsApplication.getAccountService().setExpertAccount(response);
                             dismissProgressDialog();
+                            updateExpertRequest = new UpdateExpertRequest();
                             showToast(R.string.setting_updated);
                         }
                     }, new Response.ErrorListener() {
@@ -123,6 +139,33 @@ public class EditExpertProfileActivity extends BaseActivity {
                     });
                 }
             });
+            if (expert.getAvatar() != null) {
+                ((CircleImageView) findViewById(R.id.avatar)).setImageUrl(ImageUtils.getAvatarUrl(expert.getAvatar()), SmsApplication.getImageLoader());
+            }
+            findViewById(R.id.avatar).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EditExpertProfileActivity.this);
+                    builder.setTitle(R.string.set_avatar).setPositiveButton(R.string.camera, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            File f = getTempFile();
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                            startActivityForResult(intent, SELECT_AVATAR_FROM_CAMERA);
+                        }
+                    }).setNegativeButton(R.string.album, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            intent.setType("image/*");
+                            startActivityForResult(intent, SELECT_AVATAR_FROM_ALBUM);
+                        }
+                    }).setCancelable(true).show();
+                }
+            });
+            ((EditText) findViewById(R.id.name)).setText(expert.getName());
+
         }
     }
 
@@ -140,6 +183,12 @@ public class EditExpertProfileActivity extends BaseActivity {
             } else if (requestCode == SELECT_COVER_FROM_ALBUM) {
                 showProgressDialog(R.string.uploading);
                 SmsApplication.getEventBus().post(new BackFromAlbumEvent(data.getData(), expert.getId(), COVER));
+            } else if (requestCode == SELECT_AVATAR_FROM_ALBUM) {
+                showProgressDialog(R.string.uploading);
+                SmsApplication.getEventBus().post(new BackFromAlbumEvent(data.getData(), expert.getId(), AVATAR));
+            } else if (requestCode == SELECT_AVATAR_FROM_CAMERA) {
+                showProgressDialog(R.string.uploading);
+                SmsApplication.getEventBus().post(new BackFromCameraEvent(getTempFile(), expert.getId(), COVER));
             }
         }
     }
@@ -192,7 +241,8 @@ public class EditExpertProfileActivity extends BaseActivity {
                 ((NetworkImageView) findViewById(R.id.cover)).setImageUrl(ImageUtils.getCoverUrl(imageUploadSuccessEvent.url), SmsApplication.getImageLoader());
                 updateExpertRequest.setCoverImage(imageUploadSuccessEvent.url);
             } else if (imageUploadSuccessEvent.type == AVATAR) {
-
+                ((CircleImageView) findViewById(R.id.avatar)).setImageUrl(ImageUtils.getAvatarUrl(imageUploadSuccessEvent.url), SmsApplication.getImageLoader());
+                updateExpertRequest.setAvatar(imageUploadSuccessEvent.url);
             }
         } else {
             showToast(R.string.upload_retry);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_fragment_container">
@@ -39,6 +40,79 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"></com.android.volley.toolbox.NetworkImageView>
+
+            <LinearLayout
+                android:id="@+id/basic_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cover"
+                android:layout_marginLeft="@dimen/inner_component_margin"
+                android:layout_marginRight="@dimen/inner_component_margin"
+                android:orientation="horizontal">
+
+                <com.ctofunds.android.widget.CircleImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/default_expert_avatar"
+                    app:border_color="@color/light_grey"
+                    app:border_width="1dp">
+
+                </com.ctofunds.android.widget.CircleImageView>
+
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/inner_component_margin"
+                    android:hint="@string/name"
+                    android:inputType="text"
+                    android:textColor="@color/black_label"
+                    android:textSize="@dimen/text_size_extra_large" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/basic_info"
+                android:layout_marginLeft="@dimen/inner_component_margin"
+                android:layout_marginRight="@dimen/inner_component_margin"
+                android:layout_marginTop="@dimen/inner_component_margin"
+                android:hint="@string/company"
+                android:inputType="text"
+                android:textColor="@color/black_label"
+                android:textSize="@dimen/text_size_extra_large" />
+
+            <EditText
+                android:id="@+id/position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/company"
+                android:layout_marginLeft="@dimen/inner_component_margin"
+                android:layout_marginRight="@dimen/inner_component_margin"
+                android:layout_marginTop="@dimen/inner_component_margin"
+                android:hint="@string/position"
+                android:inputType="text"
+                android:textColor="@color/black_label"
+                android:textSize="@dimen/text_size_extra_large" />
+
+            <EditText
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/position"
+                android:layout_marginLeft="@dimen/inner_component_margin"
+                android:layout_marginRight="@dimen/inner_component_margin"
+                android:layout_marginTop="@dimen/inner_component_margin"
+                android:hint="@string/location"
+                android:inputType="text"
+                android:textColor="@color/black_label"
+                android:textSize="@dimen/text_size_extra_large" />
+
+
         </RelativeLayout>
 
     </ScrollView>
