@@ -15,14 +15,18 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.NetworkImageView;
+import com.ctof.sms.api.Code;
 import com.ctof.sms.api.Expert;
 import com.ctof.sms.api.UpdateExpertRequest;
 import com.ctofunds.android.BaseActivity;
@@ -31,12 +35,14 @@ import com.ctofunds.android.SmsApplication;
 import com.ctofunds.android.constants.ApiConstants;
 import com.ctofunds.android.exception.ImageUploaderException;
 import com.ctofunds.android.network.ApiHandler;
+import com.ctofunds.android.utility.Environment;
 import com.ctofunds.android.utility.ImageUploader;
 import com.ctofunds.android.utility.ImageUtils;
 import com.ctofunds.android.widget.CircleImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.Map;
 
 /**
  * Created by qianhao.zhou on 12/30/15.
@@ -47,6 +53,8 @@ public class EditExpertProfileActivity extends BaseActivity {
     private static final int SELECT_COVER_FROM_ALBUM = 2;
     private static final int SELECT_AVATAR_FROM_CAMERA = 3;
     private static final int SELECT_AVATAR_FROM_ALBUM = 4;
+
+    private static final int GRID_ITEM_COUNT_PER_ROW = 4;
 
     UpdateExpertRequest updateExpertRequest = new UpdateExpertRequest();
     Expert expert;
@@ -121,6 +129,14 @@ public class EditExpertProfileActivity extends BaseActivity {
                     } else {
                         updateExpertRequest.setName(name);
                     }
+                    String company = ((EditText) findViewById(R.id.company)).getText().toString().trim();
+                    if (company.length() > 0) {
+                        updateExpertRequest.setCompany(company);
+                    }
+                    String position = ((EditText) findViewById(R.id.position)).getText().toString().trim();
+                    if (position.length() > 0) {
+                        updateExpertRequest.setPosition(position);
+                    }
                     showProgressDialog(R.string.wait_tips);
                     ApiHandler.put(String.format(ApiConstants.GET_EXPERT, expert.getId()), updateExpertRequest, Expert.class, new Response.Listener<Expert>() {
                         @Override
@@ -165,9 +181,63 @@ public class EditExpertProfileActivity extends BaseActivity {
                 }
             });
             ((EditText) findViewById(R.id.name)).setText(expert.getName());
+            ((EditText) findViewById(R.id.company)).setText(expert.getCompany());
+            ((EditText) findViewById(R.id.position)).setText(expert.getPosition());
 
+            LayoutInflater layoutInflater = getLayoutInflater();
+            initExpertiseLayout(layoutInflater);
+            initManagementSkillLayout(layoutInflater);
         }
     }
+
+    private void initExpertiseLayout(LayoutInflater layoutInflater) {
+        GridLayout expertiseContainer = (GridLayout) findViewById(R.id.expertise);
+        Code domain = SmsApplication.getCodeService().getCategory();
+        final int width = Environment.getInstance().screenWidthPixels() / GRID_ITEM_COUNT_PER_ROW;
+        for (Map.Entry<String, String> entry : domain.getMapping().entrySet()) {
+            TextView expertise = (TextView) layoutInflater.inflate(R.layout.item_grid_selectable, null);
+            expertise.setTag(entry.getKey());
+            expertise.setText(entry.getValue());
+            GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+            params.width = width;
+            expertiseContainer.addView(expertise, params);
+        }
+        int toFill = GRID_ITEM_COUNT_PER_ROW - domain.getMapping().size() % GRID_ITEM_COUNT_PER_ROW;
+        if (toFill < GRID_ITEM_COUNT_PER_ROW) {
+            for (int i = 0; i < toFill; ++i) {
+                TextView expertise = (TextView) layoutInflater.inflate(R.layout.item_grid_selectable, null);
+                expertise.setEnabled(false);
+                GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+                params.width = width;
+                expertiseContainer.addView(expertise, params);
+            }
+        }
+    }
+
+    private void initManagementSkillLayout(LayoutInflater layoutInflater) {
+        GridLayout managementSkillContainer = (GridLayout) findViewById(R.id.management_skill);
+        Code domain = SmsApplication.getCodeService().getManagementSkill();
+        final int width = Environment.getInstance().screenWidthPixels() / GRID_ITEM_COUNT_PER_ROW;
+        for (Map.Entry<String, String> entry : domain.getMapping().entrySet()) {
+            TextView expertise = (TextView) layoutInflater.inflate(R.layout.item_grid_selectable, null);
+            expertise.setTag(entry.getKey());
+            expertise.setText(entry.getValue());
+            GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+            params.width = width;
+            managementSkillContainer.addView(expertise, params);
+        }
+        int toFill = GRID_ITEM_COUNT_PER_ROW - domain.getMapping().size() % GRID_ITEM_COUNT_PER_ROW;
+        if (toFill < GRID_ITEM_COUNT_PER_ROW) {
+            for (int i = 0; i < toFill; ++i) {
+                TextView expertise = (TextView) layoutInflater.inflate(R.layout.item_grid_selectable, null);
+                expertise.setEnabled(false);
+                GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+                params.width = width;
+                managementSkillContainer.addView(expertise, params);
+            }
+        }
+    }
+
 
     private static final File getTempFile() {
         return new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");

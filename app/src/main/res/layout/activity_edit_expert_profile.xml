@@ -29,11 +29,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/submit"
-        android:layout_below="@id/toolbar">
+        android:layout_below="@id/toolbar"
+        android:background="@android:color/white">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/cover"
@@ -45,7 +47,6 @@
                 android:id="@+id/basic_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/cover"
                 android:layout_marginLeft="@dimen/inner_component_margin"
                 android:layout_marginRight="@dimen/inner_component_margin"
                 android:orientation="horizontal">
@@ -73,11 +74,11 @@
                     android:textSize="@dimen/text_size_extra_large" />
             </LinearLayout>
 
+
             <EditText
                 android:id="@+id/company"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/basic_info"
                 android:layout_marginLeft="@dimen/inner_component_margin"
                 android:layout_marginRight="@dimen/inner_component_margin"
                 android:layout_marginTop="@dimen/inner_component_margin"
@@ -90,7 +91,6 @@
                 android:id="@+id/position"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/company"
                 android:layout_marginLeft="@dimen/inner_component_margin"
                 android:layout_marginRight="@dimen/inner_component_margin"
                 android:layout_marginTop="@dimen/inner_component_margin"
@@ -103,7 +103,6 @@
                 android:id="@+id/location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/position"
                 android:layout_marginLeft="@dimen/inner_component_margin"
                 android:layout_marginRight="@dimen/inner_component_margin"
                 android:layout_marginTop="@dimen/inner_component_margin"
@@ -112,8 +111,44 @@
                 android:textColor="@color/black_label"
                 android:textSize="@dimen/text_size_extra_large" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_fragment_container"
+                android:paddingBottom="@dimen/inner_component_margin"
+                android:paddingLeft="@dimen/activity_vertical_margin"
+                android:paddingTop="@dimen/inner_component_margin"
+                android:text="团队管理经验"
+                android:textColor="@color/dark_grey_label"
+                android:textSize="@dimen/text_size_small" />
 
-        </RelativeLayout>
+            <GridLayout
+                android:id="@+id/management_skill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="4"
+                android:orientation="horizontal"></GridLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_fragment_container"
+                android:paddingBottom="@dimen/inner_component_margin"
+                android:paddingLeft="@dimen/activity_vertical_margin"
+                android:paddingTop="@dimen/inner_component_margin"
+                android:text="技术专长(可多选)"
+                android:textColor="@color/dark_grey_label"
+                android:textSize="@dimen/text_size_small" />
+
+            <GridLayout
+                android:id="@+id/expertise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="4"
+                android:orientation="horizontal"></GridLayout>
+
+
+        </LinearLayout>
 
     </ScrollView>
 
