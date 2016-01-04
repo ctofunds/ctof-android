@@ -55,6 +55,7 @@ public class LoginActivity extends BaseActivity {
         });
 
         emailField = (EditText) findViewById(R.id.email);
+        emailField.setText(getIntent().getStringExtra("email"));
         passwordField = (EditText) findViewById(R.id.password);
         findViewById(R.id.forgot_password).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +105,6 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         dismissProgressDialog();
-                        showToast(error.getMessage());
                     }
                 });
             }

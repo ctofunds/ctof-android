@@ -12,13 +12,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TextView;
@@ -39,9 +36,14 @@ import com.ctofunds.android.utility.Environment;
 import com.ctofunds.android.utility.ImageUploader;
 import com.ctofunds.android.utility.ImageUtils;
 import com.ctofunds.android.widget.CircleImageView;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import com.google.common.collect.Lists;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -60,16 +62,9 @@ public class EditExpertProfileActivity extends BaseActivity {
     Expert expert;
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        SmsApplication.getEventBus().unregister(this);
-    }
-
-    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_expert_profile);
-        SmsApplication.getEventBus().register(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -119,6 +114,7 @@ public class EditExpertProfileActivity extends BaseActivity {
 
                 }
             });
+            final BiMap<String, String> cities = HashBiMap.create(SmsApplication.getCodeService().getCity().getMapping());
             findViewById(R.id.submit).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -137,6 +133,34 @@ public class EditExpertProfileActivity extends BaseActivity {
                     if (position.length() > 0) {
                         updateExpertRequest.setPosition(position);
                     }
+                    String location = ((EditText) findViewById(R.id.location)).getText().toString().trim();
+                    if (location.length() > 0) {
+                        String cityId = cities.inverse().get(location);
+                        if (cityId != null) {
+                            updateExpertRequest.setCity(Integer.parseInt(cityId));
+                        }
+                    }
+                    ViewGroup expertiseContainer = (ViewGroup) findViewById(R.id.expertise);
+                    ArrayList<Integer> expertise = Lists.newArrayList();
+                    for (int i = 0, size = expertiseContainer.getChildCount(); i < size; ++i) {
+                        View child = expertiseContainer.getChildAt(i);
+                        if (child.isSelected()) {
+                            expertise.add((Integer) child.getTag());
+                        }
+                    }
+                    updateExpertRequest.setExpertise(expertise);
+                    ViewGroup managementSkillContainer = (ViewGroup) findViewById(R.id.management_skill);
+                    for (int i = 0, size = managementSkillContainer.getChildCount(); i < size; ++i) {
+                        View child = managementSkillContainer.getChildAt(i);
+                        if (child.isSelected()) {
+                            updateExpertRequest.setManagementSkill((Integer) child.getTag());
+                            break;
+                        }
+                    }
+                    String description = ((EditText) findViewById(R.id.description)).getText().toString().trim();
+                    if (description.length() > 0) {
+                        updateExpertRequest.setDescription(description);
+                    }
                     showProgressDialog(R.string.wait_tips);
                     ApiHandler.put(String.format(ApiConstants.GET_EXPERT, expert.getId()), updateExpertRequest, Expert.class, new Response.Listener<Expert>() {
                         @Override
@@ -150,7 +174,6 @@ public class EditExpertProfileActivity extends BaseActivity {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             dismissProgressDialog();
-                            showToast(error.getMessage());
                         }
                     });
                 }
@@ -183,57 +206,111 @@ public class EditExpertProfileActivity extends BaseActivity {
             ((EditText) findViewById(R.id.name)).setText(expert.getName());
             ((EditText) findViewById(R.id.company)).setText(expert.getCompany());
             ((EditText) findViewById(R.id.position)).setText(expert.getPosition());
+            ((EditText) findViewById(R.id.description)).setText(expert.getDescription());
 
             LayoutInflater layoutInflater = getLayoutInflater();
-            initExpertiseLayout(layoutInflater);
-            initManagementSkillLayout(layoutInflater);
+            initCitySelector(expert);
+            initExpertiseLayout(expert, layoutInflater);
+            initManagementSkillLayout(expert, layoutInflater);
         }
     }
 
-    private void initExpertiseLayout(LayoutInflater layoutInflater) {
+    private void initCitySelector(Expert expert) {
+        final Map<String, String> cityBiMap = SmsApplication.getCodeService().getCity().getMapping();
+        final CharSequence[] cities = Lists.newArrayList(cityBiMap.values()).toArray(new CharSequence[0]);
+        final EditText locationEditor = (EditText) findViewById(R.id.location);
+        if (expert.getCity() != null) {
+            locationEditor.setText(cityBiMap.get(expert.getCity().toString()));
+        }
+        locationEditor.setFocusable(false);
+        locationEditor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(EditExpertProfileActivity.this);
+                builder.setTitle(R.string.location).setItems(cities, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String city = cities[which].toString();
+                        locationEditor.setText(city);
+                    }
+                }).show();
+            }
+        });
+    }
+
+    private void initExpertiseLayout(Expert expert, LayoutInflater layoutInflater) {
         GridLayout expertiseContainer = (GridLayout) findViewById(R.id.expertise);
+        expertiseContainer.setColumnCount(GRID_ITEM_COUNT_PER_ROW);
         Code domain = SmsApplication.getCodeService().getCategory();
         final int width = Environment.getInstance().screenWidthPixels() / GRID_ITEM_COUNT_PER_ROW;
+        List<Integer> expertise = expert.getExpertise();
         for (Map.Entry<String, String> entry : domain.getMapping().entrySet()) {
-            TextView expertise = (TextView) layoutInflater.inflate(R.layout.item_grid_selectable, null);
-            expertise.setTag(entry.getKey());
-            expertise.setText(entry.getValue());
+            TextView view = (TextView) layoutInflater.inflate(R.layout.item_grid_selectable, null);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    v.setSelected(!v.isSelected());
+                }
+            });
+            Integer id = Integer.parseInt(entry.getKey());
+            view.setSelected(expertise != null && expertise.contains(id));
+            view.setTag(id);
+            view.setText(entry.getValue());
             GridLayout.LayoutParams params = new GridLayout.LayoutParams();
             params.width = width;
-            expertiseContainer.addView(expertise, params);
+            expertiseContainer.addView(view, params);
         }
         int toFill = GRID_ITEM_COUNT_PER_ROW - domain.getMapping().size() % GRID_ITEM_COUNT_PER_ROW;
         if (toFill < GRID_ITEM_COUNT_PER_ROW) {
             for (int i = 0; i < toFill; ++i) {
-                TextView expertise = (TextView) layoutInflater.inflate(R.layout.item_grid_selectable, null);
-                expertise.setEnabled(false);
+                TextView view = (TextView) layoutInflater.inflate(R.layout.item_grid_selectable, null);
+                view.setEnabled(false);
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams();
                 params.width = width;
-                expertiseContainer.addView(expertise, params);
+                expertiseContainer.addView(view, params);
             }
         }
     }
 
-    private void initManagementSkillLayout(LayoutInflater layoutInflater) {
-        GridLayout managementSkillContainer = (GridLayout) findViewById(R.id.management_skill);
+    private void initManagementSkillLayout(Expert expert, LayoutInflater layoutInflater) {
+        final GridLayout managementSkillContainer = (GridLayout) findViewById(R.id.management_skill);
+        managementSkillContainer.setColumnCount(GRID_ITEM_COUNT_PER_ROW);
         Code domain = SmsApplication.getCodeService().getManagementSkill();
         final int width = Environment.getInstance().screenWidthPixels() / GRID_ITEM_COUNT_PER_ROW;
         for (Map.Entry<String, String> entry : domain.getMapping().entrySet()) {
-            TextView expertise = (TextView) layoutInflater.inflate(R.layout.item_grid_selectable, null);
-            expertise.setTag(entry.getKey());
-            expertise.setText(entry.getValue());
+            TextView view = (TextView) layoutInflater.inflate(R.layout.item_grid_selectable, null);
+            Integer id = Integer.parseInt(entry.getKey());
+            view.setSelected(id.equals(expert.getManagementSkill()));
+            view.setTag(id);
+            view.setText(entry.getValue());
             GridLayout.LayoutParams params = new GridLayout.LayoutParams();
             params.width = width;
-            managementSkillContainer.addView(expertise, params);
+            managementSkillContainer.addView(view, params);
         }
+        final int size = managementSkillContainer.getChildCount();
+        for (int i = 0; i < size; ++i) {
+            View skill = managementSkillContainer.getChildAt(i);
+            skill.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!v.isSelected()) {
+                        for (int j = 0; j < size; ++j) {
+                            managementSkillContainer.getChildAt(j).setSelected(false);
+                        }
+                        v.setSelected(true);
+                    }
+                }
+            });
+        }
+
         int toFill = GRID_ITEM_COUNT_PER_ROW - domain.getMapping().size() % GRID_ITEM_COUNT_PER_ROW;
         if (toFill < GRID_ITEM_COUNT_PER_ROW) {
             for (int i = 0; i < toFill; ++i) {
-                TextView expertise = (TextView) layoutInflater.inflate(R.layout.item_grid_selectable, null);
-                expertise.setEnabled(false);
+                TextView view = (TextView) layoutInflater.inflate(R.layout.item_grid_selectable, null);
+                view.setEnabled(false);
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams();
                 params.width = width;
-                managementSkillContainer.addView(expertise, params);
+                managementSkillContainer.addView(view, params);
             }
         }
     }

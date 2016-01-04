@@ -47,7 +47,6 @@ public class ExpertProfileFragment extends BaseFragment {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    showToast(error.getMessage());
                 }
             });
         } else {

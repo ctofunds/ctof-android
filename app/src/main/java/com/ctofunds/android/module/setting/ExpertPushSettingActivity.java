@@ -110,7 +110,6 @@ public class ExpertPushSettingActivity extends BaseActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         dismissProgressDialog();
-                        showToast(error.getMessage());
                     }
                 });
 

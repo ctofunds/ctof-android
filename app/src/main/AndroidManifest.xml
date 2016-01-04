@@ -34,7 +34,9 @@
         <activity android:name=".module.setting.IntroductionActivity"></activity>
         <activity android:name=".module.setting.InviteExpertActivity"></activity>
         <activity android:name=".module.setting.ExpertPushSettingActivity"></activity>
-        <activity android:name=".module.setting.EditExpertProfileActivity"></activity>
+        <activity
+            android:name=".module.setting.EditExpertProfileActivity"
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name=".module.signup.ExpertSignUpActivity"></activity>
     </application>
 

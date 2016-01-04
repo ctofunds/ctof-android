@@ -1,14 +1,22 @@
 package com.ctofunds.android.network;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ctof.sms.api.Error;
+import com.ctofunds.android.BaseActivity;
+import com.ctofunds.android.R;
 import com.ctofunds.android.SmsApplication;
+import com.ctofunds.android.event.TokenExpireEvent;
+import com.ctofunds.android.module.login.LoginActivity;
 import com.ctofunds.android.utility.ServerInfo;
 import com.fasterxml.jackson.core.type.TypeReference;
 
@@ -20,37 +28,32 @@ public final class ApiHandler {
     private ApiHandler() {
     }
 
-    private static final Response.ErrorListener DEFAULT_ERROR_LISTENER = new Response.ErrorListener() {
+    private static class DefaultErrorListener implements Response.ErrorListener {
+
+        private final Response.ErrorListener innerListener;
+
+        private DefaultErrorListener(Response.ErrorListener innerListener) {
+            this.innerListener = innerListener;
+        }
+
         @Override
         public void onErrorResponse(VolleyError error) {
-            Context applicationContext = SmsApplication.getInstance().getApplicationContext();
+            final Context applicationContext = SmsApplication.getInstance().getApplicationContext();
             if (error.networkResponse != null && error.networkResponse.data != null) {
                 try {
                     Error errorEntity = SmsApplication.getSerializer().deserialize(Error.class, error.networkResponse.data);
                     Toast.makeText(applicationContext, errorEntity.getMessage(), Toast.LENGTH_SHORT).show();
-                    return;
                 } catch (Exception e) {
                     Log.w("DEFAULT_ERROR_LISTENER", "error parsing error.networkResponse", e);
                 }
             }
-            String errorMsg = error.getMessage();
-            if (errorMsg == null) {
-                errorMsg = "服务器错误";
+            if (innerListener != null) {
+                innerListener.onErrorResponse(error);
             }
-            Toast.makeText(applicationContext, errorMsg, Toast.LENGTH_SHORT).show();
+            if (error instanceof AuthFailureError) {
+                SmsApplication.getEventBus().post(new TokenExpireEvent());
+            }
         }
-    };
-
-    public static <REQ, RESP> void post(String relativePath, REQ requestObject,
-                                        final Class<RESP> responseType,
-                                        Response.Listener<RESP> listener) {
-        post(relativePath, requestObject, responseType, listener, null);
-    }
-
-    public static <REQ, RESP> void post(String relativePath, REQ requestObject,
-                                        final TypeReference<RESP> responseType,
-                                        Response.Listener<RESP> listener) {
-        post(relativePath, requestObject, responseType, listener, null);
     }
 
     public static <REQ, RESP> void post(String relativePath, REQ requestObject,
@@ -63,7 +66,7 @@ public final class ApiHandler {
                         SmsApplication.getSerializer().serialize(requestObject),
                         responseType,
                         listener,
-                        errorListener == null ? DEFAULT_ERROR_LISTENER : errorListener));
+                        new DefaultErrorListener(errorListener)));
     }
 
     public static <REQ, RESP> void post(String relativePath, REQ requestObject,
@@ -76,26 +79,20 @@ public final class ApiHandler {
                         SmsApplication.getSerializer().serialize(requestObject),
                         responseType,
                         listener,
-                        errorListener == null ? DEFAULT_ERROR_LISTENER : errorListener));
+                        new DefaultErrorListener(errorListener)));
     }
 
     public static <REQ, RESP> void put(String relativePath, REQ requestObject,
-                                       final Class<RESP> responseType,
-                                       Response.Listener<RESP> listener) {
-        put(relativePath, requestObject, responseType, listener, null);
-    }
-
-    public static <REQ, RESP> void put(String relativePath, REQ requestObject,
-                                        Class<RESP> responseType,
-                                        Response.Listener<RESP> listener,
-                                        Response.ErrorListener errorListener) {
+                                       Class<RESP> responseType,
+                                       Response.Listener<RESP> listener,
+                                       Response.ErrorListener errorListener) {
         SmsApplication.getNormalRequestQueue().add(
                 new ApiRequestWithClass<>(Request.Method.PUT,
                         ServerInfo.getUrl(relativePath),
                         SmsApplication.getSerializer().serialize(requestObject),
                         responseType,
                         listener,
-                        errorListener == null ? DEFAULT_ERROR_LISTENER : errorListener));
+                        new DefaultErrorListener(errorListener)));
     }
 
 
@@ -109,7 +106,7 @@ public final class ApiHandler {
                         null,
                         responseType,
                         listener,
-                        errorListener == null ? DEFAULT_ERROR_LISTENER : errorListener));
+                        new DefaultErrorListener(errorListener)));
     }
 
     public static <RESP> void get(String relativePath,
@@ -122,7 +119,7 @@ public final class ApiHandler {
                         null,
                         responseType,
                         listener,
-                        errorListener == null ? DEFAULT_ERROR_LISTENER : errorListener));
+                        new DefaultErrorListener(errorListener)));
     }
 
 }

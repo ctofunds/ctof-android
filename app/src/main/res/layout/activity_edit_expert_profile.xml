@@ -126,7 +126,6 @@
                 android:id="@+id/management_skill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnCount="4"
                 android:orientation="horizontal"></GridLayout>
 
             <TextView
@@ -144,8 +143,34 @@
                 android:id="@+id/expertise"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnCount="4"
                 android:orientation="horizontal"></GridLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_fragment_container"
+                android:paddingBottom="@dimen/inner_component_margin"
+                android:paddingLeft="@dimen/activity_vertical_margin"
+                android:paddingTop="@dimen/inner_component_margin"
+                android:text="个人介绍"
+                android:textColor="@color/dark_grey_label"
+                android:textSize="@dimen/text_size_small" />
+
+            <EditText
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/inner_component_margin"
+                android:layout_marginRight="@dimen/inner_component_margin"
+                android:layout_marginTop="@dimen/inner_component_margin"
+                android:layout_marginBottom="@dimen/inner_component_margin"
+                android:gravity="left|top"
+                android:hint="@string/complete_profile"
+                android:inputType="textMultiLine"
+                android:background="@null"
+                android:minLines="5"
+                android:textColor="@color/black_label"
+                android:textSize="@dimen/text_size_extra_large" />
 
 
         </LinearLayout>
