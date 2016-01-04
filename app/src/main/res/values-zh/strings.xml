@@ -74,4 +74,8 @@
     <string name="company">就职机构</string>
     <string name="position">头衔/职位</string>
     <string name="location">所在城市</string>
+    <string name="input_old_password">请输入旧密码</string>
+    <string name="input_new_password">请输入新密码</string>
+    <string name="input_new_password_again">请再次输入新密码</string>
+    <string name="not_login">您还未登录</string>
 </resources>

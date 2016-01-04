@@ -1,5 +1,6 @@
 package com.ctofunds.android.module.profile;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.ctofunds.android.BaseFragment;
 import com.ctofunds.android.R;
 import com.ctofunds.android.SmsApplication;
 import com.ctofunds.android.constants.ApiConstants;
+import com.ctofunds.android.event.ExpertProfileUpdatedEvent;
 import com.ctofunds.android.network.ApiHandler;
 import com.ctofunds.android.service.CodeService;
 import com.ctofunds.android.utility.Environment;
@@ -32,13 +34,27 @@ import java.util.Map;
  */
 public class ExpertProfileFragment extends BaseFragment {
 
+    private ViewGroup root;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        SmsApplication.getEventBus().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        SmsApplication.getEventBus().unregister(this);
+    }
+
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         long id = getArguments().getLong("id", -1);
-        final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_expert_profile, null);
+        root = (ViewGroup) inflater.inflate(R.layout.fragment_expert_profile, null);
         if (id > 0L) {
-            ApiHandler.get(String.format(ApiConstants.GET_EXPERT, id), Expert.class, new Response.Listener<Expert>() {
+            ApiHandler.get(String.format(ApiConstants.EXPERT, id), Expert.class, new Response.Listener<Expert>() {
                 @Override
                 public void onResponse(Expert response) {
                     SmsApplication.getAccountService().setExpertAccount(response);
@@ -85,6 +101,7 @@ public class ExpertProfileFragment extends BaseFragment {
 
     private void initExpertiseList(LayoutInflater inflater, ViewGroup root, Code expertiseCode, Expert expertAccount) {
         LinearLayout expertiseContainer = (LinearLayout) root.findViewById(R.id.expertise_container);
+        expertiseContainer.removeAllViews();
         Map<String, String> expertiseMapping = expertiseCode.getMapping();
         List<Integer> expertiseList = expertAccount.getExpertise();
         if (expertiseList != null) {
@@ -100,6 +117,7 @@ public class ExpertProfileFragment extends BaseFragment {
     private void initStartupList(LayoutInflater inflater, ViewGroup root, CodeService codeService, Expert expertAccount) {
         List<Startup> startups = expertAccount.getHelpedStartups();
         LinearLayout startupContainer = (LinearLayout) root.findViewById(R.id.startup_list);
+        startupContainer.removeAllViews();
         Code domain = codeService.getDomain();
         Code investmentStatus = codeService.getInvestmentStatus();
         if (startups != null) {
@@ -120,5 +138,10 @@ public class ExpertProfileFragment extends BaseFragment {
                 ((TextView) startupView.findViewById(R.id.startup_location)).setText(codeService.getCity().getMapping().get(startup.getCity().toString()));
             }
         }
+    }
+
+    public void onEventMainThread(ExpertProfileUpdatedEvent event) {
+        LayoutInflater layoutInflater = (LayoutInflater) this.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        updateInfo(layoutInflater, root, event.getExpert());
     }
 }

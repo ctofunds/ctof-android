@@ -32,4 +32,6 @@ public final class Constants {
 
     public static final int REQUEST_LOGIN = 1;
 
+    public static final int TOKEN_EXPIRATION = 60 * 24 * 7;//one week
+
 }

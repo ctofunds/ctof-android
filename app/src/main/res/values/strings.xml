@@ -76,4 +76,8 @@
     <string name="company">Company</string>
     <string name="position">Position</string>
     <string name="location">Location</string>
+    <string name="input_old_password">Please input old password</string>
+    <string name="input_new_password">Please input new password</string>
+    <string name="input_new_password_again">Please input new password again</string>
+    <string name="not_login">You have not logged in</string>
 </resources>

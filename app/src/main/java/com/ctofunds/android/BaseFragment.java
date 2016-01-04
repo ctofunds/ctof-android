@@ -23,4 +23,5 @@ public abstract class BaseFragment extends Fragment {
     protected void showToast(int resId) {
         Toast.makeText(getActivity().getApplicationContext(), getActivity().getApplicationContext().getResources().getString(resId), Toast.LENGTH_SHORT).show();
     }
+
 }

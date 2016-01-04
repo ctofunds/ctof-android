@@ -99,7 +99,7 @@ public class ExpertPushSettingActivity extends BaseActivity {
                 request.setNotifyReplyNewCommentByPush(((Switch) findViewById(R.id.notify_new_comment_by_push).findViewById(R.id.switch_button)).isChecked());
 
                 showProgressDialog(R.string.wait_tips);
-                ApiHandler.put(String.format(ApiConstants.GET_EXPERT, expert.getId()), request, Expert.class, new Response.Listener<Expert>() {
+                ApiHandler.put(String.format(ApiConstants.EXPERT, expert.getId()), request, Expert.class, new Response.Listener<Expert>() {
                     @Override
                     public void onResponse(Expert response) {
                         SmsApplication.getAccountService().setExpertAccount(response);

@@ -17,6 +17,7 @@ import com.ctofunds.android.BaseActivity;
 import com.ctofunds.android.R;
 import com.ctofunds.android.SmsApplication;
 import com.ctofunds.android.constants.ApiConstants;
+import com.ctofunds.android.constants.Constants;
 import com.ctofunds.android.module.signup.ExpertSignUpActivity;
 import com.ctofunds.android.network.ApiHandler;
 import com.ctofunds.android.service.AccountService;
@@ -26,8 +27,6 @@ import com.ctofunds.android.utility.StringUtils;
  * Created by qianhao.zhou on 12/18/15.
  */
 public class LoginActivity extends BaseActivity {
-
-    private static final int EXPIRATION = 60 * 24 * 7;//one week
 
     private Toolbar toolbar;
 
@@ -79,7 +78,7 @@ public class LoginActivity extends BaseActivity {
                 AuthenticationRequest authenticationRequest = new AuthenticationRequest();
                 authenticationRequest.setEmail(email);
                 authenticationRequest.setPassword(password);
-                authenticationRequest.setExpiration(EXPIRATION);
+                authenticationRequest.setExpiration(Constants.TOKEN_EXPIRATION);
                 showProgressDialog(R.string.wait_tips);
                 ApiHandler.post(ApiConstants.LOGIN, authenticationRequest, AuthenticationResponse.class, new Response.Listener<AuthenticationResponse>() {
                     @Override

@@ -98,5 +98,13 @@ public class ExpertSettingActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        findViewById(R.id.modify_password).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(ExpertSettingActivity.this, ChangePasswordActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

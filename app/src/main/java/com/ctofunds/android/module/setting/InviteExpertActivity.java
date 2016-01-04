@@ -75,7 +75,7 @@ public class InviteExpertActivity extends BaseActivity {
                         }
                     }
                     if (!emails.isEmpty()) {
-                        ApiHandler.post(ApiConstants.INVITE, emails, Void.class, new Response.Listener<Void>() {
+                        ApiHandler.post(ApiConstants.INVITES, emails, Void.class, new Response.Listener<Void>() {
                             @Override
                             public void onResponse(Void response) {
                                 int remaining = invitationCount - emails.size();

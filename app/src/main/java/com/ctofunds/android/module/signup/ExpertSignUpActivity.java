@@ -12,7 +12,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ctof.sms.api.AuthenticationResponse;
 import com.ctof.sms.api.CreateExpertRequest;
-import com.ctof.sms.api.Expert;
 import com.ctofunds.android.BaseActivity;
 import com.ctofunds.android.R;
 import com.ctofunds.android.SmsApplication;
@@ -100,7 +99,7 @@ public class ExpertSignUpActivity extends BaseActivity {
                 createExpertRequest.setPassword(password);
                 createExpertRequest.setInviteCode(invitationCode);
                 showProgressDialog(R.string.wait_tips);
-                ApiHandler.post(ApiConstants.CREATE_EXPERT, createExpertRequest, AuthenticationResponse.class, new Response.Listener<AuthenticationResponse>() {
+                ApiHandler.post(ApiConstants.EXPERTS, createExpertRequest, AuthenticationResponse.class, new Response.Listener<AuthenticationResponse>() {
                     @Override
                     public void onResponse(AuthenticationResponse response) {
                         dismissProgressDialog();

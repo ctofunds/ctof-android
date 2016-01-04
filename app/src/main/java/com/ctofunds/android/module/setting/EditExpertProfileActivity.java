@@ -30,6 +30,7 @@ import com.ctofunds.android.BaseActivity;
 import com.ctofunds.android.R;
 import com.ctofunds.android.SmsApplication;
 import com.ctofunds.android.constants.ApiConstants;
+import com.ctofunds.android.event.ExpertProfileUpdatedEvent;
 import com.ctofunds.android.exception.ImageUploaderException;
 import com.ctofunds.android.network.ApiHandler;
 import com.ctofunds.android.utility.Environment;
@@ -58,8 +59,11 @@ public class EditExpertProfileActivity extends BaseActivity {
 
     private static final int GRID_ITEM_COUNT_PER_ROW = 4;
 
-    UpdateExpertRequest updateExpertRequest = new UpdateExpertRequest();
-    Expert expert;
+    private Expert expert;
+
+    private String avatar;
+    private String coverImage;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,7 +87,7 @@ public class EditExpertProfileActivity extends BaseActivity {
 
         expert = SmsApplication.getAccountService().getExpertAccount();
         if (expert != null) {
-            NetworkImageView cover = (NetworkImageView) findViewById(R.id.cover);
+            final NetworkImageView cover = (NetworkImageView) findViewById(R.id.cover);
             cover.getLayoutParams().height = com.ctofunds.android.utility.Environment.getInstance().screenWidthPixels() * 3 / 5;
             cover.getRootView().requestLayout();
             if (expert.getCoverImage() != null) {
@@ -122,9 +126,11 @@ public class EditExpertProfileActivity extends BaseActivity {
                     if (name.length() == 0) {
                         showToast(R.string.missing_name);
                         return;
-                    } else {
-                        updateExpertRequest.setName(name);
                     }
+                    final UpdateExpertRequest updateExpertRequest = new UpdateExpertRequest();
+                    updateExpertRequest.setAvatar(avatar);
+                    updateExpertRequest.setCoverImage(coverImage);
+                    updateExpertRequest.setName(name);
                     String company = ((EditText) findViewById(R.id.company)).getText().toString().trim();
                     if (company.length() > 0) {
                         updateExpertRequest.setCompany(company);
@@ -162,13 +168,13 @@ public class EditExpertProfileActivity extends BaseActivity {
                         updateExpertRequest.setDescription(description);
                     }
                     showProgressDialog(R.string.wait_tips);
-                    ApiHandler.put(String.format(ApiConstants.GET_EXPERT, expert.getId()), updateExpertRequest, Expert.class, new Response.Listener<Expert>() {
+                    ApiHandler.put(String.format(ApiConstants.EXPERT, expert.getId()), updateExpertRequest, Expert.class, new Response.Listener<Expert>() {
                         @Override
                         public void onResponse(Expert response) {
                             SmsApplication.getAccountService().setExpertAccount(response);
                             dismissProgressDialog();
-                            updateExpertRequest = new UpdateExpertRequest();
                             showToast(R.string.setting_updated);
+                            SmsApplication.getEventBus().post(new ExpertProfileUpdatedEvent(response));
                         }
                     }, new Response.ErrorListener() {
                         @Override
@@ -386,10 +392,10 @@ public class EditExpertProfileActivity extends BaseActivity {
         if (imageUploadSuccessEvent.succeed) {
             if (imageUploadSuccessEvent.type == COVER) {
                 ((NetworkImageView) findViewById(R.id.cover)).setImageUrl(ImageUtils.getCoverUrl(imageUploadSuccessEvent.url), SmsApplication.getImageLoader());
-                updateExpertRequest.setCoverImage(imageUploadSuccessEvent.url);
+                coverImage = imageUploadSuccessEvent.url;
             } else if (imageUploadSuccessEvent.type == AVATAR) {
                 ((CircleImageView) findViewById(R.id.avatar)).setImageUrl(ImageUtils.getAvatarUrl(imageUploadSuccessEvent.url), SmsApplication.getImageLoader());
-                updateExpertRequest.setAvatar(imageUploadSuccessEvent.url);
+                avatar = imageUploadSuccessEvent.url;
             }
         } else {
             showToast(R.string.upload_retry);
