@@ -35,6 +35,7 @@
         <activity android:name=".module.setting.InviteExpertActivity"></activity>
         <activity android:name=".module.setting.ExpertPushSettingActivity"></activity>
         <activity android:name=".module.setting.ChangePasswordActivity"></activity>
+        <activity android:name=".module.topic.TopicDetailActivity"></activity>
         <activity
             android:name=".module.setting.EditExpertProfileActivity"
             android:windowSoftInputMode="stateHidden"></activity>

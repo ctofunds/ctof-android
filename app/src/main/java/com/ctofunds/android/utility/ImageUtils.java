@@ -113,7 +113,7 @@ public final class ImageUtils {
     private static final String IMAGE_RESIZE_PATTERN = "@%dw_%dh_%dQ";
 
     public static final String getResizedImageUrl(String url, int width, int height, int quality) {
-        return url + String.format(IMAGE_RESIZE_PATTERN, width, height, quality);
+        return url.replace("oss-cn", "img-cn") + String.format(IMAGE_RESIZE_PATTERN, width, height, quality);
     }
 
     public static final String getAvatarUrl(String url) {

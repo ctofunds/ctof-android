@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_fragment_container">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/layout_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></include>
+
+    <Button
+        android:id="@+id/answer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/title_bar_horizontal_margin"
+        android:background="@drawable/selector_bg_button"
+        android:text="@string/answer_question"
+        android:textColor="@drawable/selector_fg_button"
+        android:textSize="@dimen/text_size_button" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/submit"
+        android:layout_below="@id/toolbar"
+        android:background="@color/bg_fragment_container">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white">
+
+                <com.android.volley.toolbox.NetworkImageView
+                    android:id="@+id/startup_logo"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/inner_component_margin"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/inner_component_margin"
+                    android:layout_marginTop="@dimen/inner_component_margin"
+                    android:src="@drawable/default_startup_logo"></com.android.volley.toolbox.NetworkImageView>
+
+                <TextView
+                    android:id="@+id/startup_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/startup_logo"
+                    android:layout_toRightOf="@id/startup_logo"
+                    android:textColor="@color/black_label"
+                    android:textSize="@dimen/text_size_large" />
+
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/startup_logo"
+                    android:layout_toRightOf="@id/startup_logo"
+                    android:textColor="@color/dark_grey_label"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <TextView
+                    android:id="@+id/domain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/startup_logo"
+                    android:layout_marginLeft="@dimen/half_inner_component_margin"
+                    android:layout_toRightOf="@id/location"
+                    android:textColor="@color/dark_grey_label"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <TextView
+                    android:id="@+id/investment_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/startup_logo"
+                    android:layout_marginLeft="@dimen/half_inner_component_margin"
+                    android:layout_toRightOf="@id/domain"
+                    android:textColor="@color/dark_grey_label"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <TextView
+                    android:id="@+id/label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@id/startup_name"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:text="已提问"
+                    android:textColor="@color/dark_grey_label"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <TextView
+                    android:id="@+id/topic_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/startup_name"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/theme_blue"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <TextView
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/startup_logo"
+                    android:layout_alignTop="@id/startup_logo"
+                    android:layout_marginRight="@dimen/half_inner_component_margin"
+                    android:layout_toLeftOf="@id/label"
+                    android:background="@color/bg_fragment_container"></TextView>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

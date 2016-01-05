@@ -33,6 +33,14 @@
             android:layout_centerHorizontal="true"
             android:text="登录" />
 
+        <Button
+            android:id="@+id/topic_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/expert_entry"
+            android:layout_centerHorizontal="true"
+            android:text="@string/topic_detail" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

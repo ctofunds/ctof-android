@@ -80,4 +80,7 @@
     <string name="input_new_password">Please input new password</string>
     <string name="input_new_password_again">Please input new password again</string>
     <string name="not_login">You have not logged in</string>
+    <string name="topic_detail">Topic Detail</string>
+    <string name="fail_to_get_topic_detail">Failed to get topic detail</string>
+    <string name="answer_question">Answer</string>
 </resources>
