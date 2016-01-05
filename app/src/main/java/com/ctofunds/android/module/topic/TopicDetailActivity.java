@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.NetworkImageView;
+import com.commonsware.cwac.anddown.AndDown;
 import com.ctof.sms.api.Code;
 import com.ctof.sms.api.Startup;
 import com.ctof.sms.api.Topic;
@@ -23,8 +24,6 @@ import com.ctofunds.android.SmsApplication;
 import com.ctofunds.android.constants.ApiConstants;
 import com.ctofunds.android.network.ApiHandler;
 import com.ctofunds.android.utility.ImageUtils;
-
-import org.pegdown.PegDownProcessor;
 
 /**
  * Created by qianhao.zhou on 1/5/16.
@@ -99,8 +98,8 @@ public class TopicDetailActivity extends BaseActivity {
 
         ((TextView) findViewById(R.id.cto_coins)).setText(topic.getCtoCoins().toString());
         ((TextView) findViewById(R.id.title)).setText(topic.getTitle());
-        PegDownProcessor pegDownProcessor = new PegDownProcessor();
-        String html = pegDownProcessor.markdownToHtml(topic.getContent());
+        AndDown parser = new AndDown();
+        String html = parser.markdownToHtml(topic.getContent());
         Log.d(getTag(), "html:" + html);
         ((WebView) findViewById(R.id.content)).loadData(html, "text/html", "utf-8");
 
