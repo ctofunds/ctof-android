@@ -45,5 +45,8 @@ dependencies {
     compile 'javax.validation:validation-api:1.1.0.Final'
     compile 'com.aliyun.dpa:oss-android-sdk:2.0.2'
     compile 'de.greenrobot:eventbus:2.4.0'
+    compile 'com.ms-square:expandableTextView:0.1.4'
+    compile 'us.feras.mdv:markdownview:1.1.0'
+    compile 'org.pegdown:pegdown:1.5.0'
     compile project(':volley')
 }

@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -22,6 +23,8 @@ import com.ctofunds.android.SmsApplication;
 import com.ctofunds.android.constants.ApiConstants;
 import com.ctofunds.android.network.ApiHandler;
 import com.ctofunds.android.utility.ImageUtils;
+
+import org.pegdown.PegDownProcessor;
 
 /**
  * Created by qianhao.zhou on 1/5/16.
@@ -92,8 +95,15 @@ public class TopicDetailActivity extends BaseActivity {
             ((TextView) findViewById(R.id.investment_status)).setText(domain.getMapping().get(startup.getDomain().toString()));
             ((TextView) findViewById(R.id.domain)).setText(investmentStatus.getMapping().get(startup.getInvestmentStatus().toString()));
             ((TextView) findViewById(R.id.topic_count)).setText(startup.getTopicCount().toString());
-
         }
+
+        ((TextView) findViewById(R.id.cto_coins)).setText(topic.getCtoCoins().toString());
+        ((TextView) findViewById(R.id.title)).setText(topic.getTitle());
+        PegDownProcessor pegDownProcessor = new PegDownProcessor();
+        String html = pegDownProcessor.markdownToHtml(topic.getContent());
+        Log.d(getTag(), "html:" + html);
+        ((WebView) findViewById(R.id.content)).loadData(html, "text/html", "utf-8");
+
     }
 
 }
