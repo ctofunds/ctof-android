@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="time_unit">
+        <item>milliseconds</item>
+        <item>seconds</item>
+        <item>minutes</item>
+        <item>hours</item>
+        <item>days</item>
+        <item>months</item>
+        <item>years</item>
+    </string-array>
+
+    <integer-array name="time_unit_interval">
+        <item>1000</item>
+        <item>60</item>
+        <item>60</item>
+        <item>24</item>
+        <item>30</item>
+        <item>12</item>
+    </integer-array>
+</resources>

@@ -81,4 +81,6 @@
     <string name="topic_detail">问题详情</string>
     <string name="fail_to_get_topic_detail">无法获取问题详情</string>
     <string name="answer_question">我来回答</string>
+    <string name="comment_count">%d条评论</string>
+    <string name="ago">前</string>
 </resources>

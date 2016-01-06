@@ -83,4 +83,6 @@
     <string name="topic_detail">Topic Detail</string>
     <string name="fail_to_get_topic_detail">Failed to get topic detail</string>
     <string name="answer_question">Answer</string>
+    <string name="comment_count">%d comments</string>
+    <string name="ago">ago</string>
 </resources>
