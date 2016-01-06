@@ -33,6 +33,14 @@
             android:layout_centerHorizontal="true"
             android:text="登录" />
 
+        <EditText
+            android:id="@+id/topic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="topic id"
+            android:inputType="number"
+            android:text="4" />
+
         <Button
             android:id="@+id/topic_detail"
             android:layout_width="wrap_content"
@@ -82,26 +90,31 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="请教大家如何做网站的压力测试，网上一些压力测试工具都是给予单个url测试的，不知道还有没有能够模拟用户，如果在其他参数完全一致的情况下..." />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="请教大家如何做网站的压力测试，网上一些压力测试工具都是给予单个url测试的，不知道还有没有能够模拟用户，如果在其他参数完全一致的情况下..." />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="请教大家如何做网站的压力测试，网上一些压力测试工具都是给予单个url测试的，不知道还有没有能够模拟用户，如果在其他参数完全一致的情况下..." />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="请教大家如何做网站的压力测试，网上一些压力测试工具都是给予单个url测试的，不知道还有没有能够模拟用户，如果在其他参数完全一致的情况下..." />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="请教大家如何做网站的压力测试，网上一些压力测试工具都是给予单个url测试的，不知道还有没有能够模拟用户，如果在其他参数完全一致的情况下..." />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

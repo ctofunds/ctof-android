@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.ctofunds.android.BaseFragment;
 import com.ctofunds.android.R;
@@ -21,7 +22,7 @@ public class HomeFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_home, null);
+        final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_home, null);
         root.findViewById(R.id.expert_entry).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,7 +41,8 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.putExtra("id", 4);
+                int topicId = Integer.parseInt(((EditText) root.findViewById(R.id.topic)).getText().toString());
+                intent.putExtra("id", topicId);
                 intent.setClass(HomeFragment.this.getActivity(), TopicDetailActivity.class);
                 getActivity().startActivity(intent);
             }

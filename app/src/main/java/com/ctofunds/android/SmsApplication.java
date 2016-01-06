@@ -10,6 +10,8 @@ import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.ImageLoader;
+import com.ctofunds.android.markdown.MarkdownParser;
+import com.ctofunds.android.markdown.impl.DefaultMarkdownParser;
 import com.ctofunds.android.serializer.JacksonSerializer;
 import com.ctofunds.android.serializer.Serializer;
 import com.ctofunds.android.service.AccountService;
@@ -47,6 +49,7 @@ public class SmsApplication extends Application {
     private Serializer serializer;
     private ImageLoader imageLoader;
     private EventBus eventBus;
+    private MarkdownParser markdownParser;
 
     @Override
     public void onCreate() {
@@ -58,6 +61,7 @@ public class SmsApplication extends Application {
         serializer = new JacksonSerializer();
         imageLoader = new ImageLoader(imageRequestQueue, new ImageLruCache(1024 * 1024 * 4));
         eventBus = new EventBus();
+        markdownParser = new DefaultMarkdownParser();
         instance = this;
         Log.d("SmsApplication", "SmsApplication has been initialized at " + System.currentTimeMillis());
     }
@@ -112,6 +116,10 @@ public class SmsApplication extends Application {
 
     public static final EventBus getEventBus() {
         return getInstance().eventBus;
+    }
+
+    public static final MarkdownParser getMarkdownParser() {
+        return getInstance().markdownParser;
     }
 
 }

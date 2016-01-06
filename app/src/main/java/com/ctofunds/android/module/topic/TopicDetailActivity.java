@@ -6,8 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -25,10 +27,17 @@ import com.ctofunds.android.constants.ApiConstants;
 import com.ctofunds.android.network.ApiHandler;
 import com.ctofunds.android.utility.ImageUtils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 /**
  * Created by qianhao.zhou on 1/5/16.
  */
 public class TopicDetailActivity extends BaseActivity {
+
+    private static final String ENCODING = "utf-8";
+    private static final String MIME_TYPE = "text/html;charset=utf-8";
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,10 +107,10 @@ public class TopicDetailActivity extends BaseActivity {
 
         ((TextView) findViewById(R.id.cto_coins)).setText(topic.getCtoCoins().toString());
         ((TextView) findViewById(R.id.title)).setText(topic.getTitle());
-        AndDown parser = new AndDown();
-        String html = parser.markdownToHtml(topic.getContent());
-        Log.d(getTag(), "html:" + html);
-        ((WebView) findViewById(R.id.content)).loadData(html, "text/html", "utf-8");
+        String html = SmsApplication.getMarkdownParser().toHtml(topic.getContent());
+        WebView webView = (WebView) findViewById(R.id.content);
+        webView.getSettings().setDefaultTextEncodingName(ENCODING);
+        webView.loadData(html, MIME_TYPE, null);
 
     }
 
