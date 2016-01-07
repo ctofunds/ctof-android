@@ -83,4 +83,7 @@
     <string name="answer_question">我来回答</string>
     <string name="comment_count">%d条评论</string>
     <string name="ago">前</string>
+    <string name="expert_replies">专家解答(%d)</string>
+    <string name="loading">加载中...</string>
+    <string name="error">出错了!!!</string>
 </resources>

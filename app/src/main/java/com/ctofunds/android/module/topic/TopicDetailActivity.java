@@ -1,5 +1,6 @@
 package com.ctofunds.android.module.topic;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.NetworkImageView;
 import com.ctof.sms.api.Code;
+import com.ctof.sms.api.Reply;
+import com.ctof.sms.api.ReplyPageableResult;
 import com.ctof.sms.api.Startup;
 import com.ctof.sms.api.Topic;
 import com.ctofunds.android.BaseActivity;
@@ -24,8 +27,14 @@ import com.ctofunds.android.SmsApplication;
 import com.ctofunds.android.constants.ApiConstants;
 import com.ctofunds.android.network.ApiHandler;
 import com.ctofunds.android.utility.ImageUtils;
+import com.ctofunds.android.widget.CircleImageView;
+import com.ctofunds.android.widget.ListViewForScrollView;
+import com.ctofunds.android.widget.adapater.AdapterItem;
+import com.ctofunds.android.widget.adapater.DynamicLoadingAdapter;
+import com.google.common.collect.Lists;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,6 +45,7 @@ public class TopicDetailActivity extends BaseActivity {
     private static final String ENCODING = "utf-8";
     private static final String MIME_TYPE = "text/html;charset=utf-8";
 
+    private ArrayList<Reply> replies = Lists.newArrayList();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -127,7 +137,103 @@ public class TopicDetailActivity extends BaseActivity {
         ((TextView) findViewById(R.id.comment_count)).setText(getResources().getString(R.string.comment_count, topic.getCommentCount()));
         String timeLabel = SmsApplication.getTimeUtils().toString(topic.getServerTime() - topic.getCreateTime());
         ((TextView) findViewById(R.id.time_label)).setText(timeLabel + getResources().getString(R.string.ago));
+        ((TextView) findViewById(R.id.reply_count)).setText(getResources().getString(R.string.expert_replies, topic.getReplyCount()));
+        initReplies(topic.getId());
+    }
 
+    private void initReplies(long topicId) {
+        ListViewForScrollView replies = (ListViewForScrollView) findViewById(R.id.replies);
+        replies.setFocusable(false);
+        ReplyItemAdapter adapter = new ReplyItemAdapter(getApplicationContext(), topicId);
+        replies.setAdapter(adapter);
+        adapter.init();
+    }
+
+    private static class ViewHolder {
+        CircleImageView avatar;
+    }
+
+    private class ReplyItemAdapter extends DynamicLoadingAdapter<Reply> {
+
+        private volatile boolean endOfList = false;
+        private final long topicId;
+        private int currentPage = 0;
+        private final int pageSize = 10;
+
+        public ReplyItemAdapter(Context context, long topicId) {
+            super(context);
+            this.topicId = topicId;
+        }
+
+        @Override
+        protected View onGetDataView(Reply data, View convertView, ViewGroup parent) {
+            ViewHolder viewHolder;
+            if (convertView != null && convertView.getTag() instanceof ViewHolder) {
+                viewHolder = (ViewHolder) convertView.getTag();
+            } else {
+                convertView = getLayoutInflater().inflate(R.layout.item_reply, null);
+                viewHolder = new ViewHolder();
+                viewHolder.avatar = (CircleImageView) convertView.findViewById(R.id.avatar);
+                convertView.setTag(viewHolder);
+            }
+            if (data.getAuthor().getAvatar() != null) {
+                viewHolder.avatar.setImageUrl(data.getAuthor().getAvatar(), SmsApplication.getImageLoader());
+            }
+            return convertView;
+        }
+
+        @Override
+        protected View onGetProgressView(View convertView) {
+            return getLayoutInflater().inflate(R.layout.item_list_loading, null);
+        }
+
+        @Override
+        protected View onGetErrorView(View convertView) {
+            return getLayoutInflater().inflate(R.layout.item_list_error, null);
+        }
+
+        @Override
+        protected View onGetEmptyView(View convertView) {
+            return getLayoutInflater().inflate(R.layout.item_list_empty, null);
+        }
+
+        @Override
+        protected void onSubmitRequest() {
+            ApiHandler.get(String.format(ApiConstants.REPLIES, topicId, currentPage, pageSize), ReplyPageableResult.class, new Response.Listener<ReplyPageableResult>() {
+                @Override
+                public void onResponse(final ReplyPageableResult response) {
+                    endOfList = response.getLast();
+                    currentPage++;
+                    onRequestSucceed();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (response.getContent() != null) {
+                                addAll(response.getContent());
+                            }
+                        }
+                    });
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    showError();
+                    onRequestFailed();
+                }
+            });
+        }
+
+        @Override
+        protected boolean hasMore() {
+            AdapterItem.Type type = getType();
+            if (type == AdapterItem.Type.ERROR) {
+                return false;
+            }
+            if (type == AdapterItem.Type.EMPTY) {
+                return false;
+            }
+            return !endOfList;
+        }
     }
 
 }

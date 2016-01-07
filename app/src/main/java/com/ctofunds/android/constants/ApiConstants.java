@@ -20,4 +20,5 @@ public final class ApiConstants {
     public static final String INVITES = "api/v1/invites";//invite employee or expert
     public static final String REQUEST_TOKEN = "api/v1/sts";
     public static final String TOPIC = "api/v1/topics/%d";
+    public static final String REPLIES = "api/v1/replies?topicid=%d&page=%d&pagesize=%d";
 }
