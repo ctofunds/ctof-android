@@ -3,6 +3,8 @@ package com.ctofunds.android.module.topic;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -137,23 +140,41 @@ public class TopicDetailActivity extends BaseActivity {
         ((TextView) findViewById(R.id.comment_count)).setText(getResources().getString(R.string.comment_count, topic.getCommentCount()));
         String timeLabel = SmsApplication.getTimeUtils().toString(topic.getServerTime() - topic.getCreateTime());
         ((TextView) findViewById(R.id.time_label)).setText(timeLabel + getResources().getString(R.string.ago));
-        ((TextView) findViewById(R.id.reply_count)).setText(getResources().getString(R.string.expert_replies, topic.getReplyCount()));
-        initReplies(topic.getId());
+
+        initReplies(topic);
     }
 
-    private void initReplies(long topicId) {
+    private void initReplies(Topic topic) {
+        Integer replyCount = topic.getReplyCount();
+        ((TextView) findViewById(R.id.reply_count)).setText(getResources().getString(R.string.expert_replies, replyCount));
         ListViewForScrollView replies = (ListViewForScrollView) findViewById(R.id.replies);
         replies.setFocusable(false);
-        ReplyItemAdapter adapter = new ReplyItemAdapter(getApplicationContext(), topicId);
-        replies.setAdapter(adapter);
-        adapter.init();
+        if (replyCount > 0) {
+            ReplyItemAdapter adapter = new ReplyItemAdapter(getApplicationContext(), topic.getId());
+            replies.setAdapter(adapter);
+            adapter.init();
+            replies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    if (view.getTag() instanceof ViewHolder) {
+                        showToast("show reply detail id:" + ((ViewHolder) view.getTag()).replyId);
+                    }
+                }
+            });
+        }
     }
 
     private static class ViewHolder {
-        CircleImageView avatar;
+        long replyId;
+        CircleImageView authorAvatar;
+        TextView authorName;
+        ExpandableTextView content;
+        TextView timeLabel;
+        ViewGroup comments;
+        TextView commentCount;
     }
 
-    private class ReplyItemAdapter extends DynamicLoadingAdapter<Reply> {
+    private static class ReplyItemAdapter extends DynamicLoadingAdapter<Reply> {
 
         private volatile boolean endOfList = false;
         private final long topicId;
@@ -173,11 +194,27 @@ public class TopicDetailActivity extends BaseActivity {
             } else {
                 convertView = getLayoutInflater().inflate(R.layout.item_reply, null);
                 viewHolder = new ViewHolder();
-                viewHolder.avatar = (CircleImageView) convertView.findViewById(R.id.avatar);
+                viewHolder.authorAvatar = (CircleImageView) convertView.findViewById(R.id.avatar);
+                viewHolder.authorName = (TextView) convertView.findViewById(R.id.name);
+                viewHolder.content = (ExpandableTextView) convertView.findViewById(R.id.content);
+                viewHolder.timeLabel = (TextView) convertView.findViewById(R.id.time_label);
+                viewHolder.commentCount = (TextView) convertView.findViewById(R.id.comment_count);
+                viewHolder.comments = (ViewGroup) convertView.findViewById(R.id.comments);
                 convertView.setTag(viewHolder);
             }
             if (data.getAuthor().getAvatar() != null) {
-                viewHolder.avatar.setImageUrl(data.getAuthor().getAvatar(), SmsApplication.getImageLoader());
+                viewHolder.authorAvatar.setImageUrl(data.getAuthor().getAvatar(), SmsApplication.getImageLoader());
+            }
+            viewHolder.replyId = data.getId();
+            viewHolder.authorName.setText(data.getAuthor().getName());
+            viewHolder.content.setText(data.getContent());
+            String time = SmsApplication.getTimeUtils().toString(data.getServerTime() - data.getCreateTime());
+            viewHolder.timeLabel.setText(time + getContext().getResources().getString(R.string.ago));
+            if (data.getCommentCount() > 0) {
+                viewHolder.comments.setVisibility(View.VISIBLE);
+                viewHolder.commentCount.setText(getContext().getResources().getString(R.string.see_more_comments, data.getCommentCount()));
+            } else {
+                viewHolder.comments.setVisibility(View.GONE);
             }
             return convertView;
         }
@@ -205,12 +242,10 @@ public class TopicDetailActivity extends BaseActivity {
                     endOfList = response.getLast();
                     currentPage++;
                     onRequestSucceed();
-                    runOnUiThread(new Runnable() {
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
-                            if (response.getContent() != null) {
-                                addAll(response.getContent());
-                            }
+                            addAll(response.getContent());
                         }
                     });
                 }

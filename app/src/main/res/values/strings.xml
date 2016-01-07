@@ -84,8 +84,9 @@
     <string name="fail_to_get_topic_detail">Failed to get topic detail</string>
     <string name="answer_question">Answer</string>
     <string name="comment_count">%d comments</string>
-    <string name="ago">ago</string>
+    <string name="ago"> ago</string>
     <string name="expert_replies">Replies(%d)</string>
     <string name="loading">Loading...</string>
     <string name="error">Error!!!</string>
+    <string name="see_more_comments">See %d more comments</string>
 </resources>

@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/inner_component_margin">
 
     <com.ctofunds.android.widget.CircleImageView
         android:id="@+id/avatar"
@@ -10,12 +15,96 @@
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:src="@drawable/default_expert_avatar"
         app:border_color="@color/light_grey"
         app:border_width="1dp">
 
     </com.ctofunds.android.widget.CircleImageView>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/avatar"
+        android:layout_marginLeft="@dimen/inner_component_margin"
+        android:layout_toRightOf="@id/avatar"
+        android:text="Andy"
+        android:textColor="@color/black_label"
+        android:textSize="@dimen/text_size_large" />
+
+    <com.ms.square.android.expandabletextview.ExpandableTextView
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/name"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/name"
+        android:layout_marginTop="@dimen/inner_component_margin"
+        expandableTextView:animDuration="200"
+        expandableTextView:maxCollapsedLines="4">
+
+        <TextView
+            android:id="@id/expandable_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_grey_label"
+            android:textSize="@dimen/text_size_medium" />
+
+        <ImageButton
+            android:id="@id/expand_collapse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:background="@android:color/transparent"
+            android:padding="@dimen/inner_component_margin" />
+    </com.ms.square.android.expandabletextview.ExpandableTextView>
+
+    <TextView
+        android:id="@+id/time_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/content"
+        android:layout_below="@id/content"
+        android:layout_marginTop="@dimen/half_inner_component_margin"
+        android:textColor="@color/grey_label"
+        android:textSize="@dimen/text_size_tiny" />
+
+    <RelativeLayout
+        android:id="@+id/comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/time_label"
+        android:layout_marginBottom="@dimen/half_inner_component_margin"
+        android:layout_marginTop="@dimen/half_inner_component_margin">
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/bg_fragment_container"
+            android:layout_marginBottom="@dimen/inner_component_margin"/>
+
+        <TextView
+            android:id="@+id/comment_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/divider"
+            android:layout_centerVertical="true"
+            android:text="更多20条回复"
+            android:textColor="@color/dark_grey_label"
+            android:textSize="@dimen/text_size_small" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/divider"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_right" />
+    </RelativeLayout>
+
 
 </RelativeLayout>

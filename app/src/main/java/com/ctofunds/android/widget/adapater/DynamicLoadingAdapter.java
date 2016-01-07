@@ -116,12 +116,14 @@ public abstract class DynamicLoadingAdapter<T> extends BaseAdapter {
 
     protected final void addAll(List<T> items) {
         tryRemoveAnyBut(AdapterItem.Type.DATA);
-        this.items.addAll(Lists.transform(items, new Function<T, AdapterItem<T>>() {
-            @Override
-            public AdapterItem<T> apply(T input) {
-                return new AdapterItem<>(input);
-            }
-        }));
+        if (items != null) {
+            this.items.addAll(Lists.transform(items, new Function<T, AdapterItem<T>>() {
+                @Override
+                public AdapterItem<T> apply(T input) {
+                    return new AdapterItem<>(input);
+                }
+            }));
+        }
         notifyDataSetChanged();
     }
 
