@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -100,7 +101,7 @@ public class TopicDetailActivity extends BaseActivity {
         }).setCancelable(false).show();
     }
 
-    private void updateTopicDetailView(Topic topic) {
+    private void updateTopicDetailView(final Topic topic) {
         final Startup startup = topic.getStartup();
         final Code city = SmsApplication.getCodeService().getCity();
         final Code domain = SmsApplication.getCodeService().getDomain();
@@ -122,6 +123,11 @@ public class TopicDetailActivity extends BaseActivity {
 //        webView.getSettings().setDefaultTextEncodingName(ENCODING);
 //        webView.loadData(html, MIME_TYPE, null);
 
+        if (topic.getResolvedReplyId() != null) {
+            findViewById(R.id.container).setBackgroundColor(getResources().getColor(R.color.light_grey));
+        } else {
+            findViewById(R.id.container).setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        }
         ((TextView) findViewById(R.id.cto_coins)).setText(topic.getCtoCoins().toString());
         ((TextView) findViewById(R.id.title)).setText(topic.getTitle());
         ((ExpandableTextView) findViewById(R.id.content)).setText(topic.getContent());
@@ -138,6 +144,12 @@ public class TopicDetailActivity extends BaseActivity {
         }
 
         ((TextView) findViewById(R.id.comment_count)).setText(getResources().getString(R.string.comment_count, topic.getCommentCount()));
+        findViewById(R.id.comment_count).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showToast("评论详情, topic id:" + topic.getId());
+            }
+        });
         String timeLabel = SmsApplication.getTimeUtils().toString(topic.getServerTime() - topic.getCreateTime());
         ((TextView) findViewById(R.id.time_label)).setText(timeLabel + getResources().getString(R.string.ago));
 
@@ -150,7 +162,7 @@ public class TopicDetailActivity extends BaseActivity {
         ListViewForScrollView replies = (ListViewForScrollView) findViewById(R.id.replies);
         replies.setFocusable(false);
         if (replyCount > 0) {
-            ReplyItemAdapter adapter = new ReplyItemAdapter(getApplicationContext(), topic.getId());
+            ReplyItemAdapter adapter = new ReplyItemAdapter(getApplicationContext(), topic);
             replies.setAdapter(adapter);
             adapter.init();
             replies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -172,22 +184,25 @@ public class TopicDetailActivity extends BaseActivity {
         TextView timeLabel;
         ViewGroup comments;
         TextView commentCount;
+        ViewGroup resolvedCommentContainer;
+        TextView resolvedComment;
+        ImageView resolvedIcon;
     }
 
     private static class ReplyItemAdapter extends DynamicLoadingAdapter<Reply> {
 
         private volatile boolean endOfList = false;
-        private final long topicId;
         private int currentPage = 0;
         private final int pageSize = 10;
+        private final Topic topic;
 
-        public ReplyItemAdapter(Context context, long topicId) {
+        public ReplyItemAdapter(Context context, Topic topic) {
             super(context);
-            this.topicId = topicId;
+            this.topic = topic;
         }
 
         @Override
-        protected View onGetDataView(Reply data, View convertView, ViewGroup parent) {
+        protected View onGetDataView(Reply reply, View convertView, ViewGroup parent) {
             ViewHolder viewHolder;
             if (convertView != null && convertView.getTag() instanceof ViewHolder) {
                 viewHolder = (ViewHolder) convertView.getTag();
@@ -200,21 +215,37 @@ public class TopicDetailActivity extends BaseActivity {
                 viewHolder.timeLabel = (TextView) convertView.findViewById(R.id.time_label);
                 viewHolder.commentCount = (TextView) convertView.findViewById(R.id.comment_count);
                 viewHolder.comments = (ViewGroup) convertView.findViewById(R.id.comments);
+                viewHolder.resolvedCommentContainer = (ViewGroup) convertView.findViewById(R.id.resolved_comment_container);
+                viewHolder.resolvedComment = (TextView) convertView.findViewById(R.id.resolved_comment);
+                viewHolder.resolvedIcon = (ImageView) convertView.findViewById(R.id.resolved_icon);
                 convertView.setTag(viewHolder);
             }
-            if (data.getAuthor().getAvatar() != null) {
-                viewHolder.authorAvatar.setImageUrl(data.getAuthor().getAvatar(), SmsApplication.getImageLoader());
+            if (reply.getAuthor().getAvatar() != null) {
+                viewHolder.authorAvatar.setImageUrl(reply.getAuthor().getAvatar(), SmsApplication.getImageLoader());
             }
-            viewHolder.replyId = data.getId();
-            viewHolder.authorName.setText(data.getAuthor().getName());
-            viewHolder.content.setText(data.getContent());
-            String time = SmsApplication.getTimeUtils().toString(data.getServerTime() - data.getCreateTime());
+            viewHolder.replyId = reply.getId();
+            viewHolder.authorName.setText(reply.getAuthor().getName());
+            viewHolder.content.setText(reply.getContent());
+            String time = SmsApplication.getTimeUtils().toString(reply.getServerTime() - reply.getCreateTime());
             viewHolder.timeLabel.setText(time + getContext().getResources().getString(R.string.ago));
-            if (data.getCommentCount() > 0) {
+            if (reply.getCommentCount() > 0) {
                 viewHolder.comments.setVisibility(View.VISIBLE);
-                viewHolder.commentCount.setText(getContext().getResources().getString(R.string.see_more_comments, data.getCommentCount()));
+                viewHolder.commentCount.setText(getContext().getResources().getString(R.string.see_more_comments, reply.getCommentCount()));
             } else {
                 viewHolder.comments.setVisibility(View.GONE);
+            }
+            long resolvedReplyId = topic.getResolvedReplyId() != null ? topic.getResolvedReplyId() : -1;
+            if (resolvedReplyId == reply.getId()) {
+                viewHolder.resolvedIcon.setVisibility(View.VISIBLE);
+                if (topic.getResolvedComment() != null) {
+                    viewHolder.resolvedCommentContainer.setVisibility(View.VISIBLE);
+                    viewHolder.resolvedComment.setText(topic.getResolvedComment());
+                } else {
+                    viewHolder.resolvedCommentContainer.setVisibility(View.GONE);
+                }
+            } else {
+                viewHolder.resolvedIcon.setVisibility(View.GONE);
+                viewHolder.resolvedCommentContainer.setVisibility(View.GONE);
             }
             return convertView;
         }
@@ -236,7 +267,7 @@ public class TopicDetailActivity extends BaseActivity {
 
         @Override
         protected void onSubmitRequest() {
-            ApiHandler.get(String.format(ApiConstants.REPLIES, topicId, currentPage, pageSize), ReplyPageableResult.class, new Response.Listener<ReplyPageableResult>() {
+            ApiHandler.get(String.format(ApiConstants.REPLIES, topic.getId(), currentPage, pageSize), ReplyPageableResult.class, new Response.Listener<ReplyPageableResult>() {
                 @Override
                 public void onResponse(final ReplyPageableResult response) {
                     endOfList = response.getLast();

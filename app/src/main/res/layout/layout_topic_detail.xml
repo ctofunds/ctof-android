@@ -12,7 +12,6 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="@dimen/half_inner_component_margin"
         android:layout_marginTop="@dimen/half_inner_component_margin"
-        android:background="@color/colorAccent"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/half_inner_component_margin"
@@ -95,7 +94,7 @@
         android:layout_below="@id/tags"
         android:layout_marginBottom="@dimen/inner_component_margin"
         android:layout_marginTop="@dimen/inner_component_margin"
-        android:background="@color/bg_fragment_container"></View>
+        android:background="@color/bg_fragment_container"/>
 
     <RelativeLayout
         android:id="@+id/container_2"
@@ -116,6 +115,8 @@
             android:textSize="@dimen/text_size_small" />
 
         <TextView
+            android:drawableLeft="@drawable/reply"
+            android:drawablePadding="4dp"
             android:id="@+id/comment_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -124,13 +125,6 @@
             android:textColor="@color/grey_label"
             android:textSize="@dimen/text_size_small" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/half_inner_component_margin"
-            android:layout_toLeftOf="@id/comment_count"
-            android:src="@drawable/reply" />
     </RelativeLayout>
 
 </RelativeLayout>

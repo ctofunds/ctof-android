@@ -86,5 +86,6 @@
     <string name="expert_replies">专家解答(%d)</string>
     <string name="loading">加载中...</string>
     <string name="error">出错了!!!</string>
-    <string name="see_more_comments">更多%d条回复</string>
+    <string name="see_more_comments">查看%d条评论</string>
+    <string name="resolved_comment">采纳附言</string>
 </resources>
