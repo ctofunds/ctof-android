@@ -5,17 +5,12 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ctofunds.android.BaseFragment;
@@ -35,10 +30,11 @@ public class TopicFragment extends BaseFragment {
     private ViewFlow mViewFlow;
     private CircleFlowIndicator mFlowIndicator;
     private ArrayList<String> imageUrlList = new ArrayList<String>();
-    private ListView mTodayStartListView;
+    private LinearLayout mTodayStartLayout;
     private ArrayList<TodayStarObj> mTodayStarList = new ArrayList<TodayStarObj>();
+    private LinearLayout mTopTopicLayout;
+    private ArrayList<TodayStarObj> mTopTopicList = new ArrayList<TodayStarObj>();
     private LayoutInflater mInflater;
-    private TodayStarAdapter mTodayStartAdapter;
     private ArrayList<BannerPageObj> mBannerList = new ArrayList<>();
 
     @Nullable
@@ -67,8 +63,8 @@ public class TopicFragment extends BaseFragment {
         initBanner();
 
 
-        fakeTodayStarList();
-        mTodayStartAdapter.notifyDataSetChanged();
+        fakeData();
+        updateView();
 
         return root;
     }
@@ -87,9 +83,8 @@ public class TopicFragment extends BaseFragment {
         viewFlowWraper.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, pxHeight));
         viewFlowWraper.requestLayout();
 
-        mTodayStartListView = (ListView) root.findViewById(R.id.todayStarListView);
-        mTodayStartAdapter = new TodayStarAdapter();
-        mTodayStartListView.setAdapter(mTodayStartAdapter);
+        mTodayStartLayout = (LinearLayout) root.findViewById(R.id.today_star_layout);
+        mTopTopicLayout = (LinearLayout) root.findViewById(R.id.top_topic_layout);
     }
 
     private void initBanner() {
@@ -103,9 +98,89 @@ public class TopicFragment extends BaseFragment {
 //        mViewFlow.startAutoFlowTimer(); // 启动自动播放
     }
 
-    private void fakeTodayStarList() {
+    private void fakeData() {
         mTodayStarList.add(new TodayStarObj("https://wwc.alicdn.com/avatar/getAvatar.do?userId=559393633&width=60&height=60&type=sns", "迷宫", "startup", "“HiCTO高效解决了我们在开发中遇到的问题”", "行业:医疗互联网 规模:50人 B轮"));
         mTodayStarList.add(new TodayStarObj("https://wwc.alicdn.com/avatar/getAvatar.do?userId=2038635733&width=60&height=60&type=sns", "未来", "expert", "“HiCTO高效解决了我们在开发中遇到的问题”", "加入时间:2015年9月 已解决问题:10条"));
+
+        mTopTopicList.add(new TodayStarObj("https://wwc.alicdn.com/avatar/getAvatar.do?userId=559393633&width=60&height=60&type=sns", "迷宫", "startup", "“HiCTO高效解决了我们在开发中遇到的问题”", "行业:医疗互联网 规模:50人 B轮"));
+        mTopTopicList.add(new TodayStarObj("https://wwc.alicdn.com/avatar/getAvatar.do?userId=2038635733&width=60&height=60&type=sns", "未来", "expert", "“HiCTO高效解决了我们在开发中遇到的问题”", "加入时间:2015年9月 已解决问题:10条"));
+    }
+
+    private void updateView() {
+        if (mTodayStarList.size()>0) {
+            mTodayStartLayout.setVisibility(View.VISIBLE);
+            while (mTodayStartLayout.getChildCount()>1) {
+                mTodayStartLayout.removeViewAt(mTodayStartLayout.getChildCount()-1);
+            }
+
+            for (int i=0; (i<mTodayStarList.size() && i<2); i++) {
+                View viewItem = mInflater.inflate(R.layout.item_today_star, null);
+                CircleImageView avatarImageView = (CircleImageView) viewItem.findViewById(R.id.avatar_imageview);
+                TextView nameLabel = (TextView) viewItem.findViewById(R.id.name_label);
+                TextView roleLabel = (TextView) viewItem.findViewById(R.id.role_label);
+                TextView contentLabel = (TextView) viewItem.findViewById(R.id.content_label);
+                TextView tagLabel = (TextView) viewItem.findViewById(R.id.tag_label);
+
+                TodayStarObj data = mTodayStarList.get(i);
+                avatarImageView.setImageUrl(data.avatarImageUrl, SmsApplication.getImageLoader());
+                nameLabel.setText(data.name);
+                if (data.role.equals("startup")) {
+                    roleLabel.setText("企业");
+                    roleLabel.setBackgroundColor(Color.parseColor("#AADE60"));
+                } else {
+                    roleLabel.setText("专家");
+                    roleLabel.setBackgroundColor(Color.parseColor("#70C7EF"));
+                }
+                contentLabel.setText(data.content);
+                tagLabel.setText(data.tagString);
+
+                mTodayStartLayout.addView(viewItem);
+            }
+
+            View moreItem = mInflater.inflate(R.layout.item_show_more, null);
+            ((TextView)moreItem.findViewById(R.id.textLabel)).setText("查看全部");
+            mTodayStartLayout.addView(moreItem);
+        } else {
+            mTodayStartLayout.setVisibility(View.GONE);
+        }
+
+
+        if (mTopTopicList.size()>0) {
+            mTopTopicLayout.setVisibility(View.VISIBLE);
+            while (mTopTopicLayout.getChildCount()>1) {
+                mTopTopicLayout.removeViewAt(mTopTopicLayout.getChildCount()-1);
+            }
+
+            for (int i=0; (i<mTopTopicList.size() && i<2); i++) {
+                View viewItem = mInflater.inflate(R.layout.item_today_star, null);
+                CircleImageView avatarImageView = (CircleImageView) viewItem.findViewById(R.id.avatar_imageview);
+                TextView nameLabel = (TextView) viewItem.findViewById(R.id.name_label);
+                TextView roleLabel = (TextView) viewItem.findViewById(R.id.role_label);
+                TextView contentLabel = (TextView) viewItem.findViewById(R.id.content_label);
+                TextView tagLabel = (TextView) viewItem.findViewById(R.id.tag_label);
+
+                TodayStarObj data = mTopTopicList.get(i);
+                avatarImageView.setImageUrl(data.avatarImageUrl, SmsApplication.getImageLoader());
+                nameLabel.setText(data.name);
+                if (data.role.equals("startup")) {
+                    roleLabel.setText("企业");
+                    roleLabel.setBackgroundColor(Color.parseColor("#AADE60"));
+                } else {
+                    roleLabel.setText("专家");
+                    roleLabel.setBackgroundColor(Color.parseColor("#70C7EF"));
+                }
+                contentLabel.setText(data.content);
+                tagLabel.setText(data.tagString);
+
+                mTopTopicLayout.addView(viewItem);
+            }
+
+            View moreItem = mInflater.inflate(R.layout.item_show_more, null);
+            ((TextView)moreItem.findViewById(R.id.textLabel)).setText("更多精彩问答");
+            mTopTopicLayout.addView(moreItem);
+        } else {
+            mTopTopicLayout.setVisibility(View.GONE);
+        }
     }
 
     class TodayStarObj {
@@ -124,93 +199,4 @@ public class TopicFragment extends BaseFragment {
         }
     }
 
-    class TodayStarAdapter extends BaseAdapter {
-
-        private View moreItem;
-        final int TYPE_ITEM = 0;
-        final int TYPE_MORE = 1;
-
-        public TodayStarAdapter() {
-            moreItem = mInflater.inflate(R.layout.item_show_more, null);
-            ((TextView)moreItem.findViewById(R.id.textLabel)).setText("查看全部");
-        }
-
-        @Override
-        public int getCount() {
-            return mTodayStarList.size()+1;
-        }
-
-        @Override
-        public Object getItem(int position)
-        {
-            if (position<mTodayStarList.size()) {
-                return mTodayStarList.get(position);
-            } else {
-                return null;
-            }
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public int getItemViewType(int position) {
-            if (position<mTodayStarList.size()) {
-                return TYPE_ITEM;
-            } else {
-                return TYPE_MORE;
-            }
-        }
-
-        @Override
-        public int getViewTypeCount() {
-            return 2;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            int type = getItemViewType(position);
-
-            if (type == TYPE_ITEM) {
-                TodayStarViewHolder holder;
-                if (convertView == null) {
-                    convertView = mInflater.inflate(R.layout.item_today_star, null);
-                    holder = new TodayStarViewHolder();
-                    holder.avatarImageView = (CircleImageView) convertView.findViewById(R.id.avatar_imageview);
-                    holder.nameLabel = (TextView) convertView.findViewById(R.id.name_label);
-                    holder.roleLabel = (TextView) convertView.findViewById(R.id.role_label);
-                    holder.contentLabel = (TextView) convertView.findViewById(R.id.content_label);
-                    holder.tagLabel = (TextView) convertView.findViewById(R.id.tag_label);
-                    convertView.setTag(holder);
-                } else {
-                    holder = (TodayStarViewHolder)convertView.getTag();
-                }
-                TodayStarObj data = mTodayStarList.get(position);
-                holder.avatarImageView.setImageUrl(data.avatarImageUrl, SmsApplication.getImageLoader());
-                holder.nameLabel.setText(data.name);
-                if (data.role.equals("startup")) {
-                    holder.roleLabel.setText("企业");
-                    holder.roleLabel.setBackgroundColor(Color.parseColor("#AADE60"));
-                } else {
-                    holder.roleLabel.setText("专家");
-                    holder.roleLabel.setBackgroundColor(Color.parseColor("#70C7EF"));
-                }
-                holder.contentLabel.setText(data.content);
-                holder.tagLabel.setText(data.tagString);
-                return convertView;
-            } else {
-                return moreItem;
-            }
-        }
-
-        private class TodayStarViewHolder {
-            public CircleImageView avatarImageView;
-            public TextView nameLabel;
-            public TextView roleLabel;
-            public TextView contentLabel;
-            public TextView tagLabel;
-        }
-    }
 }

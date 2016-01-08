@@ -1,67 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="90dp">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <com.ctofunds.android.widget.CircleImageView
-        android:id="@+id/avatar_imageview"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="15dp"
-        android:background="#555555"
-        />
-    
-    <TextView
-        android:id="@+id/name_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Eatty"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@id/avatar_imageview"
-        android:textSize="15dp"
-        android:textColor="#333333"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="#FFFFFF">
 
-    <TextView
-        android:id="@+id/role_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="企业"
-        android:background="#AADE60"
-        android:textColor="#FFFFFF"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@id/name_label"
-        android:textSize="11dp" />
+        <com.ctofunds.android.widget.CircleImageView
+            android:id="@+id/avatar_imageview"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:background="#555555" />
 
-    <TextView
-        android:id="@+id/content_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="“HiCTO高效解决了我们在开发中遇到的问题”"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@id/avatar_imageview"
-        android:layout_below="@id/name_label"
-        android:textSize="13dp"
-        android:textColor="#999999"/>
+        <TextView
+            android:id="@+id/name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/avatar_imageview"
+            android:text="Eatty"
+            android:textColor="#333333"
+            android:textSize="15dp" />
 
-    <TextView
-        android:id="@+id/tag_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="行业:医疗互联网 规模:50人 B轮"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@id/avatar_imageview"
-        android:layout_below="@id/content_label"
-        android:textSize="12dp"
-        android:textColor="#CCCCCC"/>
+        <TextView
+            android:id="@+id/role_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/name_label"
+            android:background="#AADE60"
+            android:paddingBottom="2dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="2dp"
+            android:text="企业"
+            android:textColor="#FFFFFF"
+            android:textSize="11dp" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/content_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name_label"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/avatar_imageview"
+            android:text="“HiCTO高效解决了我们在开发中遇到的问题”"
+            android:textColor="#999999"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/tag_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/content_label"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/avatar_imageview"
+            android:text="行业:医疗互联网 规模:50人 B轮"
+            android:textColor="#CCCCCC"
+            android:textSize="12dp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ECECEC" />
+
+</LinearLayout>

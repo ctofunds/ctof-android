@@ -163,25 +163,41 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/today_star_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/today_star_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 android:text="今日明星"
                 android:textColor="#999999" />
 
-            <com.ctofunds.android.widget.ListViewForScrollView
-                android:id="@+id/todayStarListView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </com.ctofunds.android.widget.ListViewForScrollView>
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/top_topic_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/top_topic_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="精彩问答"
+                android:textColor="#999999" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#00000000" />
 
     </LinearLayout>
 </ScrollView>
