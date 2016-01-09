@@ -1,17 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF">
+    android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF">
 
+        <View
+            android:id="@+id/price_bg_view"
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="15dp"
+            android:background="#FF5B5B" />
 
+        <TextView
+            android:id="@+id/price_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_alignEnd="@id/price_bg_view"
+            android:layout_alignRight="@id/price_bg_view"
+            android:layout_alignTop="@id/price_bg_view"
+            android:gravity="end"
+            android:text="59"
+            android:textColor="#FFFFFF"
+            android:textSize="31sp" />
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/price_textview"
+            android:layout_marginBottom="7dp"
+            android:layout_toLeftOf="@id/price_textview"
+            android:layout_toStartOf="@id/price_textview"
+            android:background="#FFD35D"
+            android:text="￥"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp" />
+
+        <LinearLayout
+            android:id="@+id/resolve_mark"
+            android:layout_width="75dp"
+            android:layout_height="20dp"
+            android:orientation="horizontal"
+            android:background="#ABDC68"
+            android:layout_alignLeft="@id/price_bg_view"
+            android:layout_alignStart="@id/price_bg_view"
+            android:layout_below="@id/price_bg_view"
+            android:layout_marginBottom="5dp"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:background="#FFFFFF"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已解决"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/title_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_toEndOf="@id/price_bg_view"
+            android:layout_toRightOf="@id/price_bg_view"
+            android:text="如何做Cometd 的压力测试？"
+            android:textColor="#333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/content_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/title_label"
+            android:layout_margin="5dp"
+            android:layout_toEndOf="@id/price_bg_view"
+            android:layout_toRightOf="@id/price_bg_view"
+            android:text="请教大家如何做网站的压力测试，网上一些压力测试工具都是给予单个url测试的，不知道还有没有能够模拟用户，如果在其他参数完全一致的情况下..."
+            android:textColor="#999999"
+            android:textSize="12sp" />
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/from_imageview"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/content_label"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/price_bg_view"
+            android:layout_toRightOf="@id/price_bg_view" />
+
+        <TextView
+            android:id="@+id/from_name"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignTop="@id/from_imageview"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/from_imageview"
+            android:layout_toRightOf="@id/from_imageview"
+            android:gravity="center_vertical"
+            android:text="拼多多"
+            android:textColor="#666666"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/time_label"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignTop="@id/from_imageview"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/from_name"
+            android:layout_toRightOf="@id/from_name"
+            android:gravity="center_vertical"
+            android:text="7分钟前"
+            android:textColor="#CCCCCC"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/reply_count"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/from_imageview"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center_vertical"
+            android:text="20"
+            android:textColor="#CCCCCC"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/reply_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_toLeftOf="@id/reply_count"
+            android:layout_alignTop="@id/from_imageview"
+            android:src="#CCCCCC"
+            android:padding="5dp" />
+
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"

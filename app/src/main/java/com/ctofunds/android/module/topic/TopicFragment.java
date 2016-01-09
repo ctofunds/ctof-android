@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.ctofunds.android.BaseFragment;
 import com.ctofunds.android.R;
 import com.ctofunds.android.SmsApplication;
@@ -33,7 +34,7 @@ public class TopicFragment extends BaseFragment {
     private LinearLayout mTodayStartLayout;
     private ArrayList<TodayStarObj> mTodayStarList = new ArrayList<TodayStarObj>();
     private LinearLayout mTopTopicLayout;
-    private ArrayList<TodayStarObj> mTopTopicList = new ArrayList<TodayStarObj>();
+    private ArrayList<TopTopicObj> mTopTopicList = new ArrayList<TopTopicObj>();
     private LayoutInflater mInflater;
     private ArrayList<BannerPageObj> mBannerList = new ArrayList<>();
 
@@ -102,8 +103,22 @@ public class TopicFragment extends BaseFragment {
         mTodayStarList.add(new TodayStarObj("https://wwc.alicdn.com/avatar/getAvatar.do?userId=559393633&width=60&height=60&type=sns", "迷宫", "startup", "“HiCTO高效解决了我们在开发中遇到的问题”", "行业:医疗互联网 规模:50人 B轮"));
         mTodayStarList.add(new TodayStarObj("https://wwc.alicdn.com/avatar/getAvatar.do?userId=2038635733&width=60&height=60&type=sns", "未来", "expert", "“HiCTO高效解决了我们在开发中遇到的问题”", "加入时间:2015年9月 已解决问题:10条"));
 
-        mTopTopicList.add(new TodayStarObj("https://wwc.alicdn.com/avatar/getAvatar.do?userId=559393633&width=60&height=60&type=sns", "迷宫", "startup", "“HiCTO高效解决了我们在开发中遇到的问题”", "行业:医疗互联网 规模:50人 B轮"));
-        mTopTopicList.add(new TodayStarObj("https://wwc.alicdn.com/avatar/getAvatar.do?userId=2038635733&width=60&height=60&type=sns", "未来", "expert", "“HiCTO高效解决了我们在开发中遇到的问题”", "加入时间:2015年9月 已解决问题:10条"));
+        mTopTopicList.add(new TopTopicObj("59",
+                false,
+                "如何做Cometd 的压力测试？",
+                "请教大家如何做网站的压力测试，网上一些压力测试工具都是给予单个url测试的，不知道还有没有能够模拟用户，如果在其他参数完全一致的情况下...",
+                "https://wwc.alicdn.com/avatar/getAvatar.do?userId=559393633&width=60&height=60&type=sns",
+                "拼多多",
+                "7分钟前",
+                45));
+        mTopTopicList.add(new TopTopicObj("59",
+                true,
+                "如何做Cometd 的压力测试？",
+                "请教大家如何做网站的压力测试，网上一些压力测试工具都是给予单个url测试的，不知道还有没有能够模拟用户，如果在其他参数完全一致的情况下...",
+                "https://wwc.alicdn.com/avatar/getAvatar.do?userId=559393633&width=60&height=60&type=sns",
+                "拼多多",
+                "7分钟前",
+                44));
     }
 
     private void updateView() {
@@ -152,25 +167,42 @@ public class TopicFragment extends BaseFragment {
             }
 
             for (int i=0; (i<mTopTopicList.size() && i<2); i++) {
-                View viewItem = mInflater.inflate(R.layout.item_today_star, null);
-                CircleImageView avatarImageView = (CircleImageView) viewItem.findViewById(R.id.avatar_imageview);
-                TextView nameLabel = (TextView) viewItem.findViewById(R.id.name_label);
-                TextView roleLabel = (TextView) viewItem.findViewById(R.id.role_label);
+                View viewItem = mInflater.inflate(R.layout.item_top_topic, null);
+                View priceBgView = viewItem.findViewById(R.id.price_bg_view);
+                TextView priceLabel = (TextView) viewItem.findViewById(R.id.price_textview);
+                View resolveView = viewItem.findViewById(R.id.resolve_mark);
+                TextView titleLabel = (TextView) viewItem.findViewById(R.id.title_label);
+//                TextView tagLabel = (TextView) viewItem.findViewById(R.id.tag_label);
                 TextView contentLabel = (TextView) viewItem.findViewById(R.id.content_label);
-                TextView tagLabel = (TextView) viewItem.findViewById(R.id.tag_label);
 
-                TodayStarObj data = mTopTopicList.get(i);
-                avatarImageView.setImageUrl(data.avatarImageUrl, SmsApplication.getImageLoader());
-                nameLabel.setText(data.name);
-                if (data.role.equals("startup")) {
-                    roleLabel.setText("企业");
-                    roleLabel.setBackgroundColor(Color.parseColor("#AADE60"));
+                NetworkImageView fromIcon = (NetworkImageView) viewItem.findViewById(R.id.from_imageview);
+                TextView fromNameLabel = (TextView) viewItem.findViewById(R.id.from_name);
+                TextView timeLabel = (TextView) viewItem.findViewById(R.id.time_label);
+                View replyIcon = viewItem.findViewById(R.id.reply_icon);
+                TextView replyCountLabel = (TextView) viewItem.findViewById(R.id.reply_count);
+
+                TopTopicObj data = mTopTopicList.get(i);
+                if (data.resolved) {
+                    priceBgView.setBackgroundColor(Color.parseColor("#C4C4C4"));
+                    resolveView.setVisibility(View.VISIBLE);
                 } else {
-                    roleLabel.setText("专家");
-                    roleLabel.setBackgroundColor(Color.parseColor("#70C7EF"));
+                    priceBgView.setBackgroundColor(Color.parseColor("#FF5B5B"));
+                    resolveView.setVisibility(View.INVISIBLE);
                 }
+
+                priceLabel.setText(data.price);
+                titleLabel.setText(data.title);
                 contentLabel.setText(data.content);
-                tagLabel.setText(data.tagString);
+                fromIcon.setImageUrl(data.fromIconUrl, SmsApplication.getImageLoader());
+                fromNameLabel.setText(data.fromName);
+                timeLabel.setText(data.postTime);
+                if (data.replyCount>0) {
+                    replyCountLabel.setText(""+data.replyCount);
+                    replyIcon.setVisibility(View.VISIBLE);
+                } else {
+                    replyCountLabel.setText("");
+                    replyIcon.setVisibility(View.GONE);
+                }
 
                 mTopTopicLayout.addView(viewItem);
             }
@@ -196,6 +228,28 @@ public class TopicFragment extends BaseFragment {
             this.role = role;
             this.content = content;
             this.tagString = tagString;
+        }
+    }
+
+    class TopTopicObj {
+        public String price;
+        public Boolean resolved;
+        public String title;
+        public String content;
+        public String fromIconUrl;
+        public String fromName;
+        public String postTime;
+        public int replyCount;
+
+        public TopTopicObj(String price, Boolean resolved, String title, String content, String fromIconUrl, String fromName, String postTime, int replyCount) {
+            this.price = price;
+            this.resolved = resolved;
+            this.title = title;
+            this.content = content;
+            this.fromIconUrl = fromIconUrl;
+            this.fromName = fromName;
+            this.postTime = postTime;
+            this.replyCount = replyCount;
         }
     }
 
