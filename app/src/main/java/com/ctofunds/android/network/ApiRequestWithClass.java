@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.android.volley.Response;
 import com.ctofunds.android.SmsApplication;
+import com.ctofunds.android.exception.SerializationException;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 /**
@@ -19,7 +20,7 @@ public class ApiRequestWithClass<T> extends ApiRequestBase<T> {
     }
 
     @Override
-    protected T parseResponse(byte[] data) {
+    protected T parseResponse(byte[] data) throws SerializationException {
         if (data == null || data.length == 0) {
             return null;
         }

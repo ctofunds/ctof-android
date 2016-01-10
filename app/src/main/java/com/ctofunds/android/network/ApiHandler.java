@@ -1,9 +1,6 @@
 package com.ctofunds.android.network;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -12,11 +9,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.ctof.sms.api.Error;
-import com.ctofunds.android.BaseActivity;
-import com.ctofunds.android.R;
 import com.ctofunds.android.SmsApplication;
 import com.ctofunds.android.event.TokenExpireEvent;
-import com.ctofunds.android.module.login.LoginActivity;
 import com.ctofunds.android.utility.ServerInfo;
 import com.fasterxml.jackson.core.type.TypeReference;
 

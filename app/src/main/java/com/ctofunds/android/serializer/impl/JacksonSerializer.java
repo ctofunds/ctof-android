@@ -1,6 +1,7 @@
-package com.ctofunds.android.serializer;
+package com.ctofunds.android.serializer.impl;
 
 import com.ctofunds.android.exception.SerializationException;
+import com.ctofunds.android.serializer.Serializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

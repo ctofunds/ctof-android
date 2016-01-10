@@ -6,9 +6,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonRequest;
 import com.ctofunds.android.SmsApplication;
+import com.ctofunds.android.exception.SerializationException;
 import com.ctofunds.android.utility.Environment;
 import com.google.common.collect.Maps;
-import com.google.gson.JsonSyntaxException;
 
 import java.util.Collections;
 import java.util.Map;
@@ -47,14 +47,14 @@ abstract class ApiRequestBase<T> extends JsonRequest<T> {
         return HEADERS;
     }
 
-    protected abstract T parseResponse(byte[] data);
+    protected abstract T parseResponse(byte[] data) throws SerializationException;
 
     @Override
     protected Response<T> parseNetworkResponse(NetworkResponse response) {
         if (response.statusCode == 200) {
             try {
                 return Response.success(parseResponse(response.data), null);
-            } catch (JsonSyntaxException jse) {
+            } catch (SerializationException ex) {
                 return Response.error(new VolleyError("数据格式错误"));
             }
         } else {

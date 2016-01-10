@@ -11,9 +11,8 @@ import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.ImageLoader;
 import com.ctofunds.android.markdown.MarkdownParser;
-import com.ctofunds.android.markdown.impl.DefaultMarkdownParser;
-import com.ctofunds.android.serializer.JacksonSerializer;
 import com.ctofunds.android.serializer.Serializer;
+import com.ctofunds.android.serializer.impl.JacksonSerializer;
 import com.ctofunds.android.service.AccountService;
 import com.ctofunds.android.service.CodeService;
 import com.ctofunds.android.service.impl.AccountServiceImpl;
@@ -50,7 +49,6 @@ public class SmsApplication extends Application {
     private Serializer serializer;
     private ImageLoader imageLoader;
     private EventBus eventBus;
-    private MarkdownParser markdownParser;
     private TimeUtils timeUtils;
 
     @Override
@@ -63,7 +61,6 @@ public class SmsApplication extends Application {
         serializer = new JacksonSerializer();
         imageLoader = new ImageLoader(imageRequestQueue, new ImageLruCache(1024 * 1024 * 4));
         eventBus = new EventBus();
-        markdownParser = new DefaultMarkdownParser();
         timeUtils = new TimeUtils(getApplicationContext().getResources());
         instance = this;
         Log.d("SmsApplication", "SmsApplication has been initialized at " + System.currentTimeMillis());
@@ -121,11 +118,7 @@ public class SmsApplication extends Application {
         return getInstance().eventBus;
     }
 
-    public static final MarkdownParser getMarkdownParser() {
-        return getInstance().markdownParser;
-    }
-
-    public static TimeUtils getTimeUtils() {
+    public static final TimeUtils getTimeUtils() {
         return getInstance().timeUtils;
     }
 }
